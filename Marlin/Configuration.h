@@ -103,7 +103,7 @@
 
 //Stepper09Deg // 0.9 degree per step motor on the extruder - doubles ESteps
 
- //#define MicroswissDirectDrive
+ #define MicroswissDirectDrive
  //#define DirectDrive // Any direct drive extruder, reduces filament change lengths
 
 /*
@@ -308,7 +308,10 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02010300
+// #define DEBUG_LEVELING_FEATURE
 
+#define Z_MIN_ENDSTOP_INVERTING true   // nebo false
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // nebo false
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -399,15 +402,12 @@
 
 #if ENABLED(MachineCR10SProV2)
   #define MachineCR10SPro
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
 #endif
 
 #if ENABLED(MachineCR10SPro)
   #define MachineCR10Std
   #if DISABLED(ABL_BLTOUCH, ABL_EZABL, ABL_TOUCH_MI)
-    #define ABL_NCSW
+    //#define ABL_NCSW  // Disabled for proximity sensor
   #endif
   #if DISABLED(ABL_UBL)
     #define ABL_BI
@@ -415,47 +415,7 @@
   #define lerdgeFilSensor
 #endif
 
-#if ENABLED(MachineCR10Max)
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-  #define lerdgeFilSensor
-#endif
 
-#if ENABLED(MachineEnder5Plus)
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-  #if NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V2, Creality422, Creality427)
-    #define Y_STOP_PIN 14
-    #define X_STOP_PIN 3
-  #endif
-  #define lerdgeFilSensor
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-#endif
-
-#if ENABLED(MachineEnder3S1_F4)
-  #define MachineEnder3S1
-#endif
-
-
-#if ENABLED(MachineEnder3S1)
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-#endif
-
-#if ANY(MachineEnder3S1, MachineCR10SmartPro)
-  #define SpriteExtruder
-#endif
 
 #if ANY(MachineCR10SV2)
   #define lerdgeFilSensor
@@ -2334,9 +2294,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#if NONE(Creality422, Creality427, MachineEnder6, MachineEnder7, MachineCR5, MachineEnder2Pro, MachineEnder3S1, MachineCR10SmartPro) && DISABLED(Creality42XUseZMin) || DISABLED(ABL_BLTOUCH)
-  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-#endif
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
 
@@ -2358,6 +2316,10 @@
 #if ENABLED(MachineCR5)
   #define Z_MIN_PROBE_PIN 19 // Pin 32 is the RAMPS default
 #endif
+
+#if ENABLED(MachineCR10SProV2)
+  #define Z_MIN_PROBE_PIN 19 // Pin 19 for proximity sensor
+#endif
 /**
  * Probe Type
  *
@@ -2365,44 +2327,20 @@
  * Activate one of these to use Auto Bed Leveling below.
  */
 
-/**
- * The "Manual Probe" provides a means to do "Auto" Bed Leveling without a probe.
- * Use G29 repeatedly, adjusting the Z height at each point with movement commands
- * or (with LCD_BED_LEVELING) the LCD controller.
- */
-#if NONE(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro, MachineCR30)
-  #define PROBE_MANUALLY
-  #define MANUAL_PROBE_START_Z 0.2
-#endif
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#if ANY(ABL_EZABL, ABL_NCSW)
-  #define FIX_MOUNTED_PROBE
-#endif
 
-/**
- * Use the nozzle as the probe, as with a conductive
- * nozzle system or a piezo-electric smart effector.
- */
-#if ANY(MachineCR6, MachineCR6Max, MachineCR10Smart)
-  #define NOZZLE_AS_PROBE
-#endif
+#define FIX_MOUNTED_PROBE
+
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
  */
 //#define Z_PROBE_SERVO_NR 0       // Defaults to SERVO 0 connector.
 //#define Z_SERVO_ANGLES { 70, 0 } // Z Servo Deploy and Stow angles
-
-/**
- * The BLTouch probe uses a Hall effect sensor and emulates a servo.
- */
-#if ENABLED(ABL_BLTOUCH)
-  #define BLTOUCH
-#endif
 
 /**
  * MagLev V4 probe by MDD
@@ -2542,7 +2480,7 @@
  * -  Probe Offsets can be tuned at runtime with 'M851', LCD menus, babystepping, etc.
  * -  PROBE_OFFSET_WIZARD (configuration_adv.h) can be used for setting the Z offset.
  *
- *   #define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+ 
  *
  *     +-- BACK ---+
  *     |           |
@@ -2557,77 +2495,8 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#if ENABLED(DDXExtruderKit)
-  #if ANY(MachineCR10SPro, MachineCR10Max) && ENABLED(HotendStock)
-    #if ENABLED(ABL_EZABL12MM)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.625, 0.6, 0 }
-    #elif EITHER(ABL_EZABL, ABL_NCSW)
-      #define NOZZLE_TO_PROBE_OFFSET { -30.625, 0.6, 0 }
-    #elif ENABLED(ABL_BLTOUCH)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.625, -0.1, 0 }
-    #endif
-  #elif ENABLED(HotendStock)
-    #if ENABLED(ABL_EZABL12MM)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.66, -1.4, 0 }
-    #elif EITHER(ABL_EZABL, ABL_NCSW)
-      #define NOZZLE_TO_PROBE_OFFSET { -30.625, -1.4, 0 }
-    #elif ENABLED(ABL_BLTOUCH)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.625, -1.9, 0 }
-    #endif
-  #else
-    #if ENABLED(ABL_EZABL12MM)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.625, -0.5, 0 }
-    #elif EITHER(ABL_EZABL, ABL_NCSW)
-      #define NOZZLE_TO_PROBE_OFFSET { -30.625, -0.5, 0 }
-    #elif ENABLED(ABL_BLTOUCH)
-      #define NOZZLE_TO_PROBE_OFFSET { -27.625, 0.0, 0 }
-    #endif
-  #endif
-#elif ANY(MachineCRXPro, MachineEnder3Max, MachineSermoonD1, MachineEnder7, MachineCR5) && ALL(HotendStock, ABL_BLTOUCH)
-  #define NOZZLE_TO_PROBE_OFFSET { 48, 3, 0 }
-#elif ANY(MachineCR6, MachineCR6Max, MachineCR10Smart)
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0.2 }
-#elif ENABLED(MachineCRX, HotendStock)
-   #if ENABLED(ABL_BLTOUCH)
-     #define NOZZLE_TO_PROBE_OFFSET { -22, -45, 0 }
-   #elif ANY(ABL_EZABL, ABL_NCSW)
-     #define NOZZLE_TO_PROBE_OFFSET { -44, -10, 0 }
-   #endif
-#elif ANY(MachineCR10SPro, MachineCR10Max) && ENABLED(HotendStock) && DISABLED(MicroswissDirectDrive)
-  #define NOZZLE_TO_PROBE_OFFSET { -27, 0, 0 }
-#elif (ANY(ABL_BLTOUCH, ABL_EZABL,ABL_NCSW) && ENABLED(E3DHemera))
-    #define NOZZLE_TO_PROBE_OFFSET { -40, 0, 0 }
-#elif ENABLED(MachineCR10SV2)
-  #if ENABLED(ABL_BLTOUCH)
-    #define NOZZLE_TO_PROBE_OFFSET { 45, 7, 0 }
-  #elif ENABLED(ABL_EZABL) || ENABLED(ABL_NCSW)
-    #define NOZZLE_TO_PROBE_OFFSET { 45, 7, 0 }
-  #endif
-#elif ENABLED(MicroswissDirectDrive) && ENABLED(ABL_BLTOUCH)
-  #define NOZZLE_TO_PROBE_OFFSET { -45, -5, 0 }
-#elif ENABLED(MachineEnder3S1)
-  #define NOZZLE_TO_PROBE_OFFSET { -37, -39, -2.0 }
-#elif ENABLED(MachineCR10SmartPro)
-  #define NOZZLE_TO_PROBE_OFFSET { -30, -40, -1.0 }
-#elif (ENABLED(ABL_BLTOUCH) && ENABLED(HotendStock))
-  #define NOZZLE_TO_PROBE_OFFSET { -41, -8, 0 }
-#elif ((ANY(ABL_EZABL, ABL_NCSW)) && ENABLED(HotendStock))
-  #if ENABLED(CREALITY_ABL_MOUNT)
-    #define NOZZLE_TO_PROBE_OFFSET { -55, -15, 0 }
-  #else
-    #define NOZZLE_TO_PROBE_OFFSET { -44, -10, 0 }
-  #endif
-#elif (ANY(ABL_BLTOUCH, ABL_EZABL,ABL_NCSW) && ANY(HotendE3D))
-  #if ENABLED(E3D_DUALFAN_MOUNT)
-    #if ENABLED(E3D_PROBEMOUNT_LEFT)
-      #define NOZZLE_TO_PROBE_OFFSET { -63, 5, 0 }
-    #else
-      #define NOZZLE_TO_PROBE_OFFSET { 63, 5, 0 }
-    #endif
-  #else
-    #define NOZZLE_TO_PROBE_OFFSET { 32, 5, 0 }
-  #endif
-#endif
+#define NOZZLE_TO_PROBE_OFFSET { -150, -150, 0 }
+
 
 
 // Most probes should stay away from the edges of the bed, but
@@ -3358,13 +3227,8 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-  #if ENABLED(ABL_UBL)
-    #define AUTO_BED_LEVELING_UBL
-  #elif ENABLED(PROBE_MANUALLY) && ANY(MachineEnder3Touchscreen, FORCE10SPRODISPLAY)
-    #define MESH_BED_LEVELING
-  #elif !BOTH(OrigLA, MachineCR10Orig) && DISABLED(MachineCR30)
-    #define AUTO_BED_LEVELING_BILINEAR
-  #endif
+  
+#define AUTO_BED_LEVELING_BILINEAR
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
  * these options to restore the prior leveling state or to always enable
@@ -3399,6 +3263,7 @@
 #if ENABLED(MachineLargeROM)
   //#define DEBUG_LEVELING_FEATURE
 #endif
+#define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
   // Set a height for the start of manual adjustment
@@ -3598,8 +3463,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
+#define MANUAL_X_HOME_POS 150
+#define MANUAL_Y_HOME_POS 150
 //#define MANUAL_Z_HOME_POS 0
 //#define MANUAL_I_HOME_POS 0
 //#define MANUAL_J_HOME_POS 0
@@ -3615,9 +3480,9 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-#if ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI, NOZZLE_AS_PROBE)
-  #define Z_SAFE_HOMING
-#endif
+
+#define Z_SAFE_HOMING
+
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT (X_BED_SIZE / 2)  // X point for Z homing
@@ -3704,6 +3569,7 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+#define LowMemoryBoard    // Give feedback on EEPROM commands. Disable to save PROGMEM.
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #if DISABLED(LowMemoryBoard)
   #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
