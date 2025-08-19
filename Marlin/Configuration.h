@@ -8,7 +8,7 @@
 
 // Touchscreen
 //#define MachineCR10SPro // Graphics LCD Requires soldering R64 and R66
-//#define MachineCR10SProV2 // Second Gen 10S Pro with BLTouch wired to Z Max
+// MachineCR10SProV2 is defined in platformio.ini build flags
 //#define MachineCRX
 //#define MachineCRXPro
 //#define MachineCR10Max
@@ -1688,8 +1688,8 @@
 
 #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
 #define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
-#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
-#define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
+// #define THERMAL_PROTECTION_CHAMBER // CR-10S Pro: no heated chamber
+// #define THERMAL_PROTECTION_COOLER  // CR-10S Pro: no laser cooling
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -1697,90 +1697,10 @@
 
 // @section machine
 
-// Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
-// either in the usual order or reversed
-#if ANY(MachineEnder4, MachineEnder6, MachineEnder7, MachineCR30)
-  #define COREXY
-#endif
-//#define COREXZ
-//#define COREYZ
-//#define COREYX
-//#define COREZX
-//#define COREZY
-//#define MARKFORGED_XY  // MarkForged. See https://reprap.org/forum/read.php?152,504042
-//#define MARKFORGED_YX
+// CR-10S Pro: Standard Cartesian kinematics (X, Y, Z, E)
+// No CoreXY, Delta, Belt printer, or Polargraph support needed
 
-// Enable for a belt style printer with endless "Z" motion
-#if ENABLED(MachineCR30)
-  #define BELTPRINTER
-#endif
-
-// Enable for Polargraph Kinematics
-//#define POLARGRAPH
-#if ENABLED(POLARGRAPH)
-  #define POLARGRAPH_MAX_BELT_LEN  1035.0 // (mm) Belt length at full extension. Override with M665 H.
-  #define DEFAULT_SEGMENTS_PER_SECOND 5   // Move segmentation based on duration
-  #define PEN_UP_DOWN_MENU                // Add "Pen Up" and "Pen Down" to the MarlinUI menu
-#endif
-
-// @section delta
-
-// Enable for DELTA kinematics and configure below
-//#define DELTA
-#if ENABLED(DELTA)
-
-  // Make delta curves from many straight lines (linear interpolation).
-  // This is a trade-off between visible corners (not enough segments)
-  // and processor overload (too many expensive sqrt calls).
-  #define DEFAULT_SEGMENTS_PER_SECOND 200
-
-  // After homing move down to a height where XY movement is unconstrained
-  //#define DELTA_HOME_TO_SAFE_ZONE
-
-  // Delta calibration menu
-  // Add three-point calibration to the MarlinUI menu.
-  // See http://minow.blogspot.com/index.html#4918805519571907051
-  //#define DELTA_CALIBRATION_MENU
-
-  // G33 Delta Auto-Calibration. Enable EEPROM_SETTINGS to store results.
-  //#define DELTA_AUTO_CALIBRATION
-
-  #if ENABLED(DELTA_AUTO_CALIBRATION)
-    // Default number of probe points : n*n (1 -> 7)
-    #define DELTA_CALIBRATION_DEFAULT_POINTS 4
-  #endif
-
-  #if EITHER(DELTA_AUTO_CALIBRATION, DELTA_CALIBRATION_MENU)
-    // Step size for paper-test probing
-    #define PROBE_MANUALLY_STEP 0.05      // (mm)
-  #endif
-
-  // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define PRINTABLE_RADIUS       140.0    // (mm)
-
-  // Maximum reachable area
-  #define DELTA_MAX_RADIUS       140.0    // (mm)
-
-  // Center-to-center distance of the holes in the diagonal push rods.
-  #define DELTA_DIAGONAL_ROD 250.0        // (mm)
-
-  // Distance between bed and nozzle Z home position
-  #define DELTA_HEIGHT 250.00             // (mm) Get this value from G33 auto calibrate
-
-  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
-
-  // Horizontal distance bridged by diagonal push rods when effector is centered.
-  #define DELTA_RADIUS 124.0              // (mm) Get this value from G33 auto calibrate
-
-  // Trim adjustments for individual towers
-  // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
-  // measured in degrees anticlockwise looking from above the printer
-  #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
-
-  // Delta radius and diagonal rod adjustments (mm)
-  //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-  //#define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
-#endif
+// CR-10S Pro: No Delta kinematics support needed
 
 // @section scara
 
@@ -2016,27 +1936,22 @@
 #else
   #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #endif
-#define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define U_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define V_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define W_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define I_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define J_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define K_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define U_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define V_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define W_MIN_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
-#define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define W_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define I_MAX_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define J_MAX_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define K_MAX_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
+// #define W_MAX_ENDSTOP_INVERTING false // CR-10S Pro: only X, Y, Z, E axes
 
-#if NONE(ABL_EZABL, MachineCR2020)
-  #define Z_MIN_ENDSTOP_INVERTING false  // for non-BLTOUCH setups
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // for non-BLTOUCH setups
-#else
-  #define Z_MIN_ENDSTOP_INVERTING true  // required for BLTOUCH
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // must match Z_MIN_ENDSTOP_INVERTING
-#endif
+// CR-10S Pro V2: BLTouch requires Z_MIN_ENDSTOP_INVERTING = true
+// These are defined at the top of the file for consistency
 
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
@@ -2766,12 +2681,12 @@
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 
-#define INVERT_E2_DIR false
-#define INVERT_E3_DIR false
-#define INVERT_E4_DIR false
-#define INVERT_E5_DIR false
-#define INVERT_E6_DIR false
-#define INVERT_E7_DIR false
+// #define INVERT_E2_DIR false // CR-10S Pro: single extruder only
+// #define INVERT_E3_DIR false // CR-10S Pro: single extruder only
+// #define INVERT_E4_DIR false // CR-10S Pro: single extruder only
+// #define INVERT_E5_DIR false // CR-10S Pro: single extruder only
+// #define INVERT_E6_DIR false // CR-10S Pro: single extruder only
+// #define INVERT_E7_DIR false // CR-10S Pro: single extruder only
 
 // @section homing
 

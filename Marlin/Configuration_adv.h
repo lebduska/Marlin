@@ -1147,7 +1147,7 @@
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
 
-#define AXIS_RELATIVE_MODES { false, false, false, false }
+#define AXIS_RELATIVE_MODES { false, false, false, false } // X, Y, Z, E for CR-10S Pro
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -1156,12 +1156,12 @@
 #define INVERT_X_STEP_PIN false
 #define INVERT_Y_STEP_PIN false
 #define INVERT_Z_STEP_PIN false
-#define INVERT_I_STEP_PIN false
-#define INVERT_J_STEP_PIN false
-#define INVERT_K_STEP_PIN false
-#define INVERT_U_STEP_PIN false
-#define INVERT_V_STEP_PIN false
-#define INVERT_W_STEP_PIN false
+// #define INVERT_I_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
+// #define INVERT_J_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
+// #define INVERT_K_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
+// #define INVERT_U_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
+// #define INVERT_V_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
+// #define INVERT_W_STEP_PIN false // CR-10S Pro: only X, Y, Z, E axes
 #define INVERT_E_STEP_PIN false
 
 /**
@@ -1173,12 +1173,12 @@
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
-#define DISABLE_INACTIVE_I true
-#define DISABLE_INACTIVE_J true
-#define DISABLE_INACTIVE_K true
-#define DISABLE_INACTIVE_U true
-#define DISABLE_INACTIVE_V true
-#define DISABLE_INACTIVE_W true
+// #define DISABLE_INACTIVE_I true // CR-10S Pro: only X, Y, Z, E axes
+// #define DISABLE_INACTIVE_J true // CR-10S Pro: only X, Y, Z, E axes
+// #define DISABLE_INACTIVE_K true // CR-10S Pro: only X, Y, Z, E axes
+// #define DISABLE_INACTIVE_U true // CR-10S Pro: only X, Y, Z, E axes
+// #define DISABLE_INACTIVE_V true // CR-10S Pro: only X, Y, Z, E axes
+// #define DISABLE_INACTIVE_W true // CR-10S Pro: only X, Y, Z, E axes
 #define DISABLE_INACTIVE_E true
 
 // If the Nozzle or Bed falls when the Z stepper is disabled, set its resting position here.
