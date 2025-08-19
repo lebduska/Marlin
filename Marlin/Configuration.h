@@ -310,8 +310,8 @@
 #define CONFIGURATION_H_VERSION 02010300
 // #define DEBUG_LEVELING_FEATURE
 
-#define Z_MIN_ENDSTOP_INVERTING true   // nebo false
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // nebo false
+#define Z_MIN_ENDSTOP_INVERTING true   // required for Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // must match Z_MIN_ENDSTOP_INVERTING
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -2031,11 +2031,11 @@
 #define W_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 
 #if NONE(ABL_EZABL, MachineCR2020)
-  #define Z_MIN_ENDSTOP_INVERTING false  // set to true to invert the logic of the endstop.
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+  #define Z_MIN_ENDSTOP_INVERTING false  // for non-BLTOUCH setups
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // for non-BLTOUCH setups
 #else
-  #define Z_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+  #define Z_MIN_ENDSTOP_INVERTING true  // required for BLTOUCH
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // must match Z_MIN_ENDSTOP_INVERTING
 #endif
 
 
@@ -2495,7 +2495,7 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -150, -150, 0 }
+// #define NOZZLE_TO_PROBE_OFFSET { -150, -150, 0 }  // unified in config.ini
 
 
 
@@ -3485,8 +3485,9 @@
 
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT (X_BED_SIZE / 2)  // X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT (Y_BED_SIZE / 2)  // Y point for Z homing
+  // Bed 300x300, center (150,150), offset {-27,0,0} → tryska musí jet na (177,150)
+  #define Z_SAFE_HOMING_X_POINT 177
+  #define Z_SAFE_HOMING_Y_POINT 150
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
@@ -4837,3 +4838,19 @@
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
+
+//=============================================================================
+//============================= CR-10S Pro V2 Specific ========================
+//=============================================================================
+
+// --- KULTURA PROBINGU ---
+#define PROBING_MARGIN 10
+#define HOMING_FEEDRATE_Z (4*60)
+#define MULTIPLE_PROBING 2
+
+// --- LIMITY, pokud by config.ini nebyl načten ---
+// (Jinak zakomentovat s poznámkou, že jsou v config.ini)
+#define X_BED_SIZE 300
+#define Y_BED_SIZE 300
+#define Z_MAX_POS  400
+#define Z_MIN_POS  0
