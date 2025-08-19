@@ -1106,9 +1106,7 @@
 // If the Nozzle or Bed falls when the Z stepper is disabled, set its resting position here.
 //#define Z_AFTER_DEACTIVATE Z_HOME_POS
 
-#if ANY(MachineEnder5, MachineEnder5Plus, MachineEnder6, MachineCR30)
-  #define HOME_AFTER_DEACTIVATE  // Require rehoming after steppers are deactivated
-#endif
+// CR-10S Pro V2: HOME_AFTER_DEACTIVATE removed - not needed for this model
 
 // Default Minimum Feedrates for printing and travel moves
 #define DEFAULT_MINIMUMFEEDRATE       0.0     // (mm/s. °/s for rotational-only moves) Minimum feedrate. Set with M205 S.
@@ -1121,11 +1119,7 @@
 // Increase the slowdown divisor for larger buffer sizes.
 #define SLOWDOWN
 #if ENABLED(SLOWDOWN)
-  #if ENABLED(MachineLargeROM)
-    #define SLOWDOWN_DIVISOR 8
-  #else
-    #define SLOWDOWN_DIVISOR 2
-  #endif
+  #define SLOWDOWN_DIVISOR 2  // CR-10S Pro V2: Standard AVR setting
 #endif
 
 /**
@@ -1148,9 +1142,7 @@
 // Backlash Compensation
 // Adds extra movement to axes on direction-changes to account for backlash.
 //
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, Creality422, Creality427, MachineCR6, MachineCR6Max)
-  #define BACKLASH_COMPENSATION
-#endif
+// CR-10S Pro V2: BACKLASH_COMPENSATION removed - not needed for this model
 #if ENABLED(BACKLASH_COMPENSATION)
   // Define values for backlash distance and correction.
   // If BACKLASH_GCODE is enabled these values are the defaults.
@@ -1530,9 +1522,7 @@
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
   //#define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
 
-  #if ENABLED(MachineCR30)
-    #define GCODE_REPEAT_MARKERS            // Enable G-code M808 to set repeat markers and do looping
-  #endif
+// CR-10S Pro V2: GCODE_REPEAT_MARKERS removed - not needed for this model
 
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
@@ -2117,16 +2107,11 @@
     #endif
   #endif
 
-  #if NONE(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI, MachineCR6, MachineCR6Max, MachineCR10Smart) || ENABLED(MESH_BED_LEVELING)
-    #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
-  #else
-    #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
-  #endif
+  // CR-10S Pro V2: BABYSTEP_DISPLAY_TOTAL enabled (BLTouch used)
+  #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
     //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
-    #if NONE(MachineCR10Orig, LowMemoryBoard, EXTENSIBLE_UI, SKRMiniE3V2, MachineEnder3V2, MachineEnder3S1, MachineCR6, MachineCR6Max, FORCEV2DISPLAY) && (DISABLED(MachineEnder4) || ENABLED(GraphicLCD))
-      #define BABYSTEP_ZPROBE_GFX_OVERLAY   // Enable graphical overlay on Z-offset editor
-    #endif
+    // CR-10S Pro V2: BABYSTEP_ZPROBE_GFX_OVERLAY removed - not needed for this model
   #endif
 #endif
 
@@ -2713,17 +2698,8 @@
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     40  // (mm/s) Unload filament feedrate. This can be pretty fast.
   #endif
   #define FILAMENT_CHANGE_UNLOAD_ACCEL        25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
-  #if ANY(MachineCR10SPro, MachineCR10SProV2, MachineEnder6)
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      75
-  #elif ENABLED(DirectDrive)
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      125
-  #elif ANY(MachineEnder5Plus, MachineCR10Max, MachineCR10S4, MachineCR10S5)
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH   700
-  #elif ANY(MachineEnder2, MachineEnder2Pro)
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      325  // (mm) The length of filament for a complete unload.
-  #else
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      430  // (mm) The length of filament for a complete unload.
-  #endif
+  // CR-10S Pro V2: FILAMENT_CHANGE_UNLOAD_LENGTH optimized for this model
+  #define FILAMENT_CHANGE_UNLOAD_LENGTH      75
                                                   //   For Bowden, the full length of the tube and nozzle.
                                                   //   For direct drive, the full length of the nozzle.
                                                   //   Set to 0 for manual unloading.
@@ -2761,10 +2737,9 @@
 
   #define PARK_HEAD_ON_PAUSE                      // Park the nozzle during pause and filament change.
   //#define HOME_BEFORE_FILAMENT_CHANGE             // Ensure homing has been completed prior to parking for filament change
-  #if NONE(MachineCR10Orig, MachineEnder4, SKRMiniE3V2)
-    #define FILAMENT_LOAD_UNLOAD_GCODES           // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
-    #define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
-  #endif
+  // CR-10S Pro V2: FILAMENT_LOAD_UNLOAD_GCODES enabled
+  #define FILAMENT_LOAD_UNLOAD_GCODES           // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
+  #define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
 #endif
 
 // CR-10S Pro V2: Uses A4988 stepper drivers, TMC drivers not present
@@ -3440,9 +3415,8 @@
 /**
  * Spend 28 bytes of SRAM to optimize the G-code parser
  */
-#if NONE(MachineCR10Orig, LowMemoryBoard)
-  #define FASTER_GCODE_PARSER
-#endif
+// CR-10S Pro V2: FASTER_GCODE_PARSER enabled (standard AVR)
+#define FASTER_GCODE_PARSER
 
 #if ENABLED(FASTER_GCODE_PARSER)
   //#define GCODE_QUOTED_STRINGS  // Support for quoted string parameters
