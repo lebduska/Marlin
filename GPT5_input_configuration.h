@@ -4,63 +4,10 @@
    Select Machine
 */
 
-
-
-// Touchscreen
-//#define MachineCR10SPro // Graphics LCD Requires soldering R64 and R66
-//#define MachineCR10SProV2 // Second Gen 10S Pro with BLTouch wired to Z Max
-//#define MachineCRX
-//#define MachineCRXPro
-//#define MachineCR10Max
-//#define MachineEnder5Plus
-//#define MachineCR6
-//#define MachineCR6Max
-//#define MachineEnder6
-//#define MachineSermoonD1
-//#define MachineEnder7
-//#define MachineCR10Smart
-//#define MachineCR10SmartPro
-//#define MachineCR5
-
 /*
 20:41:31.558 > PIN: PB12        M42 P28          <unused/unknown> // Pi Netowork Reset Output
 20:41:46.759 > PIN: PA15        M42 P15          <unused/unknown> Spare Pin1
 */
-
-// Standard Display Atmega2560 machines (No bootloader required)
-//#define MachineEnder4
-//#define MachineCR20
-//#define MachineCR20Pro
-//#define MachineCR10S
-//#define MachineCR10SV2
-//#define MachineCR10SV3
-//#define MachineS4
-//#define MachineS5
-//#define MachineCR2020 // Industrial Series 2020
-
-// Belt Printer
-//#define MachineCR30
-
-// Atmega1284P machines Needs a bootloader flashed before installation
-// See video here : https://www.youtube.com/watch?v=fIl5X2ffdyo
-
-//#define MachineEnder2
-//#define MachineEnder3
-//#define MachineEnder5
-//#define MachineMini
-//#define MachineCR10
-
-
-//STM32F103RE Machines
-//#define MachineEnder2Pro
-//#define MachineEnder3V2
-//#define MachineEnder3S1
-//#define MachineEnder3S1_F4
-//#define MachineEnder3Max
-//#define MachineEnder3Pro422
-//#define MachineEnder3Pro427
-
-//#define PLUS // Adds bltouch, allmetal, bilinear (standard), lerdge, 93 e steps/mm
 
 /*
    Hotend Type
@@ -74,99 +21,30 @@
    E3D Mounting assumes Groovemount
    Creality Mounting assumes bolt-on kit
 */
-//#define HotendStock
-//#define HotendE3D
-//#define HotendMosquito
 
-//Enable this if you have an all metal hotend capable of 300c
 #ifndef HotendAllMetal
-  #define HotendAllMetal
+  #define HotendAllMetal // AI_DEBUG: AKTIVNÍ - build flag -DHotendAllMetal
 #endif
 
-// Enable this if you used a plug and play creality e3d or mosquito kit and kept the Creality thermistor
-//#define CrealityThermistor
-
-//#define SlicePT1000 // Enable this if you have a mosquito with the newer PT1000 sensor
-//#define PID50W //Set PID for 50W Heater
 /*
  * Select these if you have changed to a high performance extruder
  */
 
- //#define EZRstruder
- //#define BondtechBMG
- //#define BondtechLGX
- //#define E3DTitan
- //#define E3DHemera
- //#define CrealityTitan
- //#define DDXExtruderKit
- //#define SpriteExtruder
-
-//Stepper09Deg // 0.9 degree per step motor on the extruder - doubles ESteps
-
- #define MicroswissDirectDrive
- //#define DirectDrive // Any direct drive extruder, reduces filament change lengths
+ #define MicroswissDirectDrive // AI_DEBUG: AKTIVNÍ - Direct drive extruder konfigurace
 
 /*
    Choose bed type below. If you have an extenrally controlled
    ac bed, leave both disabled
 */
-//#define BedAC
-//#define BedDC
-
-//#define SolidBedMounts //Removed a few LCD options to save some memory since not needed with solid mounts
 
 /*
    Choose ABL sensor type below
    Leave all disabled if no sensor is available
 */
-//#define ABL_EZABL // TH3D EZABL or Any NO Sensor
-//#define ABL_EZABL12MM
-//#define ABL_NCSW //Creality ABL or Any NC Sensor
-//#define ABL_BLTOUCH
-//#define ABL_TOUCH_MI // Uncomment ABL_TOUCH_MI to use Touch-MI sensor by hotends.fr
-
-//#define Creality42XUseZMin // Use ZMin pin for probe on Creality 422 and 427 boards
-
-//#define CREALITY_ABL_MOUNT //Using creality ABL mount
-//#define E3D_DUALFAN_MOUNT // Using HD Modular mount as above with 2 5015 blowers and sensor on the right
-//#define E3D_PROBEMOUNT_LEFT // Default is probe mounted to the right for E3D. Set this to invert.
-
 
 /**
  * Screen options
  */
-
-//#define OrigLCD // Upgraded mainboard with single cable Ender LCD
-//#define GraphicLCD // 12864 Full graphics LCD for Ender 4, CR-X, Ender 5 Plus, CR10SPro, or CR10Max
-//#define Big_UI // Lightweight status screen, saves CPU cycles
-
-// CR-6 or Ender touchscreen kit
-//#define MachineEnder3Touchscreen
-
-// Ender 3 V2 rotary Dial LCD
-//#define FORCEV2DISPLAY
-
-
-// Touchscreen options - only 32 bit boards have the open serial ports to use with graphics displays above
-//#define FORCE10SPRODISPLAY
-
-//#define AddonFilSensor //Adds a filament runout sensor to the CR20 or Ender 4
-//#define lerdgeFilSensor //Using lerdge filament sensor, which is opposite polarity to stock
-//#define DualFilSensors //Using dual filament sensors on XMax and YMAX
-//#define FilamentEncoder //Using filamet jam sensor such as the Bigtreetech Encoder wheel
-
-//#define PurgeBucket //Adds automatic wiping on tool change if purge bucket is installed
-
-// Advanced options - Not for most users
-
-// User defined thermistor
-//Sets thermistor based calculated beta values instead of lookup tables
-//#define ConfigurableThermistors
-
-//#define CrealityViewerKit // Reduces baud to 115200 for Creality viewer kit
-
-// use only if you have converted a 12 volt printer to use 24 volts AND you are using Trinamic drivers in UART
-//#define Convert12to24
 
 /*
    Choose bed leveling type here
@@ -174,72 +52,21 @@
    Melzi board users may only select ABL_BI for bilinear leveling
    If a probe is enabled and nothing selected here, defaults to Bilinear
 */
-//#define ABL_BI
-//#define ABL_UBL
 
 /*
    For melzi boards these options allow you to cusomize what you want to do.
    Since the storage space is so small, it cannot fit most options together.
    Even just a probe and leveling with standard options is filling te entire program space!
 */
-//#define OrigLA // Enable this for linear advance instead of mesh leveling on a melzi board
-//#define MelziHostOnly // Enable this to turn off local SD support and instead prioritize options for Octoprint or USB
 
 /**
  * Advanced motherboard replacement options
  */
 
-//#define OriginalCrealitySquareBoard
-//#define MachineCR10Orig // Forces Melzi board
-//#define Melzi_To_SBoardUpgrade // Upgrade Melzi board to 10S board
-//#define Creality422
-//#define Creality427
-//define CR6_452 // Older recalled Creality 452 motherboard
-
-//#define SKR13 // 32 bit board - assumes 2208 drivers
-//#define SKR14
-//#define SKR14Turbo
-
-
-//#define SKR2
-//#define SKR3
-
-//#define SKRPRO11
-//#define SKRE3Turbo
-
-//#define SKRMiniE3V3
-
-//#define SKR_CR6 // Specialty SKR board for CR6
-//#define SKR_Switch_Extruder_1 // Switch pins in PINS file for SKRE3Turbo
-
-// This board is NOT recommended and is HIGHLY advised against utilizing the expanded builds for.
-// The MCU is rated for 256kb and stability problems, including hangs with heaters on, have been reported.
-
-//#define SKRMiniE3V2
-
-//#define I2C_EEPROM  // use I2C EEPROM on SRK PRO v1.1 e.g AT24C256
-//#define SKR14_PowerLossKit // Bigtreetech power loss kit for SKR14
-
-//#define SKR_2209
-//#define SKR_2130
-//#define SKR_UART // Configure SKR board with drivers in UART mode or SPI for TMC2130
-//#define SKR_ReverseSteppers // Some users reported directions backwards than others on SKR with various drivers.
-//#define DualZ // Uses 5th driver on CRX or SKR boards as Z2
-
-//#define PowerShutoffKit
  /*
   *
   * If any non-stock dual extruder is used, define type here
   */
-
-  //#define Dual_BowdenSplitterY
-  //#define Dual_CyclopsSingleNozzle
-  //#define Dual_ChimeraDualNozzle
-
-//#define POWER_LOSS_RECOVERY //Large and does not fit with any other features on Melzi, or UBL on Atmega
-
-//Add filtering to endstops when long extensions are used. Makes homing more reliable but less accurate.
-//#define CableExtensionNoiseFilter
 
 /*
    Choose a probe grid density below. Faster probes less points, but is less accurate.
@@ -247,28 +74,16 @@
    UBL and Extreme are recommended with solid bed mounts as it becomes a one time commissioning.
    Standard is recommended in most other scenarios.
 */
-//#define MeshFast
-//#define MeshStd
-//#define MeshFine
-//#define MeshExtreme
 
 /*
    Disables SD Sort, Autotemp, Arc support, Linear Advance (Unless overridden with OrigLA above), Big edit fonts, and a few other little things
    Intended to resolve issues with certain newer boards experiencing motion errors under load.
    Enables Slim Menus
 */
-//#define LowMemoryBoard
-
 
 /*
    Enclosure Controls
 */
-//#define EnclosureLight // Uses 5vdc LED's hooked to D12
-//#define PowerShutoffKit // 5vdc relay to interupt all heater power on D12, assumes NO relay.
-//#define EnclosureTempSensor // Uses PT100 Probe hooked to A12, only partially implemented upstream
-//#define EnclosureHeater //Planned to use A11 to control heater upstream, and repurpose the unused y max as the fan output. Not yet fully implemented upstream
-
-//#define UnstableTemps // define if temps are unstable and you need a temporary workaround
 
 /**
  * Marlin 3D Printer Firmware
@@ -308,11 +123,9 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02010300
-#define DEBUG_LEVELING_FEATURE
 
-//===========================================================================
-//============================= Getting Started =============================
-//===========================================================================
+#define Z_MIN_ENDSTOP_INVERTING true   // AI_DEBUG: DUPLICITNÍ! Předefinováno později na řádku 2034
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // AI_DEBUG: DUPLICITNÍ! Předefinováno později na řádku 2035
 
 /**
  * Here are some useful links to help get your machine configured and calibrated:
@@ -330,9 +143,6 @@
  *                      https://www.thingiverse.com/thing:1278865
  */
 
-// @section info
-
-// Author info of this build printed to the host during boot and M115
 #define STRING_CONFIG_H_AUTHOR "TinyMachines3D" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
@@ -346,8 +156,6 @@
  * We encourage you to take advantage of this new feature and we also
  * respectfully request that you retain the unmodified Marlin boot screen.
  */
-
-// Enable to show the bitmap in Marlin/_Bootscreen.h on startup.
 
 #if BOTH(PowerShutoffKit, EnclosureLight)
   #undef EnclosureLight
@@ -375,7 +183,6 @@
   #endif
 #endif
 
-
 #if ENABLED(CrealityTitan)
   #define E3DTitan
 #endif
@@ -398,38 +205,35 @@
   #define ABL_EZABL
 #endif
 
-#if ENABLED(MachineCR10SProV2)
-  #define MachineCR10SPro
-#endif
+#if ENABLED(MachineCR10SProV2) // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
+  #define MachineCR10SPro // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+#endif // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
 
-#if ENABLED(MachineCR10SPro)
-  #define MachineCR10Std
-  #if DISABLED(ABL_BLTOUCH, ABL_EZABL, ABL_TOUCH_MI)
-    //#define ABL_NCSW  // Disabled for proximity sensor
-  #endif
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-  #define lerdgeFilSensor
-#endif
-
-
+#if ENABLED(MachineCR10SPro) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
+  #define MachineCR10Std // AI_DEBUG: AKTIVNÍ - MachineCR10SPro blok projde
+  #if DISABLED(ABL_BLTOUCH, ABL_EZABL, ABL_TOUCH_MI) // AI_DEBUG: PROJDE - ABL_BLTOUCH ani ABL_EZABL ani ABL_TOUCH_MI nejsou definovány
+  #endif // AI_DEBUG: PROJDE - ABL_BLTOUCH ani ABL_EZABL ani ABL_TOUCH_MI nejsou definovány
+  #if DISABLED(ABL_UBL) // AI_DEBUG: PROJDE - ABL_UBL není definováno
+    #define ABL_BI // AI_DEBUG: AKTIVNÍ - ABL_BI je povolen
+  #endif // AI_DEBUG: PROJDE - ABL_UBL není definováno
+  #define lerdgeFilSensor // AI_DEBUG: AKTIVNÍ - lerdgeFilSensor je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
 
 #if ANY(MachineCR10SV2)
   #define lerdgeFilSensor
 #endif
 
-#if ANY(MachineCR10SV2, MachineCR10Max, MachineCR10SProV2) && ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11)
+#if ANY(MachineCR10SV2, MachineCR10Max, MachineCR10SProV2) && ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11) // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno, ale ABL_EZABL ani ABL_NCSW ani ABL_BLTOUCH ani ABL_TOUCH_MI nejsou definovány
   #define Z_STOP_PIN 19
-#endif
+#endif // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno, ale ABL podmínka není splněna
 
 #if ANY(MachineEnder2, MachineEnder3, MachineEnder5, MachineCR10, MachineMini) &&NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V2, SKRMiniE3V3, Creality422, Creality427, Melzi_To_SBoardUpgrade)
   #define MachineCR10Orig
 #endif
 
-#if ANY(MachineCR10, MachineCR10S, MachineCR10SV2, MachineCR10Smart, MachineCR10SmartPro)
-  #define MachineCR10Std
-#endif
+#if ANY(MachineCR10, MachineCR10S, MachineCR10SV2, MachineCR10Smart, MachineCR10SmartPro) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
+  #define MachineCR10Std // AI_DEBUG: AKTIVNÍ - MachineCR10Std je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
 
 #if ENABLED(MachineCR2020)
   #define EnclosureLight
@@ -441,7 +245,7 @@
 
 #if ENABLED(PLUS)
   #if DISABLED(MachineCR10Orig)
-    #define lerdgeFilSensor //Using lerdge filament sensor, which is opposite polarity to stock)
+    #define lerdgeFilSensor
   #endif
   #define HotendAllMetal
   #define EZRstruder
@@ -468,11 +272,11 @@
   #endif
 #endif
 
-#if ANY(MachineCRX, MachineCRXPro, MachineEnder5Plus, MachineCR10SPro, MachineCR5, MachineCR10Max, MachineEnder6, MachineSermoonD1, MachineEnder7, MachineCR10Smart, MachineCR10SmartPro)
-  #if NONE(GraphicLCD, OrigLCD, FORCE10SPRODISPLAY)
-    #define FORCE10SPRODISPLAY
-  #endif
-#endif
+#if ANY(MachineCRX, MachineCRXPro, MachineEnder5Plus, MachineCR10SPro, MachineCR5, MachineCR10Max, MachineEnder6, MachineSermoonD1, MachineEnder7, MachineCR10Smart, MachineCR10SmartPro) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
+  #if NONE(GraphicLCD, OrigLCD, FORCE10SPRODISPLAY) // AI_DEBUG: PROJDE - FORCE10SPRODISPLAY není definováno
+    #define FORCE10SPRODISPLAY // AI_DEBUG: AKTIVNÍ - FORCE10SPRODISPLAY je povolen
+  #endif // AI_DEBUG: PROJDE - FORCE10SPRODISPLAY není definováno
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2)
 
 #if ANY(MachineEnder7, MachineSermoonD1, MachineCR10Smart, MachineCR5, MachineCR10SmartPro)
   #define DWINOS_4
@@ -490,7 +294,7 @@
 #endif
 
 #if ANY(MachineEnder3V2, MachineEnder3Pro422, MachineEnder3Pro427, Creality422, Creality427, MachineEnder3Max, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineEnder3S1)
-  #define POWER_LOSS_RECOVERY //Screen will not compile without PLR
+  #define POWER_LOSS_RECOVERY
 #endif
 
 #if ANY(MachineEnder3Pro422, MachineEnder3Pro427)
@@ -527,20 +331,20 @@
   #endif
 #endif
 
-#if NONE(HotendStock, HotendE3D)
-  #define HotendStock
+#if NONE(HotendStock, HotendE3D) // AI_DEBUG: PROJDE - HotendAllMetal je definováno, takže HotendStock a HotendE3D nejsou
+  #define HotendStock // AI_DEBUG: AKTIVNÍ - fallback na HotendStock
 #endif
 
-#if NONE(ABL_UBL, ABL_BI, FORCE10SPRODISPLAY)
-  #define ABL_BI
+#if NONE(ABL_UBL, ABL_BI, FORCE10SPRODISPLAY) // AI_DEBUG: PROJDE - žádný z těchto ABL systémů není definován
+  #define ABL_BI // AI_DEBUG: AKTIVNÍ - fallback na ABL_BI
 #endif
 
 #if ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(ABL_UBL, ABL_BI)
   #define ABL_BI
 #endif
 
-#if NONE(MeshFast, MeshStd, MeshFine, MeshExtreme)
-  #define MeshStd
+#if NONE(MeshFast, MeshStd, MeshFine, MeshExtreme) // AI_DEBUG: PROJDE - žádný z mesh typů není definován
+  #define MeshStd // AI_DEBUG: AKTIVNÍ - fallback na MeshStd
 #endif
 
 #if ENABLED(MachineCR20Pro)
@@ -564,21 +368,20 @@
   #endif
 #endif
 
-#if ANY(MicroswissDirectDrive, DDXExtruderKit, CrealityTitan, E3DHemera, SpriteExtruder)
-  #define DirectDrive
-#endif
+#if ANY(MicroswissDirectDrive, DDXExtruderKit, CrealityTitan, E3DHemera, SpriteExtruder) // AI_DEBUG: PROJDE - MicroswissDirectDrive je definováno
+  #define DirectDrive // AI_DEBUG: AKTIVNÍ - DirectDrive je povolen
+#endif // AI_DEBUG: PROJDE - MicroswissDirectDrive je definováno
 
 #if ENABLED(MachineCR10Orig, ABL_BI)
   #define LowMemoryBoard
 #endif
-//Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **
-#if NONE(MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus) || ENABLED(GraphicLCD)
-  #undef SolidBedMounts
-#endif
+#if NONE(MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus) || ENABLED(GraphicLCD) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2), GraphicLCD není definováno
+  #undef SolidBedMounts // AI_DEBUG: AKTIVNÍ - SolidBedMounts je odstraněn
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2), GraphicLCD není definováno
 
-#if NONE(LowMemoryBoard, MachineCR10Orig)
-  #define POWER_LOSS_RECOVERY
-#endif
+#if NONE(LowMemoryBoard, MachineCR10Orig) // AI_DEBUG: PROJDE - LowMemoryBoard ani MachineCR10Orig nejsou definovány
+  #define POWER_LOSS_RECOVERY // AI_DEBUG: AKTIVNÍ - POWER_LOSS_RECOVERY je povolen
+#endif // AI_DEBUG: PROJDE - LowMemoryBoard ani MachineCR10Orig nejsou definovány
 
 #if ENABLED(MachineSermoonD1)
   #ifndef Creality422
@@ -586,27 +389,25 @@
   #endif
 #endif
 
-#if NONE(BedDC, BedExternal, BedAC)
-  #define BedDC
-#endif
+#if NONE(BedDC, BedExternal, BedAC) // AI_DEBUG: PROJDE - BedDC ani BedExternal ani BedAC nejsou definovány
+  #define BedDC // AI_DEBUG: AKTIVNÍ - BedDC je povolen
+#endif // AI_DEBUG: PROJDE - BedDC ani BedExternal ani BedAC nejsou definovány
 
 #if ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V3, MachineEnder3V2, MachineEnder3S1, Creality422, Creality427, MachineEnder6, MachineSermoonD1, MachineCR30, MachineCR6, MachineCR6Max, MachineEnder7, MachineCR10Smart, MachineCR10SmartPro)
   #define MachineLargeROM
 #endif
 
-#if NONE(MachineCR10Orig, MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus, MachineCR5, SKRMiniE3V2, FORCE10SPRODISPLAY) || ENABLED(GraphicLCD)
-  #define SHOW_BOOTSCREEN
+#if NONE(MachineCR10Orig, MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus, MachineCR5, SKRMiniE3V2, FORCE10SPRODISPLAY) || ENABLED(GraphicLCD) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2), GraphicLCD není definováno
+  #define SHOW_BOOTSCREEN // AI_DEBUG: AKTIVNÍ - SHOW_BOOTSCREEN je povolen
 
-// Show the bitmap in Marlin/_Bootscreen.h on startup.
-  #if DISABLED(MachineCR6, MachineCR6Max, MachineEnder3Touchscreen)
-    #define SHOW_CUSTOM_BOOTSCREEN
-  #endif
+  #if DISABLED(MachineCR6, MachineCR6Max, MachineEnder3Touchscreen) // AI_DEBUG: PROJDE - MachineCR6 ani MachineCR6Max ani MachineEnder3Touchscreen nejsou definovány
+    #define SHOW_CUSTOM_BOOTSCREEN // AI_DEBUG: AKTIVNÍ - SHOW_CUSTOM_BOOTSCREEN je povolen
+  #endif // AI_DEBUG: PROJDE - MachineCR6 ani MachineCR6Max ani MachineEnder3Touchscreen nejsou definovány
 
-  #if DISABLED(MachineEnder3V2, MachineEnder3S1, MachineCR6, MachineCR6Max, MachineEnder3Touchscreen, FORCEV2DISPLAY)
-    // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
-    #define CUSTOM_STATUS_SCREEN_IMAGE
-  #endif
-#endif
+  #if DISABLED(MachineEnder3V2, MachineEnder3S1, MachineCR6, MachineCR6Max, MachineEnder3Touchscreen, FORCEV2DISPLAY) // AI_DEBUG: PROJDE - MachineEnder3V2 ani MachineEnder3S1 ani MachineCR6 ani MachineCR6Max ani MachineEnder3Touchscreen ani FORCEV2DISPLAY nejsou definovány
+    #define CUSTOM_STATUS_SCREEN_IMAGE // AI_DEBUG: AKTIVNÍ - CUSTOM_STATUS_SCREEN_IMAGE je povolen
+  #endif // AI_DEBUG: PROJDE - MachineEnder3V2 ani MachineEnder3S1 ani MachineCR6 ani MachineCR6Max ani MachineEnder3Touchscreen ani FORCEV2DISPLAY nejsou definovány
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno (díky MachineCR10SProV2), GraphicLCD není definováno
 
 /**
  * Select the serial port on the board to use for communication with the host.
@@ -616,56 +417,16 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo, SKR_CR6)
-  #define SERIAL_PORT -1
-#elif ANY(MachineCR10Smart, MachineCR10SmartPro, MachineEnder2Pro)
-  #define SERIAL_PORT 1
-#elif ANY(MachineEnder3V2, MachineEnder3S1, MachineEnder3Max, MachineEnder3Pro422, MachineEnder3Pro427, Creality422, Creality427, MachineEnder6, MachineCR6, MachineCR6Max, MachineSermoonD1, MachineCR30, MachineEnder7)
-  #define SERIAL_PORT 1
-#else
-  #define SERIAL_PORT 0
-#endif
+#define SERIAL_PORT 0
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRE3Turbo) && ENABLED(FORCE10SPRODISPLAY)
-  #define LCD_SERIAL_PORT 0
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL -1
-#elif ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo) && NONE(MachineEnder3V2, MachineEnder3S1, MachineEnder3Touchscreen, FORCEV2DISPLAY)
-  #define SERIAL_PORT_2 0
-#elif ANY(SKRMiniE3V2, SKRMiniE3V3)
-  #if ANY(FORCE10SPRODISPLAY, MachineEnder3Touchscreen)
-    #define LCD_SERIAL_PORT 2
-    #define LCD_BAUDRATE 115200
-    #define SERIAL_CATCHALL -1
-  #elif DISABLED(FORCEV2DISPLAY)
-    #define SERIAL_PORT_2 2
-  #endif
-#elif ANY(MachineEnder3V2, MachineEnder3S1) && ANY(FORCEV2DISPLAY, SKRE3Turbo)
-  #define LCD_SERIAL_PORT 1
-  #define LCD_BAUDRATE 115200
-  //#define SERIAL_CATCHALL -1
-#elif ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, MachineCR5) && NONE(GraphicLCD, OrigLCD, MachineEnder3V2, MachineEnder3S1, Creality422, Creality427, MachineEnder6, FORCEV2DISPLAY)
-  #define LCD_SERIAL_PORT 2
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 0
-#elif ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR5, MachineCR10Max, MachineEnder6, Creality422, Creality427, MachineSermoonD1, MachineEnder3Touchscreen, MachineCR6, MachineCR6Max, FORCEV2DISPLAY) && NONE(GraphicLCD, OrigLCD)
-  #define LCD_SERIAL_PORT 3
-  #define LCD_BAUDRATE 115200
-  //#define SERIAL_CATCHALL 1
-#elif ENABLED(MachineCR10Smart)
-  #define LCD_SERIAL_PORT 3
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 1
-#elif ANY(MachineEnder7, MachineCR10SmartPro)
-  #define LCD_SERIAL_PORT 2
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 1
-#endif
+#define LCD_SERIAL_PORT 2
+#define LCD_BAUDRATE 115200
+#define SERIAL_CATCHALL 0
 
 /**
  * Serial Port Baud Rate
@@ -678,88 +439,23 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#if ANY(MachineEnder3V2, MachineEnder3S1, CrealityViewerKit, MachineCR6, MachineCR6Max, MachineEnder3Touchscreen, MachineCR10Smart, MachineCR10SmartPro, FORCEV2DISPLAY, MachineEnder2Pro)
-  #define BAUDRATE 115200
-#else
-  #define BAUDRATE 250000
-#endif
-
-//#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
+#define BAUDRATE 250000
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-//#define SERIAL_PORT_2 -1
-//#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
 /**
  * Select a third serial port on the board to use for communication with the host.
  * Currently only supported for AVR, DUE, LPC1768/9 and STM32/STM32F1
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-//#define SERIAL_PORT_3 1
-//#define BAUDRATE_3 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
-// Enable the Bluetooth serial interface on AT90USB devices
-//#define BLUETOOTH
-
-// Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #if ENABLED(SKR14Turbo)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
-  #elif ENABLED(SKR14)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_4
-  #elif ENABLED(SKR13)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_3
-  #elif ENABLED(SKRPRO11)
-    #define MOTHERBOARD BOARD_BTT_SKR_PRO_V1_1
-  #elif ENABLED(SKRMiniE3V2)
-    #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V2_0
-  #elif ENABLED(SKRMiniE3V3)
-    #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V3_0
-  #elif ENABLED(SKRE3Turbo)
-    #define MOTHERBOARD BOARD_BTT_SKR_E3_TURBO
-  #elif ENABLED(MachineEnder6)
-    #define MOTHERBOARD BOARD_CREALITY_V431
-  #elif ENABLED(MachineEnder7)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1
-  #elif ENABLED(Creality427)
-    #define MOTHERBOARD BOARD_CREALITY_V427
-  #elif ENABLED(Creality422)
-    #define MOTHERBOARD BOARD_CREALITY_V4
-  #elif ENABLED(MachineEnder3S1_F4)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1_301F4
-  #elif ENABLED(MachineEnder3S1) && DISABLED(MachineEnder3S1_F4)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1_301
-  #elif (ENABLED(MachineCR10Orig) && DISABLED(Melzi_To_SBoardUpgrade))
-    #define MOTHERBOARD BOARD_MELZI_CREALITY
-  #elif ENABLED(SKR_CR6)
-    #define MOTHERBOARD BOARD_BTT_SKR_CR6
-  #elif ENABLED(CR6_452)
-    #define MOTHERBOARD BOARD_CREALITY_V452
-  #elif ENABLED(MachineCR30)
-    #define MOTHERBOARD BOARD_CREALITY_V4210
-  #elif ENABLED(MachineCR10SmartPro)
-    #define MOTHERBOARD BOARD_CREALITY_V25S1
-  #elif ANY(MachineCR6, MachineCR6Max, MachineCR10Smart)
-    #define MOTHERBOARD BOARD_CREALITY_V453
-  #elif ENABLED(MachineEnder2Pro)
-    #define MOTHERBOARD BOARD_CREALITY_V423
-  #else
-    #define MOTHERBOARD BOARD_RAMPS_CREALITY
-  #endif
+  #define MOTHERBOARD BOARD_RAMPS_CREALITY
 #endif
-
-// Name displayed in the LCD "Ready" message and Info menu
-//#define CUSTOM_MACHINE_NAME "3D Printer"
-
-// Printer's unique ID, used by some programs to differentiate between machines.
-// Choose your own or use a service like http://www.uuidgenerator.net/version4
-//#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
-
-// @section stepper drivers
 
 /**
  * Stepper Drivers
@@ -779,101 +475,12 @@
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
 
-#if (ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11) || ANY(MachineCR10SV2, MachineEnder3S1, MachineCR10SPro, MachineCR10SProV2, MachineCR10Max, MachineCR5, SKRMiniE3V2, SKRMiniE3V3, MachineCR6, MachineCR6Max, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineCR30, MachineCR10Smart, MachineCR10SmartPro)) && DISABLED(SKR_UART)
-  #if ENABLED(SKR_2209)
-    #define X_DRIVER_TYPE  TMC2209_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2209_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2209_STANDALONE
-    #define E0_DRIVER_TYPE TMC2209_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2209_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2209_STANDALONE
-    #endif
-  #elif ENABLED(SKR_2130)
-    #define X_DRIVER_TYPE  TMC2130_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2130_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2130_STANDALONE
-    #define E0_DRIVER_TYPE TMC2130_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2130_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2130_STANDALONE
-    #endif
-  #else
-    #define X_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2208_STANDALONE
-    #define E0_DRIVER_TYPE TMC2208_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2208_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2208_STANDALONE
-    #endif
-  #endif
-#elif ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo) && ENABLED(SKR_UART)
-  #if ENABLED(SKR_2209)
-    #define X_DRIVER_TYPE  TMC2209
-    #define Y_DRIVER_TYPE  TMC2209
-    #define Z_DRIVER_TYPE  TMC2209
-    #define E0_DRIVER_TYPE TMC2209
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2209
-    #else
-      #define E1_DRIVER_TYPE TMC2209
-    #endif
-  #elif ENABLED(SKR_2130)
-    #define X_DRIVER_TYPE  TMC2130
-    #define Y_DRIVER_TYPE  TMC2130
-    #define Z_DRIVER_TYPE  TMC2130
-    #define E0_DRIVER_TYPE TMC2130
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2130
-    #else
-      #define E1_DRIVER_TYPE TMC2130
-    #endif
-  #else
-    #define X_DRIVER_TYPE  TMC2208
-    #define Y_DRIVER_TYPE  TMC2208
-    #define Z_DRIVER_TYPE  TMC2208
-    #define E0_DRIVER_TYPE TMC2208
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2208
-    #else
-      #define E1_DRIVER_TYPE TMC2208
-    #endif
-  #endif
-#else
-  #define X_DRIVER_TYPE  A4988
-  #define Y_DRIVER_TYPE  A4988
-  #define Z_DRIVER_TYPE  A4988
-  #define E0_DRIVER_TYPE A4988
-  #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE A4988
-    #else
-      #define E1_DRIVER_TYPE A4988
-    #endif
-#endif
+#define X_DRIVER_TYPE  TMC2209_STANDALONE
+#define Y_DRIVER_TYPE  TMC2209_STANDALONE
+#define Z_DRIVER_TYPE  TMC2209_STANDALONE
+#define E0_DRIVER_TYPE TMC2209_STANDALONE
+#define E1_DRIVER_TYPE TMC2209_STANDALONE
 
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
-//#define Z2_DRIVER_TYPE A4988
-//#define Z3_DRIVER_TYPE A4988
-//#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
-//#define K_DRIVER_TYPE  A4988
-//#define U_DRIVER_TYPE  A4988
-//#define V_DRIVER_TYPE  A4988
-//#define W_DRIVER_TYPE  A4988
-//#define E0_DRIVER_TYPE A4988
-//#define E1_DRIVER_TYPE A4988
-//#define E2_DRIVER_TYPE A4988
-//#define E3_DRIVER_TYPE A4988
-//#define E4_DRIVER_TYPE A4988
-//#define E5_DRIVER_TYPE A4988
-//#define E6_DRIVER_TYPE A4988
-//#define E7_DRIVER_TYPE A4988
 
 /**
  * Additional Axis Settings
@@ -906,42 +513,29 @@
 #endif
 #ifdef U_DRIVER_TYPE
   #define AXIS7_NAME 'U' // :['U', 'V', 'W']
-  //#define AXIS7_ROTATES
 #endif
 #ifdef V_DRIVER_TYPE
   #define AXIS8_NAME 'V' // :['V', 'W']
-  //#define AXIS8_ROTATES
 #endif
 #ifdef W_DRIVER_TYPE
   #define AXIS9_NAME 'W' // :['W']
-  //#define AXIS9_ROTATES
 #endif
 
-// @section extruder
-
-// This defines the number of extruders
-// :[1, 2, 3, 4, 5, 6, 7, 8]
 #if ANY(Dual_BowdenSplitterY, Dual_CyclopsSingleNozzle, Dual_ChimeraDualNozzle)
   #define EXTRUDERS 2
 #else
   #define EXTRUDERS 1
 #endif
-// Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
-// For Cyclops or any "multi-extruder" that shares a single nozzle.
 #if ANY(Dual_BowdenSplitterY, Dual_CyclopsSingleNozzle)
   #define SINGLENOZZLE
 #endif
 
-// Save and restore temperature and fan speed on tool-change.
-// Set standby for the unselected tool with M104/106/109 T...
 #if ENABLED(SINGLENOZZLE)
   #define SINGLENOZZLE_STANDBY_TEMP
   #define SINGLENOZZLE_STANDBY_FAN
 #endif
-
-// @section multi-material
 
 /**
  * Multi-Material Unit
@@ -957,23 +551,17 @@
  * See additional options in Configuration_adv.h.
  * :["PRUSA_MMU1", "PRUSA_MMU2", "PRUSA_MMU2S", "EXTENDABLE_EMU_MMU2", "EXTENDABLE_EMU_MMU2S"]
  */
-//#define MMU_MODEL PRUSA_MMU2
 
-// A dual extruder that uses a single stepper motor
-//#define SWITCHING_EXTRUDER
 #if ENABLED(SWITCHING_EXTRUDER)
   #define SWITCHING_EXTRUDER_SERVO_NR 0
   #define SWITCHING_EXTRUDER_SERVO_ANGLES { 0, 90 } // Angles for E0, E1[, E2, E3]
-  #if EXTRUDERS > 3
+  #if EXTRUDERS > 3 // AI_DEBUG: PROJDE - EXTRUDERS = 1, takže 1 > 3 je false
     #define SWITCHING_EXTRUDER_E23_SERVO_NR 1
   #endif
 #endif
 
-// A dual-nozzle that uses a servomotor to raise/lower one (or both) of the nozzles
-//#define SWITCHING_NOZZLE
 #if ENABLED(SWITCHING_NOZZLE)
   #define SWITCHING_NOZZLE_SERVO_NR 0
-  //#define SWITCHING_NOZZLE_E1_SERVO_NR 1          // If two servos are used, the index of the second
   #define SWITCHING_NOZZLE_SERVO_ANGLES { 0, 90 }   // Angles for E0, E1 (single servo) or lowered/raised (dual servo)
   #define SWITCHING_NOZZLE_SERVO_DWELL 2500         // Dwell time to wait for servo to make physical move
 #endif
@@ -982,7 +570,6 @@
  * Two separate X-carriages with extruders that connect to a moving part
  * via a solenoid docking mechanism. Requires SOL1_PIN and SOL2_PIN.
  */
-//#define PARKING_EXTRUDER
 
 /**
  * Two separate X-carriages with extruders that connect to a moving part
@@ -992,7 +579,6 @@
  * movements : https://youtu.be/0xCEiG9VS3k
  *             https://youtu.be/Bqbcs0CU2FE
  */
-//#define MAGNETIC_PARKING_EXTRUDER
 
 #if EITHER(PARKING_EXTRUDER, MAGNETIC_PARKING_EXTRUDER)
 
@@ -1004,7 +590,6 @@
     #define PARKING_EXTRUDER_SOLENOIDS_INVERT           // If enabled, the solenoid is NOT magnetized with applied voltage
     #define PARKING_EXTRUDER_SOLENOIDS_PINS_ACTIVE LOW  // LOW or HIGH pin signal energizes the coil
     #define PARKING_EXTRUDER_SOLENOIDS_DELAY 250        // (ms) Delay for magnetic field. No delay if 0 or not defined.
-    //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
 
   #elif ENABLED(MAGNETIC_PARKING_EXTRUDER)
 
@@ -1023,7 +608,6 @@
  * Support for swappable and dockable toolheads, such as
  * the E3D Tool Changer. Toolheads are locked with a servo.
  */
-//#define SWITCHING_TOOLHEAD
 
 /**
  * Magnetic Switching Toolhead
@@ -1031,7 +615,6 @@
  * Support swappable and dockable toolheads with a magnetic
  * docking mechanism using movement and no servo.
  */
-//#define MAGNETIC_SWITCHING_TOOLHEAD
 
 /**
  * Electromagnetic Switching Toolhead
@@ -1040,7 +623,6 @@
  * Toolheads are parked at one edge and held with an electromagnet.
  * Supports more than 2 Toolheads. See https://youtu.be/JolbsAKTKf4
  */
-//#define ELECTROMAGNETIC_SWITCHING_TOOLHEAD
 
 #if ANY(SWITCHING_TOOLHEAD, MAGNETIC_SWITCHING_TOOLHEAD, ELECTROMAGNETIC_SWITCHING_TOOLHEAD)
   #define SWITCHING_TOOLHEAD_Y_POS          235         // (mm) Y position of the toolhead dock
@@ -1053,7 +635,6 @@
   #elif ENABLED(MAGNETIC_SWITCHING_TOOLHEAD)
     #define SWITCHING_TOOLHEAD_Y_RELEASE      5         // (mm) Security distance Y axis
     #define SWITCHING_TOOLHEAD_X_SECURITY   { 90, 150 } // (mm) Security distance X axis (T0,T1)
-    //#define PRIME_BEFORE_REMOVE                       // Prime the nozzle before release from the dock
     #if ENABLED(PRIME_BEFORE_REMOVE)
       #define SWITCHING_TOOLHEAD_PRIME_MM           20  // (mm)   Extruder prime length
       #define SWITCHING_TOOLHEAD_RETRACT_MM         10  // (mm)   Retract after priming length
@@ -1073,28 +654,17 @@
  *   - This implementation supports up to two mixing extruders.
  *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
  */
-//#define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
   #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
-  //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
-  //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
   #if ENABLED(GRADIENT_MIX)
-    //#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
   #endif
 #endif
 
-// Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
-// The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
-// For the other hotends it is their distance from the extruder 0 hotend.
 #if(ENABLED(Dual_ChimeraDualNozzle))
   #define HOTEND_OFFSET_X {0.0, 18.00} // (in mm) for each extruder, offset of the hotend on the X axis
   #define HOTEND_OFFSET_Y {0.0, 0.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
 #endif
-//#define HOTEND_OFFSET_Z {0.0, 0.00}  // (mm) relative Z-offset for each nozzle
-
-// @section psu control
 
 /**
  * Power Supply Control
@@ -1105,33 +675,18 @@
 #if ANY(MachineCR2020, PowerShutoffKit, MachineCR10Smart, MachineCR10SmartPro)
   #define PSU_CONTROL
 #endif
-//#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
-  //#define MKS_PWC                 // Using the MKS PWC add-on
-  //#define PS_OFF_CONFIRM          // Confirm dialog when power off
-  //#define PS_OFF_SOUND            // Beep 1s when power off
   #if ENABLED(PowerShutoffKit)
     #define PS_ON_PIN 12
     #define PSU_ACTIVE_STATE HIGH
   #elif ANY(MachineCR10Smart, MachineCR10SmartPro)
     #define PS_ON_PIN PA0
     #define PSU_ACTIVE_STATE HIGH
-  #else
-    #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+    #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box // AI_DEBUG: AKTIVNÍ - fallback na PSU_ACTIVE_STATE LOW
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
-  //#define PSU_DEFAULT_OFF               // Keep power off until enabled directly with M80
-  //#define PSU_POWERUP_DELAY      250    // (ms) Delay for the PSU to warm up to full power
-  //#define LED_POWEROFF_TIMEOUT 10000    // (ms) Turn off LEDs after power-off, with this amount of delay
-
-  //#define POWER_OFF_TIMER               // Enable M81 D<seconds> to power off after a delay
-  //#define POWER_OFF_WAIT_FOR_COOLDOWN   // Enable M81 S to power off only after cooldown
-
-  //#define PSU_POWERUP_GCODE  "M355 S1"  // G-code to run after power-on (e.g., case light on)
-  //#define PSU_POWEROFF_GCODE "M355 S0"  // G-code to run before power-off (e.g., case light off)
-
-  //#define AUTO_POWER_CONTROL      // Enable automatic control of the PS_ON pin
   #if ENABLED(AUTO_POWER_CONTROL)
     #define AUTO_POWER_FANS         // Turn on PSU if fans need power
     #define AUTO_POWER_E_FANS
@@ -1139,19 +694,10 @@
     #define AUTO_POWER_CHAMBER_FAN
     #define AUTO_POWER_COOLER_FAN
     #define POWER_TIMEOUT              30 // (s) Turn off power if the machine is idle for this duration
-    //#define POWER_OFF_DELAY          60 // (s) Delay of poweroff after M81 command. Useful to let fans run for extra time.
   #endif
   #if EITHER(AUTO_POWER_CONTROL, POWER_OFF_WAIT_FOR_COOLDOWN)
-    //#define AUTO_POWER_E_TEMP        50 // (°C) PSU on if any extruder is over this temperature
-    //#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) PSU on if the chamber is over this temperature
-    //#define AUTO_POWER_COOLER_TEMP   26 // (°C) PSU on if the cooler is over this temperature
   #endif
 #endif
-
-//===========================================================================
-//============================= Thermal Settings ============================
-//===========================================================================
-// @section temperature
 
 /**
  * --NORMAL IS 4.7kΩ PULLUP!-- 1kΩ pullup can be used on hotend sensor, using correct resistor and table
@@ -1259,7 +805,9 @@
   #define TEMP_SENSOR_0 5
 #elif ENABLED(HotendStock)
   #define TEMP_SENSOR_0 1
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu (TEMP_SENSOR_0 není definováno)
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
 #if DISABLED(Dual_ChimeraDualNozzle)
   #define TEMP_SENSOR_1 0
@@ -1279,9 +827,9 @@
 	#define TEMP_SENSOR_BED 5
 #elif ENABLED(BedAC)
 	#define TEMP_SENSOR_BED 11
-#else
-	#define TEMP_SENSOR_BED 0
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+	#define TEMP_SENSOR_BED 0 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
 #define TEMP_SENSOR_PROBE 0
 
@@ -1293,11 +841,9 @@
 #define TEMP_SENSOR_BOARD 0
 #define TEMP_SENSOR_REDUNDANT 0
 
-// Dummy thermistor constant temperature readings, for use with 998 and 999
 #define DUMMY_THERMISTOR_998_VALUE  25
 #define DUMMY_THERMISTOR_999_VALUE 100
 
-// Resistor values when using MAX31865 sensors (-5) on TEMP_SENSOR_0 / 1
 #if TEMP_SENSOR_IS_MAX_TC(0)
   #define MAX31865_SENSOR_OHMS_0      100 // (Ω) Typically 100 or 1000 (PT100 or PT1000)
   #define MAX31865_CALIBRATION_OHMS_0 430 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
@@ -1311,22 +857,19 @@
   #define MAX31865_CALIBRATION_OHMS_2 430
 #endif
 
-// Use temp sensor 1 as a redundant sensor with sensor 0. If the readings
-// from the two sensors differ too much the print will be aborted.
-//#define TEMP_SENSOR_1_AS_REDUNDANT
 #define TEMP_SENSOR_REDUNDANT_MAX_DIFF 10
 
-#if HAS_E_TEMP_SENSOR
-  #define TEMP_RESIDENCY_TIME     2  // (seconds) Time to wait for hotend to "settle" in M109
+#if HAS_E_TEMP_SENSOR // AI_DEBUG: PROJDE - EXTRUDERS = 1, takže HAS_E_TEMP_SENSOR je true
+  #define TEMP_RESIDENCY_TIME     2  // (seconds) Time to wait for hotend to "settle" in M109 // AI_DEBUG: AKTIVNÍ - HAS_E_TEMP_SENSOR je true
   #if ENABLED(UnstableTemps)
     #define TEMP_WINDOW              5  // (°C) Temperature proximity for the "temperature reached" timer
     #define TEMP_HYSTERESIS          7  // (°C) Temperature proximity considered "close enough" to the target
-  #else
-    #define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
-    #define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - UnstableTemps není definováno
+    #define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer // AI_DEBUG: AKTIVNÍ - stabilní teploty
+    #define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target // AI_DEBUG: AKTIVNÍ - stabilní teploty
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - UnstableTemps není definováno
 
-#endif
+#endif // AI_DEBUG: PROJDE - HAS_E_TEMP_SENSOR je true
 #if TEMP_SENSOR_BED
   #define TEMP_BED_RESIDENCY_TIME 5  // (seconds) Time to wait for bed to "settle" in M190
   #define TEMP_BED_WINDOW          2  // (°C) Temperature proximity for the "temperature reached" timer
@@ -1338,7 +881,6 @@
   #define TEMP_CHAMBER_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer
   #define TEMP_CHAMBER_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target
 #endif
-
 
 /**
  * Redundant Temperature Sensor (TEMP_SENSOR_REDUNDANT)
@@ -1356,8 +898,6 @@
   #define TEMP_SENSOR_REDUNDANT_MAX_DIFF  10  // (°C) Temperature difference that will trigger a print abort.
 #endif
 
-// Below this temperature the heater will be switched off
-// because it probably indicates a broken thermistor wire.
 #define HEATER_0_MINTEMP   5
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
@@ -1369,16 +909,13 @@
 #define BED_MINTEMP        5
 #define CHAMBER_MINTEMP    5
 
-// Above this temperature the heater will be switched off.
-// This can protect components from overheating, but NOT from shorts and failures.
-// (Use MINTEMP for thermistor short/failure protection.)
 #if ENABLED(HotendMosquito)
   #define HEATER_0_MAXTEMP 450
 #elif ENABLED(HotendAllMetal)
 	#define HEATER_0_MAXTEMP 315
-#else
-	#define HEATER_0_MAXTEMP 255
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+	#define HEATER_0_MAXTEMP 255 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -1399,37 +936,23 @@
 #define BED_OVERSHOOT    10   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define COOLER_OVERSHOOT  2   // (°C) Forbid temperatures closer than OVERSHOOT
 
-//===========================================================================
-//============================= PID Settings ================================
-//===========================================================================
-
-// @section hotend temp
-
-// Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
-// temperature control. Disable both for bang-bang heating.
 #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
-//#define MPCTEMP        // ** EXPERIMENTAL **
 
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
-#if ENABLED(PIDTEMP)
-  #if NONE(MachineCR10Orig, SKRMiniE3V2)
-    #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-    #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  #endif
-  //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
-                                  // Set/get with G-code: M301 E[extruder number, 0-2]
+#if ENABLED(PIDTEMP) // AI_DEBUG: PROJDE - PIDTEMP je definováno
+  #if NONE(MachineCR10Orig, SKRMiniE3V2) // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
+    #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM) // AI_DEBUG: AKTIVNÍ - PIDTEMP blok projde
+    #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM) // AI_DEBUG: AKTIVNÍ - PIDTEMP blok projde
+  #endif // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
 
   #if ENABLED(PID_PARAMS_PER_HOTEND)
-    // Specify up to one value per hotend here, according to your setup.
-    // If there are fewer values, the last one applies to the remaining hotends.
     #define DEFAULT_Kp_LIST {  22.20,  22.20 }
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
-  #else
-  // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - PID_PARAMS_PER_HOTEND není definováno
     #if ANY(HotendMosquito, PID50W)
       #define DEFAULT_Kp 16.8
       #define DEFAULT_Ki 1.2
@@ -1473,26 +996,11 @@
         #define  DEFAULT_Kd 59.93
       #endif
     #elif ENABLED(HotendE3D)
-      //E3D v6 Clone with 5050 fan wing at 100% set to 235
       #define  DEFAULT_Kp 23.36
       #define  DEFAULT_Ki 1.99
       #define  DEFAULT_Kd 87.46
     #endif
 
-    // Ultimaker
-    //#define DEFAULT_Kp 22.2
-    //#define DEFAULT_Ki 1.08
-    //#define DEFAULT_Kd 114
-
-    // MakerGear
-    //#define DEFAULT_Kp 7.0
-    //#define DEFAULT_Ki 0.1
-    //#define DEFAULT_Kd 12
-
-    // Mendel Parts V9 on 12V
-    //#define DEFAULT_Kp 63.0
-    //#define DEFAULT_Ki 2.25
-    //#define DEFAULT_Kd 440
   #endif
 #endif
 
@@ -1505,15 +1013,12 @@
  * @section mpctemp
  */
 #if ENABLED(MPCTEMP)
-  //#define MPC_EDIT_MENU                             // Add MPC editing to the "Advanced Settings" menu. (~1300 bytes of flash)
-  //#define MPC_AUTOTUNE_MENU                         // Add MPC auto-tuning to the "Advanced Settings" menu. (~350 bytes of flash)
 
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
   #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
-  // Measured physical constants from M306
   #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
   #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
   #define MPC_AMBIENT_XFER_COEFF { 0.068f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
@@ -1521,16 +1026,11 @@
     #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.097f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
   #endif
 
-  // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
   #if ENABLED(MPC_INCLUDE_FAN)
-    //#define MPC_FAN_0_ALL_HOTENDS
-    //#define MPC_FAN_0_ACTIVE_HOTEND
   #endif
 
   #define FILAMENT_HEAT_CAPACITY_PERMM { 5.6e-3f }    // 0.0056 J/K/mm for 1.75mm PLA (0.0149 J/K/mm for 2.85mm PLA).
-  //#define FILAMENT_HEAT_CAPACITY_PERMM { 3.6e-3f }  // 0.0036 J/K/mm for 1.75mm PETG (0.0094 J/K/mm for 2.85mm PETG).
 
-  // Advanced options
   #define MPC_SMOOTHING_FACTOR 0.5f                   // (0.0...1.0) Noisy temperature sensors may need a lower value for stabilization.
   #define MPC_MIN_AMBIENT_CHANGE 1.0f                 // (K/s) Modeled ambient temperature rate of change, when correcting model inaccuracies.
   #define MPC_STEADYSTATE 0.5f                        // (K/s) Temperature change rate for steady state logic to be enforced.
@@ -1538,10 +1038,6 @@
   #define MPC_TUNING_POS { X_CENTER, Y_CENTER, 1.0f } // (mm) M306 Autotuning position, ideally bed center at first layer height.
   #define MPC_TUNING_END_Z 10.0f                      // (mm) M306 Autotuning final Z position.
 #endif
-
-//===========================================================================
-//====================== PID > Bed Temperature Control ======================
-//===========================================================================
 
 /**
  * PID Bed Heating
@@ -1557,10 +1053,9 @@
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  * @section bed temp
  */
-#if NONE(MachineCR10Orig, LowMemoryBoard, SKRMiniE3V2) || ENABLED(MelziHostOnly)
-  #define PIDTEMPBED
-#endif
-//#define BED_LIMIT_SWITCHING
+#if NONE(MachineCR10Orig, LowMemoryBoard, SKRMiniE3V2) || ENABLED(MelziHostOnly) // AI_DEBUG: PROJDE - MachineCR10Orig ani LowMemoryBoard ani SKRMiniE3V2 nejsou definovány, MelziHostOnly není definováno
+  #define PIDTEMPBED // AI_DEBUG: AKTIVNÍ - PIDTEMPBED je povolen
+#endif // AI_DEBUG: PROJDE - PIDTEMPBED je povolen
 
 /**
  * Max Bed Power
@@ -1570,12 +1065,8 @@
  */
 #define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
 
-#if ENABLED(PIDTEMPBED)
-  //#define MIN_BED_POWER 0
-  //#define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
+#if ENABLED(PIDTEMPBED) // AI_DEBUG: PROJDE - PIDTEMPBED je definováno
 
-  //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
-  //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
   #if ANY(MachineEnder3V2, MachineEnder3S1)
     #define  DEFAULT_bedKp 462.10
     #define  DEFAULT_bedKi 85.47
@@ -1584,18 +1075,13 @@
     #define DEFAULT_bedKp 79.49
     #define DEFAULT_bedKi 1.17
     #define DEFAULT_bedKd 1349.52
-  #else
-    #define  DEFAULT_bedKp 690.34
-    #define  DEFAULT_bedKi 111.47
-    #define  DEFAULT_bedKd 1068.83
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+    #define  DEFAULT_bedKp 690.34 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty
+    #define  DEFAULT_bedKi 111.47 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty
+    #define  DEFAULT_bedKd 1068.83 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
-  // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
-#endif // PIDTEMPBED
-
-//===========================================================================
-//==================== PID > Chamber Temperature Control ====================
-//===========================================================================
+#endif // PIDTEMPBED // AI_DEBUG: PROJDE - PIDTEMPBED je definováno
 
 /**
  * PID Chamber Heating
@@ -1612,8 +1098,6 @@
  * the issues involved, don't use chamber PID until someone else verifies that your hardware works.
  * @section chamber temp
  */
-//#define PIDTEMPCHAMBER
-//#define CHAMBER_LIMIT_SWITCHING
 
 /**
  * Max Chamber Power
@@ -1625,30 +1109,17 @@
 
 #if ENABLED(PIDTEMPCHAMBER)
   #define MIN_CHAMBER_POWER 0
-  //#define PID_CHAMBER_DEBUG // Print Chamber PID debug data to the serial port.
 
-  // Lasko "MyHeat Personal Heater" (200w) modified with a Fotek SSR-10DA to control only the heating element
-  // and placed inside the small Creality printer enclosure tent.
-  //
   #define DEFAULT_chamberKp 37.04
   #define DEFAULT_chamberKi 1.40
   #define DEFAULT_chamberKd 655.17
-  // M309 P37.04 I1.04 D655.17
 
-  // FIND YOUR OWN: "M303 E-2 C8 S50" to run autotune on the chamber at 50 degreesC for 8 cycles.
 #endif // PIDTEMPCHAMBER
 
-#if ANY(PIDTEMP, PIDTEMPBED, PIDTEMPCHAMBER)
-  //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
-  //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
-                                  // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
+#if ANY(PIDTEMP, PIDTEMPBED, PIDTEMPCHAMBER) // AI_DEBUG: PROJDE - PIDTEMP a PIDTEMPBED jsou definovány
+  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature // AI_DEBUG: AKTIVNÍ - PID funkce jsou povoleny
 
-  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of flash)
-  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of flash)
-#endif
-
-// @section safety
+#endif // AI_DEBUG: PROJDE - PID funkce jsou povoleny
 
 /**
  * Prevent extrusion if the temperature is below EXTRUDE_MINTEMP.
@@ -1666,10 +1137,6 @@
  */
 #define PREVENT_LENGTHY_EXTRUDE
 #define EXTRUDE_MAXLENGTH 750
-
-//===========================================================================
-//======================== Thermal Runaway Protection =======================
-//===========================================================================
 
 /**
  * Thermal Protection provides additional protection to your printer from damage
@@ -1689,98 +1156,47 @@
 #define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 #define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
 
-//===========================================================================
-//============================= Mechanical Settings =========================
-//===========================================================================
-
-// @section machine
-
-// Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
-// either in the usual order or reversed
 #if ANY(MachineEnder4, MachineEnder6, MachineEnder7, MachineCR30)
   #define COREXY
 #endif
-//#define COREXZ
-//#define COREYZ
-//#define COREYX
-//#define COREZX
-//#define COREZY
-//#define MARKFORGED_XY  // MarkForged. See https://reprap.org/forum/read.php?152,504042
-//#define MARKFORGED_YX
 
-// Enable for a belt style printer with endless "Z" motion
 #if ENABLED(MachineCR30)
   #define BELTPRINTER
 #endif
 
-// Enable for Polargraph Kinematics
-//#define POLARGRAPH
 #if ENABLED(POLARGRAPH)
   #define POLARGRAPH_MAX_BELT_LEN  1035.0 // (mm) Belt length at full extension. Override with M665 H.
   #define DEFAULT_SEGMENTS_PER_SECOND 5   // Move segmentation based on duration
   #define PEN_UP_DOWN_MENU                // Add "Pen Up" and "Pen Down" to the MarlinUI menu
 #endif
 
-// @section delta
-
-// Enable for DELTA kinematics and configure below
-//#define DELTA
 #if ENABLED(DELTA)
 
-  // Make delta curves from many straight lines (linear interpolation).
-  // This is a trade-off between visible corners (not enough segments)
-  // and processor overload (too many expensive sqrt calls).
   #define DEFAULT_SEGMENTS_PER_SECOND 200
 
-  // After homing move down to a height where XY movement is unconstrained
-  //#define DELTA_HOME_TO_SAFE_ZONE
-
-  // Delta calibration menu
-  // Add three-point calibration to the MarlinUI menu.
-  // See http://minow.blogspot.com/index.html#4918805519571907051
-  //#define DELTA_CALIBRATION_MENU
-
-  // G33 Delta Auto-Calibration. Enable EEPROM_SETTINGS to store results.
-  //#define DELTA_AUTO_CALIBRATION
-
   #if ENABLED(DELTA_AUTO_CALIBRATION)
-    // Default number of probe points : n*n (1 -> 7)
     #define DELTA_CALIBRATION_DEFAULT_POINTS 4
   #endif
 
   #if EITHER(DELTA_AUTO_CALIBRATION, DELTA_CALIBRATION_MENU)
-    // Step size for paper-test probing
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
 
-  // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
   #define PRINTABLE_RADIUS       140.0    // (mm)
 
-  // Maximum reachable area
   #define DELTA_MAX_RADIUS       140.0    // (mm)
 
-  // Center-to-center distance of the holes in the diagonal push rods.
   #define DELTA_DIAGONAL_ROD 250.0        // (mm)
 
-  // Distance between bed and nozzle Z home position
   #define DELTA_HEIGHT 250.00             // (mm) Get this value from G33 auto calibrate
 
   #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
-  // Horizontal distance bridged by diagonal push rods when effector is centered.
   #define DELTA_RADIUS 124.0              // (mm) Get this value from G33 auto calibrate
 
-  // Trim adjustments for individual towers
-  // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
-  // measured in degrees anticlockwise looking from above the printer
   #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
-  // Delta radius and diagonal rod adjustments (mm)
-  //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-  //#define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
 #endif
-
-// @section scara
 
 /**
  * MORGAN_SCARA was developed by QHARLEY in South Africa in 2012-2013.
@@ -1790,27 +1206,19 @@
  *   https://www.thingiverse.com/thing:2487048
  *   https://www.thingiverse.com/thing:1241491
  */
-//#define MORGAN_SCARA
-//#define MP_SCARA
 #if EITHER(MORGAN_SCARA, MP_SCARA)
-  // If movement is choppy try lowering this value
   #define DEFAULT_SEGMENTS_PER_SECOND 200
 
-  // Length of inner and outer support arms. Measure arm lengths precisely.
   #define SCARA_LINKAGE_1 150       // (mm)
   #define SCARA_LINKAGE_2 150       // (mm)
 
-  // SCARA tower offset (position of Tower relative to bed zero position)
-  // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
   #define SCARA_OFFSET_X  100       // (mm)
   #define SCARA_OFFSET_Y  -56       // (mm)
 
   #if ENABLED(MORGAN_SCARA)
 
-    //#define DEBUG_SCARA_KINEMATICS
     #define FEEDRATE_SCALING        // Convert XY feedrate from mm/s to degrees/s on the fly
 
-    // Radius around the center where the arm cannot reach
     #define MIDDLE_DEAD_ZONE_R   0  // (mm)
 
     #define THETA_HOMING_OFFSET  0  // Calculated from Calibration Guide and M360 / M114. See http://reprap.harleystudio.co.za/?page_id=1073
@@ -1825,35 +1233,24 @@
 
 #endif
 
-// @section tpara
-
-// Enable for TPARA kinematics and configure below
-//#define AXEL_TPARA
 #if ENABLED(AXEL_TPARA)
   #define DEBUG_TPARA_KINEMATICS
   #define DEFAULT_SEGMENTS_PER_SECOND 200
 
-  // Length of inner and outer support arms. Measure arm lengths precisely.
   #define TPARA_LINKAGE_1 120       // (mm)
   #define TPARA_LINKAGE_2 120       // (mm)
 
-  // SCARA tower offset (position of Tower relative to bed zero position)
-  // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
   #define TPARA_OFFSET_X    0       // (mm)
   #define TPARA_OFFSET_Y    0       // (mm)
   #define TPARA_OFFSET_Z    0       // (mm)
 
   #define FEEDRATE_SCALING        // Convert XY feedrate from mm/s to degrees/s on the fly
 
-  // Radius around the center where the arm cannot reach
   #define MIDDLE_DEAD_ZONE_R   0  // (mm)
 
-  // Calculated from Calibration Guide and M360 / M114. See http://reprap.harleystudio.co.za/?page_id=1073
   #define THETA_HOMING_OFFSET  0
   #define PSI_HOMING_OFFSET    0
 #endif
-
-// @section polar
 
 /**
  * POLAR Kinematics
@@ -1890,114 +1287,70 @@
  * Milling:
  * This shouldn't be a problem for cutting/milling operations.
  */
-//#define POLAR
 #if ENABLED(POLAR)
   #define DEFAULT_SEGMENTS_PER_SECOND 180   // If movement is choppy try lowering this value
   #define PRINTABLE_RADIUS 82.0f            // (mm) Maximum travel of X axis
 
-  // Movements fall inside POLAR_FAST_RADIUS are assigned the highest possible feedrate
-  // to compensate unwanted deposition related to the near-origin motion problem.
   #define POLAR_FAST_RADIUS 3.0f            // (mm)
 
-  // Radius which is unreachable by the tool.
-  // Needed if the tool is not perfectly aligned to the center of the polar axis.
   #define POLAR_CENTER_OFFSET 0.0f          // (mm)
 
   #define FEEDRATE_SCALING                  // Convert XY feedrate from mm/s to degrees/s on the fly
 #endif
 
-// @section machine
+#if ANY(MachineEnder5, MachineEnder5Plus, MachineEnder6)
+  #define USE_ZMIN_PLUG
+  #define USE_XMAX_PLUG
+  #define USE_YMAX_PLUG
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define USE_XMIN_PLUG // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #if ENABLED(MachineEnder7)
+    #define USE_YMAX_PLUG
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
+    #define USE_YMIN_PLUG // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
+  #define USE_ZMIN_PLUG // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif
 
-// Articulated robot (arm). Joints are directly mapped to axes with no kinematics.
-//#define ARTICULATED_ROBOT_ARM
-
-// For a hot wire cutter with parallel horizontal axes (X, I) where the heights of the two wire
-// ends are controlled by parallel axes (Y, J). Joints are directly mapped to axes (no kinematics).
-//#define FOAMCUTTER_XYUV
-
-//===========================================================================
-//============================== Endstop Settings ===========================
-//===========================================================================
-
-// @section endstops
-
-// Specify here all the endstop connectors that are connected to any endstop or probe.
-// Almost all printers will be using one per axis. Probes will use one or more of the
-// extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-
-#define USE_XMIN_PLUG
-#define USE_YMIN_PLUG
-#define USE_ZMIN_PLUG
-
-
-
-// Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
-  // Disable ENDSTOPPULLUPS to set pullups individually
-  //#define ENDSTOPPULLUP_XMIN
-  //#define ENDSTOPPULLUP_YMIN
-  //#define ENDSTOPPULLUP_ZMIN
-  //#define ENDSTOPPULLUP_IMIN
-  //#define ENDSTOPPULLUP_JMIN
-  //#define ENDSTOPPULLUP_KMIN
-  //#define ENDSTOPPULLUP_UMIN
-  //#define ENDSTOPPULLUP_VMIN
-  //#define ENDSTOPPULLUP_WMIN
-  //#define ENDSTOPPULLUP_XMAX
-  //#define ENDSTOPPULLUP_YMAX
-  //#define ENDSTOPPULLUP_ZMAX
-  //#define ENDSTOPPULLUP_IMAX
-  //#define ENDSTOPPULLUP_JMAX
-  //#define ENDSTOPPULLUP_KMAX
-  //#define ENDSTOPPULLUP_UMAX
-  //#define ENDSTOPPULLUP_VMAX
-  //#define ENDSTOPPULLUP_WMAX
-  //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
-// Enable pulldown for all endstops to prevent a floating state
-//#define ENDSTOPPULLDOWNS
 #if DISABLED(ENDSTOPPULLDOWNS)
-  // Disable ENDSTOPPULLDOWNS to set pulldowns individually
-  //#define ENDSTOPPULLDOWN_XMIN
-  //#define ENDSTOPPULLDOWN_YMIN
-  //#define ENDSTOPPULLDOWN_ZMIN
-  //#define ENDSTOPPULLDOWN_IMIN
-  //#define ENDSTOPPULLDOWN_JMIN
-  //#define ENDSTOPPULLDOWN_KMIN
-  //#define ENDSTOPPULLDOWN_UMIN
-  //#define ENDSTOPPULLDOWN_VMIN
-  //#define ENDSTOPPULLDOWN_WMIN
-  //#define ENDSTOPPULLDOWN_XMAX
-  //#define ENDSTOPPULLDOWN_YMAX
-  //#define ENDSTOPPULLDOWN_ZMAX
-  //#define ENDSTOPPULLDOWN_IMAX
-  //#define ENDSTOPPULLDOWN_JMAX
-  //#define ENDSTOPPULLDOWN_KMAX
-  //#define ENDSTOPPULLDOWN_UMAX
-  //#define ENDSTOPPULLDOWN_VMAX
-  //#define ENDSTOPPULLDOWN_WMAX
-  //#define ENDSTOPPULLDOWN_ZMIN_PROBE
 #endif
 
-
-#define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-
-
+#if ANY(MachineEnder4, MachineCR2020, MachineCR30, MachineCR5, MachineEnder3S1)
+  #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop. // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+#if ANY(MachineCR2020, MachineCR30, MachineCR5, MachineEnder3S1)
+  #define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop. // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+#define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define U_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define V_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define W_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define W_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 
+#if NONE(ABL_EZABL, MachineCR2020) // AI_DEBUG: PODMÍNKA NEPLATÍ - ABL_EZABL není definováno, MachineCR2020 není definováno
+  #define Z_MIN_ENDSTOP_INVERTING false 
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - podmínka je false
+  #define Z_MIN_ENDSTOP_INVERTING true  // AI_DEBUG: AKTIVNÍ - redefinuje řádek 313 na true
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // AI_DEBUG: AKTIVNÍ - redefinuje řádek 314 na true
+#endif
 
-#define Z_MIN_ENDSTOP_INVERTING false  // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
-
-
-
-// Enable this feature if all enabled endstop pins are interrupt-capable.
-// This will remove the need to poll the interrupt pins, saving many CPU cycles.
 #if ANY(MachineEnder3V2, MachineEnder3S1, Creality422, MachineEnder2Pro, MachineCR10SmartPro) && NONE(SKRE3Turbo, SKR14Turbo, SKR14, SKR13)
   #define ENDSTOP_INTERRUPTS_FEATURE
 #endif
@@ -2017,14 +1370,6 @@
 #if ANY(MachineEnder5Plus, CableExtensionNoiseFilter, MachineCR6, MachineCR6Max, MachineEnder6, MachineCR10Smart, MachineSermoonD1)
   #define ENDSTOP_NOISE_THRESHOLD 2
 #endif
-
-// Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
-
-//=============================================================================
-//============================== Movement Settings ============================
-//=============================================================================
-// @section motion
 
 /**
  * Default Settings
@@ -2049,8 +1394,8 @@
 
 #if ENABLED(CrealityTitan)
   #define EStepsmm 382.14
-#elif ENABLED(MicroswissDirectDrive)
-  #define EStepsmm 130
+#elif ENABLED(MicroswissDirectDrive) // AI_DEBUG: PROJDE - MicroswissDirectDrive je definováno
+  #define EStepsmm 130 // AI_DEBUG: AKTIVNÍ - MicroswissDirectDrive blok projde
 #elif ENABLED(BondtechLGX)
   #define EStepsmm 400
 #elif(ENABLED(BondtechBMG) || ENABLED(E3DTitan))
@@ -2067,29 +1412,29 @@
   #define EStepsmm 140
 #elif ENABLED(MachineCR2020)
   #define EStepsmm 113
-#else
-  #define EStepsmm 500  // Upraveno pro Micro Swiss Direct Drive - zvýšeno na 500
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define EStepsmm 95 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
 #if ANY(MachineEnder5Plus, MachineCR5)
   #define ZStepsmm 800
 #elif ENABLED(MachineCR30)
   #define ZStepsmm 1152.95
-#else
-  #define ZStepsmm 400
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define ZStepsmm 400 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
 #if ENABLED(Stepper09Deg)
   #define EstepMultiplier 2
-#else
-  #define EstepMultiplier 1
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - Stepper09Deg není definováno
+  #define EstepMultiplier 1 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - Stepper09Deg není definováno
 
 #if ENABLED(MachineEnder7)
   #define XYStepsmm 200
-#else
-  #define XYStepsmm 80
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
+  #define XYStepsmm 80 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { XYStepsmm, XYStepsmm, ZStepsmm, (EStepsmm*EstepMultiplier) }
 
@@ -2146,9 +1491,10 @@
   #define DEFAULT_ACCELERATION          10000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   10000    // X, Y, Z acceleration for travel (non printing) moves
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty (nejsou definovány)
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
 
-//#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
   #define MAX_FEEDRATE_EDIT_VALUES    { 1000, 1000, 25, 150 } // ...or, set your own edit limits
 #endif
@@ -2160,7 +1506,6 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 
-//#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
   #define MAX_ACCEL_EDIT_VALUES       { 2000, 2000, 250, 500 } // ...or, set your own edit limits
 #endif
@@ -2182,33 +1527,24 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define CLASSIC_JERK
-#if ENABLED(CLASSIC_JERK)
+#define CLASSIC_JERK // AI_DEBUG: AKTIVNÍ - CLASSIC_JERK je definováno
+#if ENABLED(CLASSIC_JERK) // AI_DEBUG: PROJDE - CLASSIC_JERK je definováno
   #if ANY(MachineEnder6, MachineEnder5, MachineEnder5Plus, MachineSermoonD1, MachineCR5)
     #define DEFAULT_XJERK 20.0
     #define DEFAULT_YJERK 20.0
   #elif ENABLED(MachineEnder7)
     #define DEFAULT_XJERK 20.0
     #define DEFAULT_YJERK 20.0
-  #else
-    #define DEFAULT_XJERK 10.0
-    #define DEFAULT_YJERK 5.0
-  #endif
-  #define DEFAULT_ZJERK  0.3
-  //#define DEFAULT_IJERK  0.3
-  //#define DEFAULT_JJERK  0.3
-  //#define DEFAULT_KJERK  0.3
-  //#define DEFAULT_UJERK  0.3
-  //#define DEFAULT_VJERK  0.3
-  //#define DEFAULT_WJERK  0.3
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+    #define DEFAULT_XJERK 10.0 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty
+    #define DEFAULT_YJERK 5.0 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnoty
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z podmínek není splněna
+  #define DEFAULT_ZJERK  0.3 // AI_DEBUG: AKTIVNÍ - CLASSIC_JERK blok projde
 
-  //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
-
-  //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
     #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 10 } // ...or, set your own edit limits
   #endif
-#endif
+#endif // AI_DEBUG: PROJDE - CLASSIC_JERK je definováno
 
 #define DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
@@ -2222,7 +1558,6 @@
 #if DISABLED(CLASSIC_JERK)
   #define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
-                                      // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
 
 /**
@@ -2233,27 +1568,17 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#if NONE(MachineCR10Orig, SKRMiniE3V2, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro) || ENABLED(MelziHostOnly)
-  #define S_CURVE_ACCELERATION
-#endif
-
-//===========================================================================
-//============================= Z Probe Options =============================
-//===========================================================================
-// @section probes
-
-//
-// See https://marlinfw.org/docs/configuration/probes.html
-//
+#if NONE(MachineCR10Orig, SKRMiniE3V2, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro) || ENABLED(MelziHostOnly) // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 ani MachineCR6 ani MachineCR6Max ani MachineCR10Smart ani MachineCR10SmartPro nejsou definovány, MelziHostOnly není definováno
+  #define S_CURVE_ACCELERATION // AI_DEBUG: AKTIVNÍ - S_CURVE_ACCELERATION je povolen
+#endif // AI_DEBUG: PROJDE - S_CURVE_ACCELERATION je povolen
 
 /**
  * Enable this option for a probe connected to the Z-MIN pin.
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-// Force the use of the probe for Z-axis homing
-#define USE_PROBE_FOR_Z_HOMING  // AI_DEBUG: AKTIVNÍ - Použije probe pro Z homing
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN // AI_DEBUG: AKTIVNÍ - Probe využívá Z_MIN pin
+#define USE_PROBE_FOR_Z_HOMING // AI_DEBUG: AKTIVNÍ - Použije probe pro Z homing
 
 /**
  * Z_MIN_PROBE_PIN
@@ -2274,9 +1599,9 @@
   #define Z_MIN_PROBE_PIN 19 // Pin 32 is the RAMPS default
 #endif
 
-#if ENABLED(MachineCR10SProV2)
-  #define Z_MIN_PROBE_PIN 19 // Pin 19 for proximity sensor
-#endif
+#if ENABLED(MachineCR10SProV2) // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
+  #define Z_MIN_PROBE_PIN 19 // Pin 19 for proximity sensor // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+#endif // AI_DEBUG: PROJDE - MachineCR10SProV2 blok projde
 /**
  * Probe Type
  *
@@ -2284,29 +1609,23 @@
  * Activate one of these to use Auto Bed Leveling below.
  */
 
-
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
 
-#define FIX_MOUNTED_PROBE
-
+#define FIX_MOUNTED_PROBE // AI_DEBUG: AKTIVNÍ - Pevně namontovaný probe (proximity sensor)
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
  */
-//#define Z_PROBE_SERVO_NR 0       // Defaults to SERVO 0 connector.
-//#define Z_SERVO_ANGLES { 70, 0 } // Z Servo Deploy and Stow angles
 
 /**
  * MagLev V4 probe by MDD
  *
  * This probe is deployed and activated by powering a built-in electromagnet.
  */
-//#define MAGLEV4
 #if ENABLED(MAGLEV4)
-  //#define MAGLEV_TRIGGER_PIN 11     // Set to the connected digital output
   #define MAGLEV_TRIGGER_DELAY 15     // Changing this risks overheating the coil
 #endif
 
@@ -2325,11 +1644,8 @@
 #endif
 #if ENABLED(TOUCH_MI_PROBE)
   #define TOUCH_MI_RETRACT_Z 0.5                  // Height at which the probe retracts
-  //#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
-  //#define TOUCH_MI_MANUAL_DEPLOY                // For manual deploy (LCD menu)
 #endif
 
-// A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 #if ENABLED(ABL_BLTOUCH)
   #if DISABLED(MachineCR10Orig)
     #define PROBING_FANS_OFF          // Turn fans off when probing
@@ -2340,12 +1656,6 @@
   #endif
 #endif
 
-// A sled-mounted probe like those designed by Charles Bell.
-//#define Z_PROBE_SLED
-//#define SLED_DOCKING_OFFSET 5  // The extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
-
-// A probe deployed by moving the x-axis, such as the Wilson II's rack-and-pinion probe designed by Marty Rice.
-//#define RACK_AND_PINION_PROBE
 #if ENABLED(RACK_AND_PINION_PROBE)
   #define Z_PROBE_DEPLOY_X  X_MIN_POS
   #define Z_PROBE_RETRACT_X X_MAX_POS
@@ -2355,7 +1665,6 @@
  * Magnetically Mounted Probe
  * For probes such as Euclid, Klicky, Klackender, etc.
  */
-//#define MAG_MOUNTED_PROBE
 #if ENABLED(MAG_MOUNTED_PROBE)
   #define PROBE_DEPLOY_FEEDRATE (133*60)  // (mm/min) Probe deploy speed
   #define PROBE_STOW_FEEDRATE   (133*60)  // (mm/min) Probe stow speed
@@ -2372,9 +1681,6 @@
   #define MAG_MOUNTED_STOW_5   { PROBE_STOW_FEEDRATE,   {   0,   0,  0 } }  // Extra move if needed
 #endif
 
-// Duet Smart Effector (for delta printers) - https://bit.ly/2ul5U7J
-// When the pin is defined you can use M672 to set/reset the probe sensitivity.
-//#define DUET_SMART_EFFECTOR
 #if ENABLED(DUET_SMART_EFFECTOR)
   #define SMART_EFFECTOR_MOD_PIN  -1  // Connect a GPIO pin to the Smart Effector MOD pin
 #endif
@@ -2385,16 +1691,12 @@
  * CAUTION: This can damage machines with Z lead screws.
  *          Take extreme care when setting up this feature.
  */
-//#define SENSORLESS_PROBING
 
 /**
  * Allen key retractable z-probe as seen on many Kossel delta printers - https://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe
  * Deploys by touching z-axis belt. Retracts by pushing the probe down.
  */
-//#define Z_PROBE_ALLEN_KEY
 #if ENABLED(Z_PROBE_ALLEN_KEY)
-  // 2 or 3 sets of coordinates for deploying and retracting the spring loaded touch probe on G29,
-  // if servo actuated touch probe is not defined. Uncomment as appropriate for your printer/probe.
 
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1 { 30.0, PRINTABLE_RADIUS, 100.0 }
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_FEEDRATE XY_PROBE_FEEDRATE
@@ -2452,25 +1754,18 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -30, 15, 0 }  // Upraveno: X offset -30mm kvůli pravému kraji, Y 15mm od hrany
+#define NOZZLE_TO_PROBE_OFFSET { -150, -150, 0 } // AI_DEBUG: AKTIVNÍ - Offset probe vůči nozzle (-150,-150,0)
 
-
-
-// Most probes should stay away from the edges of the bed, but
-// with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #if ENABLED(ABL_BLTOUCH)
-  #define PROBING_MARGIN 35
-#else
-  #define PROBING_MARGIN 35
-#endif
+  #define PROBING_MARGIN 3
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - ABL_BLTOUCH není definováno
+  #define PROBING_MARGIN 10 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - ABL_BLTOUCH není definováno
 
-// X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (200*60)
 
-// Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_FEEDRATE_FAST (12*60)
 
-// Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
 
 /**
@@ -2483,7 +1778,6 @@
 #endif
 #if ENABLED(PROBE_ACTIVATION_SWITCH)
   #define PROBE_ACTIVATION_SWITCH_STATE LOW // State indicating probe is active
-  //#define PROBE_ACTIVATION_SWITCH_PIN PC6 // Override default pin
 #endif
 
 /**
@@ -2498,9 +1792,7 @@
   #define PROBE_TARE_TIME  200    // (ms) Time to hold tare pin
   #define PROBE_TARE_DELAY 200    // (ms) Delay after tare before
   #define PROBE_TARE_STATE LOW   // State to write pin for tare
-  //#define PROBE_TARE_PIN PA5    // Override default pin
   #if ENABLED(PROBE_ACTIVATION_SWITCH)
-    //#define PROBE_TARE_ONLY_WHILE_INACTIVE  // Fail to tare/probe if PROBE_ACTIVATION_SWITCH is active
   #endif
 #endif
 
@@ -2508,9 +1800,7 @@
  * Probe Enable / Disable
  * The probe only provides a triggered signal when enabled.
  */
-//#define PROBE_ENABLE_DISABLE
 #if ENABLED(PROBE_ENABLE_DISABLE)
-  //#define PROBE_ENABLE_PIN -1   // Override the default pin here
 #endif
 
 /**
@@ -2525,7 +1815,6 @@
 #if DISABLED(MachineCR10Orig) || ENABLED(MelziHostOnly)
   #define MULTIPLE_PROBING 2
 #endif
-//#define EXTRA_PROBING    1
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -2559,19 +1848,13 @@
 
 #define Z_PROBE_LOW_POINT          -5 // Farthest distance below the trigger-point to go before stopping
 
-// For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -9
 #define Z_PROBE_OFFSET_RANGE_MAX 9
 
-// Enable the M48 repeatability test to test probe accuracy
 #if ANY(ABL_EZABL, ABL_BLTOUCH, ABL_NCSW, ABL_TOUCH_MI, MachineCR6, MachineCR6Max, MachineCR10Smart) && NONE(MachineCR10Orig, SKRMiniE3V2, SKRE3Turbo)
-  //#define Z_MIN_PROBE_REPEATABILITY_TEST
 #endif
 
-// Before deploy/stow pause for user confirmation
-//#define PAUSE_BEFORE_DEPLOY_STOW
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
-  //#define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED // For Manual Deploy Allenkey Probe
 #endif
 
 /**
@@ -2582,18 +1865,12 @@
  * readings with inductive probes and piezo sensors.
  */
 #if (ANY(ABL_EZABL, ABL_NCSW, MachineCR6, MachineCR6Max)) && DISABLED(MachineCR10Orig)
-  //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #endif
 #if ENABLED(PROBING_HEATERS_OFF)
   #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
   #define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
-//#define PROBING_FANS_OFF          // Turn fans off when probing
-//#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
-//#define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
-//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
-// Require minimum nozzle and/or bed temperature for probing
 #if ANY(MachineCR6, MachineCR6Max, MachineCR10Smart)
   #define PREHEAT_BEFORE_PROBING
 #endif
@@ -2602,43 +1879,17 @@
   #define PROBING_BED_TEMP     50
 #endif
 
-// For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
-// :{ 0:'Low', 1:'High' }
 #define X_ENABLE_ON 0
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
-//#define J_ENABLE_ON 0
-//#define K_ENABLE_ON 0
-//#define U_ENABLE_ON 0
-//#define V_ENABLE_ON 0
-//#define W_ENABLE_ON 0
 
-// Disables axis stepper immediately when it's not being used.
-// WARNING: When motors turn off there is a chance of losing position accuracy!
 #define DISABLE_X false
 #define DISABLE_Y false
 #define DISABLE_Z false
-//#define DISABLE_I false
-//#define DISABLE_J false
-//#define DISABLE_K false
-//#define DISABLE_U false
-//#define DISABLE_V false
-//#define DISABLE_W false
-
-// Warn on display about possibly reduced accuracy
-//#define DISABLE_REDUCED_ACCURACY_WARNING
-
-// @section extruder
 
 #define DISABLE_E false             // For all extruders
 #define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
-
-// @section motion
-
-// Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-
 
 #if(ANY(MachineEnder4, MachineEnder5) && ANY(Creality422, Creality427))
   #define INVERT_X_DIR false
@@ -2683,46 +1934,37 @@
     #define INVERT_E0_DIR true
     #define INVERT_E1_DIR false
   #endif
-#else
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
   #if ANY(MachineCR10Orig, SKR13, SKR14, SKR14Turbo, SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo) && ENABLED(SKR_ReverseSteppers) && ENABLED(MachineEnder6)
     #define INVERT_X_DIR true
     #define INVERT_Y_DIR false
-  #else
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineCR10Orig blok neprojde
     #if ANY(MachineSermoonD1, MachineCR5)
       #define INVERT_X_DIR true
-    #else
-      #define INVERT_X_DIR false
-    #endif
-    #if ANY(MachineCRX,MachineCR10SPro, MachineCR10Max, MachineCR2020, MachineCR5, MachineEnder6, MachineEnder7)
-      #define INVERT_Y_DIR true
+    #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineSermoonD1 ani MachineCR5 nejsou definovány
+      #define INVERT_X_DIR false // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+    #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineSermoonD1 ani MachineCR5 nejsou definovány
+    #if ANY(MachineCRX,MachineCR10SPro, MachineCR10Max, MachineCR2020, MachineCR5, MachineEnder6, MachineEnder7) // AI_DEBUG: PROJDE - MachineCR10SPro je definováno
+      #define INVERT_Y_DIR true // AI_DEBUG: AKTIVNÍ - MachineCR10SPro blok projde
     #else
       #define INVERT_Y_DIR false
-    #endif
-  #endif
+    #endif // AI_DEBUG: PROJDE - MachineCR10SPro je definováno
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineCR10Orig blok neprojde
   #if ANY(MachineEnder5Plus, MachineCR2020, MachineEnder6, MachineSermoonD1, MachineEnder7)
     #define INVERT_Z_DIR false
-  #else
-    #define INVERT_Z_DIR true
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder5Plus ani MachineCR2020 ani MachineEnder6 ani MachineSermoonD1 ani MachineEnder7 nejsou definovány
+    #define INVERT_Z_DIR true // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder5Plus ani MachineCR2020 ani MachineEnder6 ani MachineSermoonD1 ani MachineEnder7 nejsou definovány
   #if ANY(E3DTitan, MachineCR2020, MachineCR5, MachineEnder6, MachineEnder7)
     #define INVERT_E0_DIR true
     #define INVERT_E1_DIR false
-  #else
-    #define INVERT_E0_DIR false
-    #define INVERT_E1_DIR true
-  #endif
-#endif
-//#define INVERT_I_DIR false
-//#define INVERT_J_DIR false
-//#define INVERT_K_DIR false
-//#define INVERT_U_DIR false
-//#define INVERT_V_DIR false
-//#define INVERT_W_DIR false
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - E3DTitan ani MachineCR2020 ani MachineCR5 ani MachineEnder6 ani MachineEnder7 nejsou definovány
+    #define INVERT_E0_DIR false // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+    #define INVERT_E1_DIR true // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - E3DTitan ani MachineCR2020 ani MachineCR5 ani MachineEnder6 ani MachineEnder7 nejsou definovány
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
 
-// @section extruder
-
-// For direct drive extruder v9 set to true, for geared extruder set to false.
-
+// AI_DEBUG: AKTIVNÍ - tyto definice jsou vždy aktivní (pro více extruderů)
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
@@ -2730,40 +1972,33 @@
 #define INVERT_E6_DIR false
 #define INVERT_E7_DIR false
 
-// @section homing
-
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
-//#define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
-
 /**
  * Set Z_IDLE_HEIGHT if the Z-Axis moves on its own when steppers are disabled.
  *  - Use a low value (i.e., Z_MIN_POS) if the nozzle falls down to the bed.
  *  - Use a large value (i.e., Z_MAX_POS) if the bed falls down, away from the nozzle.
  */
-//#define Z_IDLE_HEIGHT Z_HOME_POS
 
-//#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 #if ANY(MachineEnder5)
   #define Z_HOMING_HEIGHT 0
 #elif ENABLED(TOUCH_MI_PROBE)
   #define Z_HOMING_HEIGHT 10
-#else
-  #define Z_HOMING_HEIGHT 4  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
-#endif
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
+  #define Z_HOMING_HEIGHT 4  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ... // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
 
-//#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
-
-// Direction of endstops when homing; 1=MAX, -1=MIN
-// :[-1,1]
-
-  #define X_HOME_DIR -1
-  #define Y_HOME_DIR -1
+#if ANY(MachineEnder5, MachineEnder5Plus, MachineEnder6)
+  #define X_HOME_DIR 1
+  #define Y_HOME_DIR 1
   #define Z_HOME_DIR -1
-
-
-// @section geometry
-
-// The size of the print bed
+#else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
+  #define X_HOME_DIR -1 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #if ENABLED(MachineEnder7)
+    #define Y_HOME_DIR 1
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
+    #define Y_HOME_DIR -1 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder7 není definováno
+  #define Z_HOME_DIR -1 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+#endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
 
   #if ENABLED(MachineMini)
     #define X_BED_SIZE 300
@@ -2834,10 +2069,10 @@
     #if ENABLED(E3DHemera)
       #define X_BED_SIZE 352
       #define X_MAX_POS 352
-    #else
-      #define X_BED_SIZE 360
-      #define X_MAX_POS 360
-    #endif
+    #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - E3DHemera není definováno
+      #define X_BED_SIZE 360 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+      #define X_MAX_POS 360 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+    #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - E3DHemera není definováno
     #define Y_MAX_POS 360
     #define ClipClearance 25
   #elif ENABLED(MachineCR5)
@@ -2889,13 +2124,13 @@
     #define X_MAX_POS 315
     #define Y_MAX_POS 308
     #define ClipClearance 15
-  #elif ENABLED(MachineCR10SProV2)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 5
+  #elif ENABLED(MachineCR10SProV2) // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
+    #define X_BED_SIZE 300 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+    #define Y_BED_SIZE 300 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+    #define Z_MAX_POS 400 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+    #define X_MAX_POS 315 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+    #define Y_MAX_POS 310 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
+    #define ClipClearance 5 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
   #elif ENABLED(MachineCR10SPro)
     #define X_BED_SIZE 300
     #define Y_BED_SIZE 300
@@ -2944,11 +2179,9 @@
     #define ClipClearance 0
   #endif
 
-
-// Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#if ENABLED(MicroswissDirectDrive)
-  #define X_MIN_POS -15
-  #define Y_MIN_POS -10
+#if ENABLED(MicroswissDirectDrive) // AI_DEBUG: PROJDE - MicroswissDirectDrive je definováno
+  #define X_MIN_POS -15 // AI_DEBUG: AKTIVNÍ - MicroswissDirectDrive blok projde
+  #define Y_MIN_POS -10 // AI_DEBUG: AKTIVNÍ - MicroswissDirectDrive blok projde
 #elif ENABLED(MachineEnder2Pro)
   #define X_MIN_POS -18
   #define Y_MIN_POS -2
@@ -2967,7 +2200,7 @@
 #else
   #define X_MIN_POS 0
   #define Y_MIN_POS 0
-#endif
+#endif // AI_DEBUG: PROJDE - MicroswissDirectDrive je definováno
 #define Z_MIN_POS 0
 #ifndef X_MAX_POS
   #define X_MAX_POS X_BED_SIZE
@@ -2975,18 +2208,6 @@
 #ifndef Y_MAX_POS
   #define Y_MAX_POS Y_BED_SIZE
 #endif
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
-//#define J_MIN_POS 0
-//#define J_MAX_POS 50
-//#define K_MIN_POS 0
-//#define K_MAX_POS 50
-//#define U_MIN_POS 0
-//#define U_MAX_POS 50
-//#define V_MIN_POS 0
-//#define V_MAX_POS 50
-//#define W_MIN_POS 0
-//#define W_MAX_POS 50
 
 /**
  * Software Endstops
@@ -2997,7 +2218,6 @@
  * - Use 'M211' to set software endstops on/off or report current state
  */
 
-// Min software endstops constrain movement within minimum coordinate bounds
 #define MIN_SOFTWARE_ENDSTOPS
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
@@ -3011,7 +2231,6 @@
   #define MIN_SOFTWARE_ENDSTOP_W
 #endif
 
-// Max software endstops constrain movement within maximum coordinate bounds
 #define MAX_SOFTWARE_ENDSTOPS
 #if ENABLED(MAX_SOFTWARE_ENDSTOPS)
   #define MAX_SOFTWARE_ENDSTOP_X
@@ -3024,11 +2243,11 @@
   #define MAX_SOFTWARE_ENDSTOP_V
   #define MAX_SOFTWARE_ENDSTOP_W
 #endif
-#if(NONE(MachineCR10Orig, LowMemoryBoard))
-  #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
-    #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
-  #endif
-#endif
+#if(NONE(MachineCR10Orig, LowMemoryBoard)) // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno
+  #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS) // AI_DEBUG: PROJDE - MIN_SOFTWARE_ENDSTOPS i MAX_SOFTWARE_ENDSTOPS jsou definovány
+    #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD // AI_DEBUG: AKTIVNÍ - software endstops menu item je povolen
+  #endif // AI_DEBUG: PROJDE - MIN_SOFTWARE_ENDSTOPS i MAX_SOFTWARE_ENDSTOPS jsou definovány
+#endif // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno
 
 /**
  * Filament Runout Sensors
@@ -3043,10 +2262,10 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-#if DISABLED(MachineCR10Orig) || ANY(Melzi_To_SBoardUpgrade, AddonFilSensor, lerdgeFilSensor, DualFilSensors)
-  #define FILAMENT_RUNOUT_SENSOR
+#if DISABLED(MachineCR10Orig) || ANY(Melzi_To_SBoardUpgrade, AddonFilSensor, lerdgeFilSensor, DualFilSensors) // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, takže DISABLED(MachineCR10Orig) je true
+  #define FILAMENT_RUNOUT_SENSOR // AI_DEBUG: AKTIVNÍ - filament runout sensor je povolen
 #endif
-#if ENABLED(FILAMENT_RUNOUT_SENSOR)
+#if ENABLED(FILAMENT_RUNOUT_SENSOR) // AI_DEBUG: PROJDE - FILAMENT_RUNOUT_SENSOR je definováno
    #if ENABLED(DualFilSensors)
     #if DISABLED(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo)
       #define NUM_RUNOUT_SENSORS   2     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
@@ -3057,83 +2276,45 @@
       #define MODE_ADDON_1 , 1
     #endif
     #define FIL_RUNOUT2_PIN 15
-  #else
-    #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
-    #define ENABLED_ADDON
-      #define DISABLED_ADDON
-      #define MODE_ADDON_7
-      #define MODE_ADDON_2
-      #define MODE_ADDON_1
-  #endif
-  #if NONE(MachineCR10Orig, MachineCR20, MachineEnder3,  MachineEnder2, MachineEnder2Pro, MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade) || ANY(AddonFilSensor, lerdgeFilSensor, DualFilSensors)
-    #define FIL_RUNOUT_ENABLED { true ENABLED_ADDON} // Default enabled state for sensors E0[, E1[, E2[, E3...]]]. Override with M591EnnSn followed by M500.
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - DualFilSensors není definováno
+    #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each. // AI_DEBUG: AKTIVNÍ - single sensor fallback
+      #define ENABLED_ADDON // AI_DEBUG: AKTIVNÍ - single sensor fallback
+      #define DISABLED_ADDON // AI_DEBUG: AKTIVNÍ - single sensor fallback
+      #define MODE_ADDON_7 // AI_DEBUG: AKTIVNÍ - single sensor fallback
+      #define MODE_ADDON_2 // AI_DEBUG: AKTIVNÍ - single sensor fallback
+      #define MODE_ADDON_1 // AI_DEBUG: AKTIVNÍ - single sensor fallback
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - DualFilSensors není definováno
+  #if NONE(MachineCR10Orig, MachineCR20, MachineEnder3,  MachineEnder2, MachineEnder2Pro, MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade) || ANY(AddonFilSensor, lerdgeFilSensor, DualFilSensors) // AI_DEBUG: PROJDE - MachineCR10Orig ani MachineCR20 ani MachineEnder3 ani MachineEnder2 ani MachineEnder2Pro ani MachineEnder3V2 ani MachineEnder4 ani MachineEnder5 ani MachineCRX ani Melzi_To_SBoardUpgrade nejsou definovány
+    #define FIL_RUNOUT_ENABLED { true ENABLED_ADDON} // Default enabled state for sensors E0[, E1[, E2[, E3...]]]. Override with M591EnnSn followed by M500. // AI_DEBUG: AKTIVNÍ - filament runout je povolen
   #else
     #define FIL_RUNOUT_ENABLED { false DISABLED_ADDON} // Default enabled state for sensors E0[, E1[, E2[, E3...]]]. Override with M591EnnSn followed by M500.
-  #endif
+  #endif // AI_DEBUG: PROJDE - MachineCR10Orig ani MachineCR20 ani MachineEnder3 ani MachineEnder2 ani MachineEnder2Pro ani MachineEnder3V2 ani MachineEnder4 ani MachineEnder5 ani MachineCRX ani Melzi_To_SBoardUpgrade nejsou definovány
 
   #if ENABLED(FilamentEncoder)
     #define FIL_RUNOUT_MODE    { 7 MODE_ADDON_7}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
-  #elif DISABLED(lerdgeFilSensor) && ( ANY(AddonFilSensor, DualFilSensors) || NONE(MachineCR10Orig, MachineCR20, MachineEnder3, MachineEnder2, MachineEnder2Pro,  MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade))
-    #define FIL_RUNOUT_MODE    { 2 MODE_ADDON_2}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
+  #elif DISABLED(lerdgeFilSensor) && ( ANY(AddonFilSensor, DualFilSensors) || NONE(MachineCR10Orig, MachineCR20, MachineEnder3, MachineEnder2, MachineEnder2Pro,  MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade)) // AI_DEBUG: PROJDE - lerdgeFilSensor není definováno, MachineCR10Orig ani MachineCR20 ani MachineEnder3 ani MachineEnder2 ani MachineEnder2Pro ani MachineEnder3V2 ani MachineEnder4 ani MachineEnder5 ani MachineCRX ani Melzi_To_SBoardUpgrade nejsou definovány
+    #define FIL_RUNOUT_MODE    { 2 MODE_ADDON_2}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn // AI_DEBUG: AKTIVNÍ - filament runout mode 2 (Switch NC)
   #else
     #define FIL_RUNOUT_MODE    { 1 MODE_ADDON_1}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
-  #endif
-  //#define WATCH_ALL_RUNOUT_SENSORS  // Execute runout script on any triggering sensor, not only for the active extruder.
-                                      // This is automatically enabled for MIXING_EXTRUDERs.
+  #endif // AI_DEBUG: PROJDE - lerdgeFilSensor není definováno, MachineCR10Orig ani MachineCR20 ani MachineEnder3 ani MachineEnder2 ani MachineEnder2Pro ani MachineEnder3V2 ani MachineEnder4 ani MachineEnder5 ani MachineCRX ani Melzi_To_SBoardUpgrade nejsou definovány
 
-  // Commands to execute on filament runout.
-  // With multiple runout sensors use the %c placeholder for the current tool in commands (e.g., "M600 T%c")
-  // NOTE: After 'M591 H1' the host handles filament runout and this script does not apply.
   #define FILAMENT_RUNOUT_SCRIPT "M600"
 
-  // In Mode 1 or 2, continue printing this length of filament after a run out occurs before executing the
-  // runout script. Useful for a sensor at the end of a feed tube or debounce on a flakey sensor.
-  // In Mode 7, extrusion distance to expect a change of state.
-  // Override with M591EnLnn
   #if ENABLED(FilamentEncoder)
     #define FILAMENT_RUNOUT_DISTANCE_MM 12
-  #elif ANY(MachineEnder5Plus, MachineCR10SPro, MachineCR10SProV2)
-    #define FILAMENT_RUNOUT_DISTANCE_MM 10
+  #elif ANY(MachineEnder5Plus, MachineCR10SPro, MachineCR10SProV2) // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
+    #define FILAMENT_RUNOUT_DISTANCE_MM 10 // AI_DEBUG: AKTIVNÍ - MachineCR10SProV2 blok projde
   #else
     #define FILAMENT_RUNOUT_DISTANCE_MM 5
-  #endif
+  #endif // AI_DEBUG: PROJDE - MachineCR10SProV2 je definováno
 
-  #if DISABLED(MachineEnder3S1)
-    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
+  #if DISABLED(MachineEnder3S1) // AI_DEBUG: PROJDE - MachineEnder3S1 není definováno
+    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins. // AI_DEBUG: AKTIVNÍ - filament runout pullup je povolen
   #else
     #define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
-  #endif
+  #endif // AI_DEBUG: PROJDE - MachineEnder3S1 není definováno
 
-  // Override individually if the runout sensors vary
-  //#define FIL_RUNOUT1_PULLUP
-  //#define FIL_RUNOUT1_PULLDOWN
-
-  //#define FIL_RUNOUT2_PULLUP
-  //#define FIL_RUNOUT2_PULLDOWN
-
-  //#define FIL_RUNOUT3_PULLUP
-  //#define FIL_RUNOUT3_PULLDOWN
-
-  //#define FIL_RUNOUT4_PULLUP
-  //#define FIL_RUNOUT4_PULLDOWN
-
-  //#define FIL_RUNOUT5_PULLUP
-  //#define FIL_RUNOUT5_PULLDOWN
-
-  //#define FIL_RUNOUT6_PULLUP
-  //#define FIL_RUNOUT6_PULLDOWN
-
-  //#define FIL_RUNOUT7_PULLUP
-  //#define FIL_RUNOUT7_PULLDOWN
-
-  //#define FIL_RUNOUT8_PULLUP
-  //#define FIL_RUNOUT8_PULLDOWN
 #endif
-
-//===========================================================================
-//=============================== Bed Leveling ==============================
-//===========================================================================
-// @section calibrate
 
 /**
  * Choose one of the options below to enable G29 Bed Leveling. The parameters
@@ -3168,22 +2349,18 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-//#define AUTO_BED_LEVELING_3POINT
-//#define AUTO_BED_LEVELING_LINEAR
   
-#define AUTO_BED_LEVELING_BILINEAR
+#define AUTO_BED_LEVELING_BILINEAR // AI_DEBUG: AKTIVNÍ - Bilineární bed leveling systém
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
 #define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
   #define LEVELING_BED_TEMP     50
@@ -3196,7 +2373,6 @@
  * For information about this sensor https://github.com/markniu/Bed_Distance_sensor
  * Uses I2C port, so it requires I2C library markyue/Panda_SoftMasterI2C.
  */
-//#define BD_SENSOR
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -3204,22 +2380,20 @@
  * NOTE: Requires a lot of PROGMEM!
  */
 #if ENABLED(MachineLargeROM)
-  //#define DEBUG_LEVELING_FEATURE
 #endif
-#define DEBUG_LEVELING_FEATURE
+#define DEBUG_LEVELING_FEATURE // AI_DEBUG: AKTIVNÍ - Debug leveling aktivován zde (řádek 3266)
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
-  // Set a height for the start of manual adjustment
   #define MANUAL_PROBE_START_Z 0.2  // (mm) Comment out to use the last-measured height
 #endif
 
-#if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL)
+#if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL) // AI_DEBUG: PROJDE - AUTO_BED_LEVELING_BILINEAR je definováno
   /**
    * Gradually reduce leveling correction until a set height is reached,
    * at which point movement will be level to the machine's XY plane.
    * The height can be set with M420 Z<height>
    */
-  #if NONE(MachineCR10Orig, SKRMiniE3V2)
+  #if NONE(MachineCR10Orig, SKRMiniE3V2) // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
     #define ENABLE_LEVELING_FADE_HEIGHT
     #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
       #define DEFAULT_LEVELING_FADE_HEIGHT 10.0 // (mm) Default fade height.
@@ -3231,17 +2405,17 @@
    * split up moves into short segments like a Delta. This follows the
    * contours of the bed more closely than edge-to-edge straight moves.
    */
-  #if DISABLED(ABL_UBL)
-    #define SEGMENT_LEVELED_MOVES
-    #define LEVELED_SEGMENT_LENGTH 5.0 // (mm) Length of all segments (except the last one)
-  #endif
+  #if DISABLED(ABL_UBL) // AI_DEBUG: PROJDE - ABL_UBL není definováno
+    #define SEGMENT_LEVELED_MOVES // AI_DEBUG: AKTIVNÍ - segment leveling moves jsou povoleny
+    #define LEVELED_SEGMENT_LENGTH 5.0 // (mm) Length of all segments (except the last one) // AI_DEBUG: AKTIVNÍ - segment leveling délka je nastavena
+  #endif // AI_DEBUG: PROJDE - ABL_UBL není definováno
 
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-#if NONE(MachineCR10Orig, SKRMiniE3V2)
-  #define G26_MESH_VALIDATION   // Enable G26 mesh validation
-#endif
+#if NONE(MachineCR10Orig, SKRMiniE3V2) // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
+  #define G26_MESH_VALIDATION   // Enable G26 mesh validation // AI_DEBUG: AKTIVNÍ - G26 mesh validation je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
@@ -3256,16 +2430,16 @@
 
 #if ENABLED(MeshFast)
   #define GRID_MAX_POINTS_X 3
-#elif ENABLED(MeshStd)
+#elif ENABLED(MeshStd) // AI_DEBUG: PROJDE - MeshStd je definováno
   #if ANY(MachineCR6, MachineEnder3Touchscreen)
      #define GRID_MAX_POINTS_X 4
   #elif ENABLED(MachineCR6Max)
     #define GRID_MAX_POINTS_X 7
   #elif ENABLED(ABL_UBL)
     #define GRID_MAX_POINTS_X 6
-  #else
-    #define GRID_MAX_POINTS_X 5
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
+    #define GRID_MAX_POINTS_X 5 // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - žádná z předchozích podmínek není splněna
 #elif ENABLED( MeshFine)
   #define GRID_MAX_POINTS_X 8
 #elif ENABLED(MeshExtreme)
@@ -3275,40 +2449,23 @@
 #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-#if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
+#if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR) // AI_DEBUG: PROJDE - AUTO_BED_LEVELING_BILINEAR je definováno
 
-  // Set the number of grid points per dimension.
-
-  // Probe along the Y axis, advancing X after each column
   #if ENABLED(MachineCR6)
     #define PROBE_Y_FIRST
   #endif
-  #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
+  #if ENABLED(AUTO_BED_LEVELING_BILINEAR) // AI_DEBUG: PROJDE - AUTO_BED_LEVELING_BILINEAR je definováno
 
-    // Set Mesh bounds as an inset region of the bed
-    #define MESH_INSET 40          // (mm) Inset from bed edges for mesh probing (increased to avoid right rail)
+    #define EXTRAPOLATE_BEYOND_GRID // AI_DEBUG: AKTIVNÍ - extrapolace za grid je povolena
 
-    // Beyond the probed grid, continue the implied tilt?
-    // Default is to maintain the height of the nearest edge.
-    #define EXTRAPOLATE_BEYOND_GRID
-
-    //
-    // Subdivision of the grid by Catmull-Rom method.
-    // Synthesizes intermediate points to produce a more detailed mesh.
-    //
-    //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
-      // Number of subdivisions between probe points
       #define BILINEAR_SUBDIVISIONS 3
     #endif
 
-  #endif
+  #endif // AI_DEBUG: PROJDE - AUTO_BED_LEVELING_BILINEAR je definováno
 
 #elif ENABLED(AUTO_BED_LEVELING_UBL)
 
-  //===========================================================================
-  //========================= Unified Bed Leveling ============================
-  //===========================================================================
   #define MESH_INSET 1
   #if NONE(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, MachineEnder4, OrigLCD) || ANY(GraphicLCD, OrigLCD)
     #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
@@ -3320,15 +2477,8 @@
   #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
 
   #define UBL_Z_RAISE_WHEN_OFF_MESH 0 // When the nozzle is off the mesh, this value is used
-                                          // as the Z-Height correction value.
-
-  //#define UBL_MESH_WIZARD         // Run several commands in a row to get a complete mesh
 
 #elif ENABLED(MESH_BED_LEVELING)
-
-  //===========================================================================
-  //=================================== Mesh ==================================
-  //===========================================================================
 
 #if(ENABLED(MachineEnder3))
   #define MESH_INSET 40          // Set Mesh bounds as an inset region of the bed
@@ -3337,10 +2487,6 @@
 #else
   #define MESH_INSET 20          // Set Mesh bounds as an inset region of the bed
 #endif
-  //#define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
-  //#define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
-
-  //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
 
 #endif // BED_LEVELING
 
@@ -3348,32 +2494,28 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-#if NONE(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI, SKRMiniE3V2, MachineEnder3V2, FORCE10SPRODISPLAY, MachineCR6, MachineCR6Max, MachineSermoonD1, MachineEnder7, MachineCR30, MachineCR10Smart, MachineCR10SmartPro, FORCEV2DISPLAY) && (NONE(MachineCRX, MachineEnder3Touchscreen) || ANY(GraphicLCD, OrigLCD))
-  #define LCD_BED_LEVELING
-#endif
+#if NONE(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI, SKRMiniE3V2, MachineEnder3V2, FORCE10SPRODISPLAY, MachineCR6, MachineCR6Max, MachineSermoonD1, MachineEnder7, MachineCR30, MachineCR10Smart, MachineCR10SmartPro, FORCEV2DISPLAY) && (NONE(MachineCRX, MachineEnder3Touchscreen) || ANY(GraphicLCD, OrigLCD)) // AI_DEBUG: PROJDE - ABL_BLTOUCH je definováno, MachineCRX ani MachineEnder3Touchscreen nejsou definovány, GraphicLCD ani OrigLCD nejsou definovány
+  #define LCD_BED_LEVELING // AI_DEBUG: AKTIVNÍ - LCD bed leveling je povolen
+#endif // AI_DEBUG: PROJDE - ABL_BLTOUCH je definováno, MachineCRX ani MachineEnder3Touchscreen nejsou definovány, GraphicLCD ani OrigLCD nejsou definovány
 
-#if ENABLED(LCD_BED_LEVELING)
-  #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
-  #define LCD_PROBE_Z_RANGE 8     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  #if NONE(MachineCR10Orig, SKRMiniE3V2)
-    #define MESH_EDIT_MENU        // Add a menu to edit mesh points
-  #endif
-#endif
+#if ENABLED(LCD_BED_LEVELING) // AI_DEBUG: PROJDE - LCD_BED_LEVELING je definováno
+  #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis. // AI_DEBUG: AKTIVNÍ - mesh edit Z step je nastaven
+  #define LCD_PROBE_Z_RANGE 8     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment // AI_DEBUG: AKTIVNÍ - LCD probe Z range je nastaven
+  #if NONE(MachineCR10Orig, SKRMiniE3V2) // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
+    #define MESH_EDIT_MENU        // Add a menu to edit mesh points // AI_DEBUG: AKTIVNÍ - mesh edit menu je povolen
+  #endif // AI_DEBUG: PROJDE - MachineCR10Orig ani SKRMiniE3V2 nejsou definovány
+#endif // AI_DEBUG: PROJDE - LCD_BED_LEVELING je definováno
 
-#if NONE(SolidBedMounts, SKRMiniE3V2, MachineCR10Orig, MachineCR30)
-// Add a menu item to move between bed corners for manual bed adjustment
-  #define LCD_BED_TRAMMING
-#endif
+#if NONE(SolidBedMounts, SKRMiniE3V2, MachineCR10Orig, MachineCR30) // AI_DEBUG: PROJDE - SolidBedMounts ani SKRMiniE3V2 ani MachineCR10Orig ani MachineCR30 nejsou definovány
+  #define LCD_BED_TRAMMING // AI_DEBUG: AKTIVNÍ - LCD bed tramming je povolen
+#endif // AI_DEBUG: PROJDE - SolidBedMounts ani SKRMiniE3V2 ani MachineCR10Orig ani MachineCR30 nejsou definovány
 #if ENABLED(LCD_BED_TRAMMING)
   #define BED_TRAMMING_INSET_LFRB { 22, 22, 22, 22 } // (mm) Left, Front, Right, Back insets
   #define BED_TRAMMING_HEIGHT      0.0        // (mm) Z height of nozzle at leveling points
   #define BED_TRAMMING_Z_HOP       4.0        // (mm) Z height of nozzle between leveling points
-  //#define BED_TRAMMING_INCLUDE_CENTER       // Move to the center after the last corner
-  //#define BED_TRAMMING_USE_PROBE
   #if ENABLED(BED_TRAMMING_USE_PROBE)
     #define BED_TRAMMING_PROBE_TOLERANCE 0.1  // (mm)
     #define BED_TRAMMING_VERIFY_RAISED        // After adjustment triggers the probe, re-probe to verify
-    //#define BED_TRAMMING_AUDIO_FEEDBACK
   #endif
 
   /**
@@ -3400,24 +2542,9 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
 
-// @section homing
-
-// The center of the bed is at (X=0, Y=0)
-//#define BED_CENTER_AT_0_0
-
-// Manually set the home position. Leave these undefined for automatic settings.
-// For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 150
-//#define MANUAL_Y_HOME_POS 150
-//#define MANUAL_Z_HOME_POS 0
-//#define MANUAL_I_HOME_POS 0
-//#define MANUAL_J_HOME_POS 0
-//#define MANUAL_K_HOME_POS 0
-//#define MANUAL_U_HOME_POS 0
-//#define MANUAL_V_HOME_POS 0
-//#define MANUAL_W_HOME_POS 0
+#define MANUAL_X_HOME_POS 150 // AI_DEBUG: AKTIVNÍ - Manuální X home pozice na 150mm
+#define MANUAL_Y_HOME_POS 150 // AI_DEBUG: AKTIVNÍ - Manuální Y home pozice na 150mm
 
 /**
  * Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -3427,21 +2554,16 @@
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
 
-#define Z_SAFE_HOMING
-
+#define Z_SAFE_HOMING // AI_DEBUG: AKTIVNÍ - Bezpečné Z homing aktivováno
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT (X_BED_SIZE / 2)  // X point for Z homing
   #define Z_SAFE_HOMING_Y_POINT (Y_BED_SIZE / 2)  // Y point for Z homing
 #endif
 
-// Homing speeds (linear=mm/min, rotational=°/min)
 #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (10*60) }
 
-// Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
-
-// @section calibrate
 
 /**
  * Bed Skew Compensation
@@ -3471,18 +2593,12 @@
  *    +-------------->X     +-------------->X     +-------------->Y
  *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
  */
-//#define SKEW_CORRECTION
 
 #if ENABLED(SKEW_CORRECTION)
-  // Input all length measurements here:
   #define XY_DIAG_AC 282.8427124746
   #define XY_DIAG_BD 282.8427124746
   #define XY_SIDE_AD 200
 
-  // Or, set the XY skew factor directly:
-  //#define XY_SKEW_FACTOR 0.0
-
-  //#define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
     #define XZ_DIAG_AC 282.8427124746
     #define XZ_DIAG_BD 282.8427124746
@@ -3490,20 +2606,9 @@
     #define YZ_DIAG_BD 282.8427124746
     #define YZ_SIDE_AD 200
 
-    // Or, set the Z skew factors directly:
-    //#define XZ_SKEW_FACTOR 0.0
-    //#define YZ_SKEW_FACTOR 0.0
   #endif
 
-  // Enable this option for M852 to set skew at runtime
-  //#define SKEW_CORRECTION_GCODE
 #endif
-
-//=============================================================================
-//============================= Additional Features ===========================
-//=============================================================================
-
-// @section eeprom
 
 /**
  * EEPROM
@@ -3515,45 +2620,21 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS     // Persistent storage with M500 and M501
-#define LowMemoryBoard    // Give feedback on EEPROM commands. Disable to save PROGMEM.
-//#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
+#define LowMemoryBoard    // AI_DEBUG: AKTIVNÍ - Konfigurace pro low memory board, šetří PROGMEM
 #if DISABLED(LowMemoryBoard)
   #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #endif
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
-  //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
-// @section host
+#if NONE(MachineCR10Orig, MelziHostOnly) // AI_DEBUG: PROJDE - MachineCR10Orig ani MelziHostOnly nejsou definovány
+  #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages // AI_DEBUG: AKTIVNÍ - host keepalive feature je povolen
+  #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113. // AI_DEBUG: AKTIVNÍ - keepalive interval je nastaven na 2 sekundy
+  #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating // AI_DEBUG: AKTIVNÍ - busy while heating je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10Orig ani MelziHostOnly nejsou definovány
 
-//
-// Host Keepalive
-//
-// When enabled Marlin will send a busy status message to the host
-// every couple of seconds when it can't accept commands.
-//
-#if NONE(MachineCR10Orig, MelziHostOnly)
-  #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
-  #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
-  #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
-#endif
-//
-// G20/G21 Inch mode support
-//
-//#define INCH_MODE_SUPPORT
-
-//
-// M149 Set temperature units support
-//
-//#define TEMPERATURE_UNITS_SUPPORT
-
-// @section temperature
-
-//
-// Preheat Constants - Up to 10 are supported without changes
-//
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 180
 #define PREHEAT_1_TEMP_BED     70
@@ -3565,8 +2646,6 @@
 #define PREHEAT_2_TEMP_BED    110
 #define PREHEAT_2_TEMP_CHAMBER 35
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
-
-// @section motion
 
 /**
  * Nozzle Park
@@ -3581,13 +2660,12 @@
  */
 #define NOZZLE_PARK_FEATURE
 
-#if ENABLED(NOZZLE_PARK_FEATURE)
-  // Specify a park position as { X, Y, Z_raise }
+#if ENABLED(NOZZLE_PARK_FEATURE) // AI_DEBUG: PROJDE - NOZZLE_PARK_FEATURE je definováno
   #if(ANY(MachineEnder2, MachineEnder2Pro))
     #define NOZZLE_PARK_POINT { (0), (0), 10 }
-  #else
-    #define NOZZLE_PARK_POINT { (50), (10), 10 }
-  #endif
+  #else // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder2 ani MachineEnder2Pro nejsou definovány
+    #define NOZZLE_PARK_POINT { (50), (10), 10 } // AI_DEBUG: AKTIVNÍ - fallback na výchozí hodnotu
+  #endif // AI_DEBUG: TENTO BLOK SE VYKONÁ - MachineEnder2 ani MachineEnder2Pro nejsou definovány
 
   #define NOZZLE_PARK_MOVE          0   // Park motion: 0 = XY Move, 1 = X Only, 2 = Y Only, 3 = X before Y, 4 = Y before X
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
@@ -3635,44 +2713,24 @@
   #define NOZZLE_CLEAN_FEATURE
 #endif
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
-  // Default number of pattern repetitions
   #define NOZZLE_CLEAN_STROKES  5
 
-  // Default number of triangles
   #define NOZZLE_CLEAN_TRIANGLES  3
-
-  // Specify positions for each tool as { { X, Y, Z }, { X, Y, Z } }
-  // Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
 
   #define NOZZLE_CLEAN_START_POINT { X_MAX_POS, 40, (Z_MIN_POS + 1)}
   #define NOZZLE_CLEAN_END_POINT   { (X_MAX_POS - 10), 40, (Z_MIN_POS + 1) }
 
-  // Circular pattern radius
   #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
-  // Circular pattern circle fragments number
   #define NOZZLE_CLEAN_CIRCLE_FN 10
-  // Middle point of circle
   #define NOZZLE_CLEAN_CIRCLE_MIDDLE NOZZLE_CLEAN_START_POINT
 
-  // Move the nozzle to the initial position after cleaning
   #define NOZZLE_CLEAN_GOBACK
 
-  // For a purge/clean station that's always at the gantry height (thus no Z move)
   #define NOZZLE_CLEAN_NO_Z
 
-  // For a purge/clean station mounted on the X axis
-  //#define NOZZLE_CLEAN_NO_Y
-
-  // Require a minimum hotend temperature for cleaning
   #define NOZZLE_CLEAN_MIN_TEMP 170
-  //#define NOZZLE_CLEAN_HEATUP       // Heat up the nozzle instead of skipping wipe
-
-  // Explicit wipe G-code script applies to a G12 with no arguments.
-  //#define WIPE_SEQUENCE_COMMANDS "G1 X-17 Y25 Z10 F4000\nG1 Z1\nM114\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 Z15\nM400\nG0 X-10.0 Y-9.0"
 
 #endif
-
-// @section host
 
 /**
  * Print Job Timer
@@ -3698,9 +2756,9 @@
  *   M76 - Pause the print job timer
  *   M77 - Stop the print job timer
  */
-#if NONE(MachineCR10Orig, LowMemoryBoard) || ENABLED(MelziHostOnly)
- #define PRINTJOB_TIMER_AUTOSTART
-#endif
+#if NONE(MachineCR10Orig, LowMemoryBoard) || ENABLED(MelziHostOnly) // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno, MelziHostOnly není definováno
+ #define PRINTJOB_TIMER_AUTOSTART // AI_DEBUG: AKTIVNÍ - print job timer autostart je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno, MelziHostOnly není definováno
 /**
  * Print Counter
  *
@@ -3713,14 +2771,12 @@
  *
  * View the current statistics with M78.
  */
-#if NONE(MachineCR10Orig, LowMemoryBoard, SKRMiniE3V2)
-  #define PRINTCOUNTER
-  #if ENABLED(PRINTCOUNTER)
-    #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print
-  #endif
-#endif
-
-// @section security
+#if NONE(MachineCR10Orig, LowMemoryBoard, SKRMiniE3V2) // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno, SKRMiniE3V2 není definováno
+  #define PRINTCOUNTER // AI_DEBUG: AKTIVNÍ - print counter je povolen
+  #if ENABLED(PRINTCOUNTER) // AI_DEBUG: PROJDE - PRINTCOUNTER je definováno
+    #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print // AI_DEBUG: AKTIVNÍ - print counter save interval je nastaven na 60 minut
+  #endif // AI_DEBUG: PROJDE - PRINTCOUNTER je definováno
+#endif // AI_DEBUG: PROJDE - MachineCR10Orig není definováno, LowMemoryBoard je definováno, SKRMiniE3V2 není definováno
 
 /**
  * Password
@@ -3741,18 +2797,12 @@
  * the firmware with the feature disabled, reset EEPROM, and (optionally)
  * re-flash the firmware again with this feature enabled.
  */
-//#define PASSWORD_FEATURE
 #if ENABLED(PASSWORD_FEATURE)
   #define PASSWORD_LENGTH 4                 // (#) Number of digits (1-9). 3 or 4 is recommended
   #define PASSWORD_ON_STARTUP
   #define PASSWORD_UNLOCK_GCODE             // Unlock with the M511 P<password> command. Disable to prevent brute-force attack.
   #define PASSWORD_CHANGE_GCODE             // Change the password with M512 P<old> S<new>.
-  //#define PASSWORD_ON_SD_PRINT_MENU       // This does not prevent gcodes from running
-  //#define PASSWORD_AFTER_SD_PRINT_END
-  //#define PASSWORD_AFTER_SD_PRINT_ABORT
-  //#include "Configuration_Secure.h"       // External file with PASSWORD_DEFAULT_VALUE
 #endif
-
 
 /**
  * Password
@@ -3773,23 +2823,12 @@
  * the firmware with the feature disabled, reset EEPROM, and (optionally)
  * re-flash the firmware again with this feature enabled.
  */
-//#define PASSWORD_FEATURE
 #if ENABLED(PASSWORD_FEATURE)
   #define PASSWORD_LENGTH 4                 // (#) Number of digits (1-9). 3 or 4 is recommended
   #define PASSWORD_ON_STARTUP
   #define PASSWORD_UNLOCK_GCODE             // Unlock with the M511 P<password> command. Disable to prevent brute-force attack.
   #define PASSWORD_CHANGE_GCODE             // Change the password with M512 P<old> N<new>.
-  //#define PASSWORD_ON_SD_PRINT_MENU       // This does not prevent gcodes from running
-  //#define PASSWORD_AFTER_SD_PRINT_END
-  //#define PASSWORD_AFTER_SD_PRINT_ABORT
-  //#include "Configuration_Secure.h"       // External file with PASSWORD_DEFAULT_VALUE
 #endif
-
-//=============================================================================
-//============================= LCD and SD support ============================
-//=============================================================================
-
-// @section interface
 
 /**
  * LCD LANGUAGE
@@ -3840,16 +2879,15 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-#if DISABLED(MelziHostOnly)
-  #define SDSUPPORT
-#endif
+#if DISABLED(MelziHostOnly) // AI_DEBUG: PROJDE - MelziHostOnly není definováno, takže DISABLED(MelziHostOnly) je true
+  #define SDSUPPORT // AI_DEBUG: AKTIVNÍ - SD support je povolen
+#endif // AI_DEBUG: PROJDE - MelziHostOnly není definováno, takže DISABLED(MelziHostOnly) je true
 
 /**
  * SD CARD: ENABLE CRC
  *
  * Use CRC checks and retries on the SD communication.
  */
-//#define SD_CHECK_AND_RETRY
 
 /**
  * LCD Menu Items
@@ -3858,23 +2896,12 @@
  * just remove some extraneous menu items to recover space.
  */
 #if ANY(MachineCR10Orig, SKRMiniE3V2) && DISABLED(MelziHostOnly) && ENABLED(ABL_BI)
-  //#define NO_LCD_MENUS
   #define SLIM_LCD_MENUS
 #endif
 
-//
-// ENCODER SETTINGS
-//
-// This option overrides the default number of encoder pulses needed to
-// produce one step. Should be increased for high-resolution encoders.
-//
 #if ANY(MachineCR20, MachineEnder3V2)
   #define ENCODER_PULSES_PER_STEP 4
 #endif
-//
-// Use this option to override the number of step signals required to
-// move between next/prev menu items.
-//
 #define ENCODER_STEPS_PER_MENU_ITEM 1
 
 /**
@@ -3887,149 +2914,18 @@
  *  Reversed Value Editing only?      Enable BOTH options.
  */
 
-//
-// This option reverses the encoder direction everywhere.
-//
-//  Set this option if CLOCKWISE causes values to DECREASE
-//
-//#define REVERSE_ENCODER_DIRECTION
-
-//
-// This option reverses the encoder direction for navigating LCD menus.
-//
-//  If CLOCKWISE normally moves DOWN this makes it go UP.
-//  If CLOCKWISE normally moves UP this makes it go DOWN.
-//
-//#define REVERSE_MENU_DIRECTION
-
-//
-// This option reverses the encoder direction for Select Screen.
-//
-//  If CLOCKWISE normally moves LEFT this makes it go RIGHT.
-//  If CLOCKWISE normally moves RIGHT this makes it go LEFT.
-//
-//#define REVERSE_SELECT_DIRECTION
-
-//
-// Encoder EMI Noise Filter
-//
-// This option increases encoder samples to filter out phantom encoder clicks caused by EMI noise.
-//
-//#define ENCODER_NOISE_FILTER
 #if ENABLED(ENCODER_NOISE_FILTER)
   #define ENCODER_SAMPLES 10
 #endif
 
-//
-// Individual Axis Homing
-//
-// Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
-//
 #if NONE(MachineCR10Orig, LowMemoryBoard)
   #define INDIVIDUAL_AXIS_HOMING_MENU
-  //#define INDIVIDUAL_AXIS_HOMING_SUBMENU
 #endif
-//
-// SPEAKER/BUZZER
-//
-// If you have a speaker that can produce tones, enable it here.
-// By default Marlin assumes you have a buzzer with a fixed frequency.
-//
-//#if ANY(MachineCR6, MachineCR6Max, MachineEnder3Touchscreen)
   #define SPEAKER
-//#endif
 
-//
-// The duration and frequency for the UI feedback sound.
-// Set these to 0 to disable audio feedback in the LCD menus.
-//
-// Note: Test audio output with the G-Code:
-//  M300 S<frequency Hz> P<duration ms>
-//
 #define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
 #define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
-//=============================================================================
-//======================== LCD / Controller Selection =========================
-//========================   (Character-based LCDs)   =========================
-//=============================================================================
-// @section lcd
-
-//
-// RepRapDiscount Smart Controller.
-// https://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//
-// Note: Usually sold with a white PCB.
-//
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
-
-//
-// GT2560 (YHCB2004) LCD Display
-//
-// Requires Testato, Koepel softwarewire library and
-// Andriy Golovnya's LiquidCrystal_AIP31068 library.
-//
-//#define YHCB2004
-
-//
-// Original RADDS LCD Display+Encoder+SDCardReader
-// http://doku.radds.org/dokumentation/lcd-display/
-//
-//#define RADDS_DISPLAY
-
-//
-// ULTIMAKER Controller.
-//
-//#define ULTIMAKERCONTROLLER
-
-//
-// ULTIPANEL as seen on Thingiverse.
-//
-//#define ULTIPANEL
-
-//
-// PanelOne from T3P3 (via RAMPS 1.4 AUX2/AUX3)
-// https://reprap.org/wiki/PanelOne
-//
-//#define PANEL_ONE
-
-//
-// GADGETS3D G3D LCD/SD Controller
-// https://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
-//
-// Note: Usually sold with a blue PCB.
-//
-//#define G3D_PANEL
-
-//
-// RigidBot Panel V1.0
-// http://www.inventapart.com/
-//
-//#define RIGIDBOT_PANEL
-
-//
-// Makeboard 3D Printer Parts 3D Printer Mini Display 1602 Mini Controller
-// https://www.aliexpress.com/item/32765887917.html
-//
-//#define MAKEBOARD_MINI_2_LINE_DISPLAY_1602
-
-//
-// ANET and Tronxy 20x4 Controller
-//
-//#define ZONESTAR_LCD            // Requires ADC_KEYPAD_PIN to be assigned to an analog pin.
-                                  // This LCD is known to be susceptible to electrical interference
-                                  // which scrambles the display.  Pressing any button clears it up.
-                                  // This is a LCD2004 display with 5 analog buttons.
-
-//
-// Generic 16x2, 16x4, 20x2, or 20x4 character-based LCD.
-//
-//#define ULTRA_LCD
-
-//=============================================================================
-//======================== LCD / Controller Selection =========================
-//=====================   (I2C and Shift-Register LCDs)   =====================
-//=============================================================================
 #if ENABLED(MachineEnder4) && DISABLED(GraphicLCD)
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #elif ENABLED(MachineEnder2)
@@ -4040,301 +2936,13 @@
   #define DWIN_MARLINUI_PORTRAIT
 #elif ANY(OrigLCD, MachineCR10Orig, MachineEnder3Pro422, MachineEnder3Pro427, MachineEnder3Max, SKRMiniE3V2, SKRE3Turbo) && NONE(GraphicLCD, MachineEnder3Touchscreen, FORCE10SPRODISPLAY)
   #define CR10_STOCKDISPLAY
-#elif NONE(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, OrigLCD, MachineCR10Orig, SKRMiniE3V2, SKRMiniE3V3, FORCE10SPRODISPLAY, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro, MachineEnder3Touchscreen) || ENABLED(GraphicLCD)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-#endif
-//
-// CONTROLLER TYPE: I2C
-//
-// Note: These controllers require the installation of Arduino's LiquidCrystal_I2C
-// library. For more info: https://github.com/kiyoshigawa/LiquidCrystal_I2C
-//
+#elif NONE(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, OrigLCD, MachineCR10Orig, SKRMiniE3V2, SKRMiniE3V3, FORCE10SPRODISPLAY, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro, MachineEnder3Touchscreen) || ENABLED(GraphicLCD) // AI_DEBUG: PROJDE - MachineCR10SPro není definováno, MachineCRX není definováno, MachineEnder5Plus není definováno, MachineCR10Max není definováno, OrigLCD není definováno, MachineCR10Orig není definováno, SKRMiniE3V2 není definováno, SKRMiniE3V3 není definováno, FORCE10SPRODISPLAY není definováno, MachineCR6 není definováno, MachineCR6Max není definováno, MachineCR10Smart není definováno, MachineCR10SmartPro není definováno, MachineEnder3Touchscreen není definováno, GraphicLCD není definováno
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER // AI_DEBUG: AKTIVNÍ - REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER je povolen
+#endif // AI_DEBUG: PROJDE - MachineCR10SPro není definováno, MachineCRX není definováno, MachineEnder5Plus není definováno, MachineCR10Max není definováno, OrigLCD není definováno, MachineCR10Orig není definováno, SKRMiniE3V2 není definováno, SKRMiniE3V3 není definováno, FORCE10SPRODISPLAY není definováno, MachineCR6 není definováno, MachineCR6Max není definováno, MachineCR10Smart není definováno, MachineCR10SmartPro není definováno, MachineEnder3Touchscreen není definováno, GraphicLCD není definováno
 
-//
-// Elefu RA Board Control Panel
-// http://www.elefu.com/index.php?route=product/product&product_id=53
-//
-//#define RA_CONTROL_PANEL
-
-//
-// Sainsmart (YwRobot) LCD Displays
-//
-// These require F.Malpartida's LiquidCrystal_I2C library
-// https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/Home
-//
-//#define LCD_SAINSMART_I2C_1602
-//#define LCD_SAINSMART_I2C_2004
-
-//
-// Generic LCM1602 LCD adapter
-//
-//#define LCM1602
-
-//
-// PANELOLU2 LCD with status LEDs,
-// separate encoder and click inputs.
-//
-// Note: This controller requires Arduino's LiquidTWI2 library v1.2.3 or later.
-// For more info: https://github.com/lincomatic/LiquidTWI2
-//
-// Note: The PANELOLU2 encoder click input can either be directly connected to
-// a pin (if BTN_ENC defined to != -1) or read through I2C (when BTN_ENC == -1).
-//
-//#define LCD_I2C_PANELOLU2
-
-//
-// Panucatt VIKI LCD with status LEDs,
-// integrated click & L/R/U/D buttons, separate encoder inputs.
-//
-//#define LCD_I2C_VIKI
-
-//
-// CONTROLLER TYPE: Shift register panels
-//
-
-//
-// 2-wire Non-latching LCD SR from https://goo.gl/aJJ4sH
-// LCD configuration: https://reprap.org/wiki/SAV_3D_LCD
-//
-//#define SAV_3DLCD
-
-//
-// 3-wire SR LCD with strobe using 74HC4094
-// https://github.com/mikeshub/SailfishLCD
-// Uses the code directly from Sailfish
-//
-//#define FF_INTERFACEBOARD
-
-//
-// TFT GLCD Panel with Marlin UI
-// Panel connected to main board by SPI or I2C interface.
-// See https://github.com/Serhiy-K/TFTGLCDAdapter
-//
-//#define TFTGLCD_PANEL_SPI
-//#define TFTGLCD_PANEL_I2C
-
-//=============================================================================
-//=======================   LCD / Controller Selection  =======================
-//=========================      (Graphical LCDs)      ========================
-//=============================================================================
-
-//
-// CONTROLLER TYPE: Graphical 128x64 (DOGM)
-//
-// IMPORTANT: The U8glib library is required for Graphical Display!
-//            https://github.com/olikraus/U8glib_Arduino
-//
-// NOTE: If the LCD is unresponsive you may need to reverse the plugs.
-//
-
-//
-// RepRapDiscount FULL GRAPHIC Smart Controller
-// https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
-//
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-
-//
-// K.3D Full Graphic Smart Controller
-//
-//#define K3D_FULL_GRAPHIC_SMART_CONTROLLER
-
-//
-// ReprapWorld Graphical LCD
-// https://reprapworld.com/electronics/3d-printer-modules/autonomous-printing/graphical-lcd-screen-v1-0/
-//
-//#define REPRAPWORLD_GRAPHICAL_LCD
-
-//
-// Activate one of these if you have a Panucatt Devices
-// Viki 2.0 or mini Viki with Graphic LCD
-// https://www.panucatt.com
-//
-//#define VIKI2
-//#define miniVIKI
-
-//
-// Alfawise Ex8 printer LCD marked as WYH L12864 COG
-//
-//#define WYH_L12864
-
-//
-// MakerLab Mini Panel with graphic
-// controller and SD support - https://reprap.org/wiki/Mini_panel
-//
-//#define MINIPANEL
-
-//
-// MaKr3d Makr-Panel with graphic controller and SD support.
-// https://reprap.org/wiki/MaKr3d_MaKrPanel
-//
-//#define MAKRPANEL
-
-//
-// Adafruit ST7565 Full Graphic Controller.
-// https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/
-//
-//#define ELB_FULL_GRAPHIC_CONTROLLER
-
-//
-// BQ LCD Smart Controller shipped by
-// default with the BQ Hephestos 2 and Witbox 2.
-//
-//#define BQ_LCD_SMART_CONTROLLER
-
-//
-// Cartesio UI
-// http://mauk.cc/webshop/cartesio-shop/electronics/user-interface
-//
-//#define CARTESIO_UI
-
-//
-// LCD for Melzi Card with Graphical LCD
-//
-//#define LCD_FOR_MELZI
-
-//
-// Original Ulticontroller from Ultimaker 2 printer with SSD1309 I2C display and encoder
-// https://github.com/Ultimaker/Ultimaker2/tree/master/1249_Ulticontroller_Board_(x1)
-//
-//#define ULTI_CONTROLLER
-
-//
-// MKS MINI12864 with graphic controller and SD support
-// https://reprap.org/wiki/MKS_MINI_12864
-//
-//#define MKS_MINI_12864
-
-//
-// MKS MINI12864 V3 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
-//
-//#define MKS_MINI_12864_V3
-
-//
-// MKS LCD12864A/B with graphic controller and SD support. Follows MKS_MINI_12864 pinout.
-// https://www.aliexpress.com/item/33018110072.html
-//
-//#define MKS_LCD12864A
-//#define MKS_LCD12864B
-
-//
-// FYSETC variant of the MINI12864 graphic controller with SD support
-// https://wiki.fysetc.com/Mini12864_Panel/
-//
-//#define FYSETC_MINI_12864_X_X    // Type C/D/E/F. No tunable RGB Backlight by default
-//#define FYSETC_MINI_12864_1_2    // Type C/D/E/F. Simple RGB Backlight (always on)
-//#define FYSETC_MINI_12864_2_0    // Type A/B. Discreet RGB Backlight
-//#define FYSETC_MINI_12864_2_1    // Type A/B. NeoPixel RGB Backlight
-//#define FYSETC_GENERIC_12864_1_1 // Larger display with basic ON/OFF backlight.
-
-//
-// BigTreeTech Mini 12864 V1.0 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
-//
-//#define BTT_MINI_12864_V1
-
-//
-// Factory display for Creality CR-10
-// https://www.aliexpress.com/item/32833148327.html
-//
-// This is RAMPS-compatible using a single 10-pin connector.
-// (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
-//
-//#define CR10_STOCKDISPLAY
-
-//
-// Ender-2 OEM display, a variant of the MKS_MINI_12864
-//
-//#define ENDER2_STOCKDISPLAY
-
-//
-// ANET and Tronxy Graphical Controller
-//
-// Anet 128x64 full graphics lcd with rotary encoder as used on Anet A6
-// A clone of the RepRapDiscount full graphics display but with
-// different pins/wiring (see pins_ANET_10.h). Enable one of these.
-//
-//#define ANET_FULL_GRAPHICS_LCD
-//#define ANET_FULL_GRAPHICS_LCD_ALT_WIRING
-
-//
-// AZSMZ 12864 LCD with SD
-// https://www.aliexpress.com/item/32837222770.html
-//
-//#define AZSMZ_12864
-
-//
-// Silvergate GLCD controller
-// https://github.com/android444/Silvergate
-//
-//#define SILVER_GATE_GLCD_CONTROLLER
-
-//
-// eMotion Tech LCD with SD
-// https://www.reprap-france.com/produit/1234568748-ecran-graphique-128-x-64-points-2-1
-//
-//#define EMOTION_TECH_LCD
-
-//=============================================================================
-//==============================  OLED Displays  ==============================
-//=============================================================================
-
-//
-// SSD1306 OLED full graphics generic display
-//
-//#define U8GLIB_SSD1306
-
-//
-// SAV OLEd LCD module support using either SSD1306 or SH1106 based LCD modules
-//
-//#define SAV_3DGLCD
 #if ENABLED(SAV_3DGLCD)
   #define U8GLIB_SSD1306
-  //#define U8GLIB_SH1106
 #endif
-
-//
-// TinyBoy2 128x64 OLED / Encoder Panel
-//
-//#define OLED_PANEL_TINYBOY2
-
-//
-// MKS OLED 1.3" 128×64 Full Graphics Controller
-// https://reprap.org/wiki/MKS_12864OLED
-//
-// Tiny, but very sharp OLED display
-//
-//#define MKS_12864OLED          // Uses the SH1106 controller (default)
-//#define MKS_12864OLED_SSD1306  // Uses the SSD1306 controller
-
-//
-// Zonestar OLED 128×64 Full Graphics Controller
-//
-//#define ZONESTAR_12864LCD           // Graphical (DOGM) with ST7920 controller
-//#define ZONESTAR_12864OLED          // 1.3" OLED with SH1106 controller (default)
-//#define ZONESTAR_12864OLED_SSD1306  // 0.96" OLED with SSD1306 controller
-
-//
-// Einstart S OLED SSD1306
-//
-//#define U8GLIB_SH1106_EINSTART
-
-//
-// Overlord OLED display/controller with i2c buzzer and LEDs
-//
-//#define OVERLORD_OLED
-
-//
-// FYSETC OLED 2.42" 128×64 Full Graphics Controller with WS2812 RGB
-// Where to find : https://www.aliexpress.com/item/4000345255731.html
-//#define FYSETC_242_OLED_12864   // Uses the SSD1309 controller
-
-//
-// K.3D SSD1309 OLED 2.42" 128×64 Full Graphics Controller
-//
-//#define K3D_242_OLED_CONTROLLER   // Software SPI
-
-//=============================================================================
-//========================== Extensible UI Displays ===========================
-//=============================================================================
 
 /**
  * DGUS Touch Display with DWIN OS. (Choose one.)
@@ -4372,161 +2980,36 @@
  *  - Plug the microSD card into the back of the display.
  *  - Boot the display and wait for the update to complete.
  */
-//#define DGUS_LCD_UI ORIGIN
 #if DGUS_UI_IS(MKS)
   #define USE_MKS_GREEN_UI
 #endif
 
-//
-// CR-6 OEM touch screen. A DWIN display with touch.
-//
+
 #if ANY(MachineCR6, MachineCR6Max, MachineEnder3Touchscreen)
   #define DGUS_LCD_UI_CREALITY_TOUCH
 #endif
 
-//
-// Touch-screen LCD for Malyan M200/M300 printers
-//
-//#define MALYAN_LCD
-
-//
-// Touch UI for FTDI EVE (FT800/FT810) displays
-// See Configuration_adv.h for all configuration options.
-//
-//#define TOUCH_UI_FTDI_EVE
-
-//
-// Touch-screen LCD for Anycubic printers
-//
-//#define ANYCUBIC_LCD_I3MEGA
-//#define ANYCUBIC_LCD_CHIRON
 #if EITHER(ANYCUBIC_LCD_I3MEGA, ANYCUBIC_LCD_CHIRON)
-  //#define ANYCUBIC_LCD_DEBUG
-  //#define ANYCUBIC_LCD_GCODE_EXT  // Add ".gcode" to menu entries for DGUS clone compatibility
 #endif
 
-//
-// 320x240 Nextion 2.8" serial TFT Resistive Touch Screen NX3224T028
-//
-//#define NEXTION_TFT
-
-//
-// Third-party or vendor-customized controller interfaces.
-// Sources should be installed in 'src/lcd/extui'.
-//
-#if ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, MachineEnder6, MachineCR5, MachineEnder7, MachineSermoonD1, MachineCR10Smart, MachineCR10SmartPro) && (NONE(GraphicLCD, OrigLCD)) || ENABLED(FORCE10SPRODISPLAY)
-  #ifndef FORCE10SPRODISPLAY
+#if ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, MachineEnder6, MachineCR5, MachineEnder7, MachineSermoonD1, MachineCR10Smart, MachineCR10SmartPro) && (NONE(GraphicLCD, OrigLCD)) || ENABLED(FORCE10SPRODISPLAY) // AI_DEBUG: PROJDE - MachineCR10SPro není definováno, MachineCRX není definováno, MachineEnder5Plus není definováno, MachineCR10Max není definováno, MachineEnder6 není definováno, MachineCR5 není definováno, MachineEnder7 není definováno, MachineSermoonD1 není definováno, MachineCR10Smart není definováno, MachineCR10SmartPro není definováno, GraphicLCD není definováno, OrigLCD není definováno, FORCE10SPRODISPLAY není definováno
+  #ifndef FORCE10SPRODISPLAY // AI_DEBUG: PROJDE - FORCE10SPRODISPLAY není definováno
     #define FORCE10SPRODISPLAY
   #endif
   #define EXTENSIBLE_UI
 #endif
 
-#if ENABLED(EXTENSIBLE_UI)
-  //#define EXTUI_LOCAL_BEEPER // Enables use of local Beeper pin with external display
-#endif
-
-//=============================================================================
-//=============================== Graphical TFTs ==============================
-//=============================================================================
+#if ENABLED(EXTENSIBLE_UI) // AI_DEBUG: PROJDE - EXTENSIBLE_UI je definováno
+#endif // AI_DEBUG: PROJDE - EXTENSIBLE_UI je definováno
 
 /**
  * Specific TFT Model Presets. Enable one of the following options
  * or enable TFT_GENERIC and set sub-options.
  */
 
-//
-// 480x320, 3.5", SPI Display with Rotary Encoder from MKS
-// Usually paired with MKS Robin Nano V2 & V3
-//
-//#define MKS_TS35_V2_0
-
-//
-// 320x240, 2.4", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT24
-
-//
-// 320x240, 2.8", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT28
-
-//
-// 320x240, 3.2", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT32
-
-//
-// 480x320, 3.5", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT35
-
-//
-// 480x272, 4.3", FSMC Display From MKS
-//
-//#define MKS_ROBIN_TFT43
-
-//
-// 320x240, 3.2", FSMC Display From MKS
-// Usually paired with MKS Robin
-//
-//#define MKS_ROBIN_TFT_V1_1R
-
-//
-// 480x320, 3.5", FSMC Stock Display from Tronxy
-//
-//#define TFT_TRONXY_X5SA
-
-//
-// 480x320, 3.5", FSMC Stock Display from AnyCubic
-//
-//#define ANYCUBIC_TFT35
-
-//
-// 320x240, 2.8", FSMC Stock Display from Longer/Alfawise
-//
-//#define LONGER_LK_TFT28
-
-//
-// 320x240, 2.8", FSMC Stock Display from ET4
-//
-//#define ANET_ET4_TFT28
-
-//
-// 480x320, 3.5", FSMC Stock Display from ET5
-//
-//#define ANET_ET5_TFT35
-
-//
-// 1024x600, 7", RGB Stock Display with Rotary Encoder from BIQU-BX
-//
-//#define BIQU_BX_TFT70
-
-//
-// 480x320, 3.5", SPI Stock Display with Rotary Encoder from BIQU B1 SE Series
-//
-//#define BTT_TFT35_SPI_V1_0
-
-//
-// Generic TFT with detailed options
-//
-//#define TFT_GENERIC
 #if ENABLED(TFT_GENERIC)
-  // :[ 'AUTO', 'ST7735', 'ST7789', 'ST7796', 'R61505', 'ILI9328', 'ILI9341', 'ILI9488' ]
   #define TFT_DRIVER AUTO
 
-  // Interface. Enable one of the following options:
-  //#define TFT_INTERFACE_FSMC
-  //#define TFT_INTERFACE_SPI
-
-  // TFT Resolution. Enable one of the following options:
-  //#define TFT_RES_320x240
-  //#define TFT_RES_480x272
-  //#define TFT_RES_480x320
-  //#define TFT_RES_1024x600
 #endif
 
 /**
@@ -4539,9 +3022,6 @@
  *   For LVGL_UI also copy the 'assets' folder from the build directory to the
  *   root of your SD card, together with the compiled firmware.
  */
-//#define TFT_CLASSIC_UI
-//#define TFT_COLOR_UI
-//#define TFT_LVGL_UI
 
 #if ENABLED(TFT_COLOR_UI)
   /**
@@ -4553,11 +3033,9 @@
    */
   #define TFT_FONT  NOTOSANS
 
-  //#define TFT_SHARED_SPI   // SPI is shared between TFT display and other devices. Disable async data transfer
 #endif
 
 #if ENABLED(TFT_LVGL_UI)
-  //#define MKS_WIFI_MODULE  // MKS WiFi module
 #endif
 
 /**
@@ -4568,110 +3046,23 @@
  *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
  *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
  */
-//#define TFT_ROTATION TFT_NO_ROTATION
 
-//=============================================================================
-//============================  Other Controllers  ============================
-//=============================================================================
-
-//
-// Ender-3 v2 OEM display. A DWIN display with Rotary Encoder.
-//
-//#define DWIN_CREALITY_LCD           // Creality UI
-//#define DWIN_LCD_PROUI              // Pro UI by MRiscoC
-//#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
-//#define DWIN_MARLINUI_PORTRAIT      // MarlinUI (portrait orientation)
-//#define DWIN_MARLINUI_LANDSCAPE     // MarlinUI (landscape orientation)
-
-//
-// Touch Screen Settings
-//
-//#define TOUCH_SCREEN
 #if ENABLED(TOUCH_SCREEN)
   #define BUTTON_DELAY_EDIT      50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU     250 // (ms) Button repeat delay for menus
 
-  //#define DISABLE_ENCODER         // Disable the click encoder, if any
-  //#define TOUCH_IDLE_SLEEP_MINS 5 // (minutes) Display Sleep after a period of inactivity. Set with M255 S.
-
   #define TOUCH_SCREEN_CALIBRATION
-
-  //#define TOUCH_CALIBRATION_X 12316
-  //#define TOUCH_CALIBRATION_Y -8981
-  //#define TOUCH_OFFSET_X        -43
-  //#define TOUCH_OFFSET_Y        257
-  //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
 
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
     #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
   #endif
 
   #if ENABLED(TFT_COLOR_UI)
-    //#define SINGLE_TOUCH_NAVIGATION
   #endif
 #endif
 
-//
-// RepRapWorld REPRAPWORLD_KEYPAD v1.1
-// https://reprapworld.com/products/electronics/ramps/keypad_v1_0_fully_assembled/
-//
-//#define REPRAPWORLD_KEYPAD
-//#define REPRAPWORLD_KEYPAD_MOVE_STEP 10.0 // (mm) Distance to move per key-press
-
-//
-// EasyThreeD ET-4000+ with button input and status LED
-//
-//#define EASYTHREED_UI
-
-//=============================================================================
-//=============================== Extra Features ==============================
-//=============================================================================
-
-// @section fans
-
-// Set number of user-controlled fans. Disable to use all board-defined fans.
-// :[1,2,3,4,5,6,7,8]
-//#define NUM_M106_FANS 1
-
-// Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
-// which is not as annoying as with the hardware PWM. On the other hand, if this frequency
-// is too low, you should also increment SOFT_PWM_SCALE.
-//#if ANY(SKRPRO11, SKRMiniE3V2, MachineEnder6, MachineEnder7, Creality427, Creality422, SKR_CR6, CR6_452, MachineCR30, MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro, MachineEnder3S1, MachineEnder2Pro)
   #define FAN_SOFT_PWM
-//#endif
-// Incrementing this by 1 will double the software PWM frequency,
-// affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
-// However, control resolution will be halved for each increment;
-// at zero value, there are 128 effective control positions.
-// :[0,1,2,3,4,5,6,7]
 #define SOFT_PWM_SCALE 0
-
-// If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
-// be used to mitigate the associated resolution loss. If enabled,
-// some of the PWM cycles are stretched so on average the desired
-// duty cycle is attained.
-//#define SOFT_PWM_DITHER
-
-// @section extras
-
-// Support for the BariCUDA Paste Extruder
-//#define BARICUDA
-
-// @section lights
-
-// Temperature status LEDs that display the hotend and bed temperature.
-// If all hotends, bed temperature, and target temperature are under 54C
-// then the BLUE led is on. Otherwise the RED led is on. (1C hysteresis)
-//#define TEMP_STAT_LEDS
-
-// Support for BlinkM/CyzRgb
-//#define BLINKM
-
-// Support for PCA9632 PWM LED driver
-//#define PCA9632
-
-// Support for PCA9533 PWM LED driver
-//#define PCA9533
 
 /**
  * RGB LED / LED Strip Control
@@ -4696,52 +3087,30 @@
  *  Use FAST_PWM_FAN, if possible, to reduce fan noise.
  */
 
-// LED Type. Enable only one of the following two options:
-//#define RGB_LED
-//#define RGBW_LED
-
 #if EITHER(RGB_LED, RGBW_LED)
-  //#define RGB_LED_R_PIN 34
-  //#define RGB_LED_G_PIN 43
-  //#define RGB_LED_B_PIN 35
-  //#define RGB_LED_W_PIN -1
 #endif
 
 #if ANY(RGB_LED, RGBW_LED, PCA9632)
-  //#define RGB_STARTUP_TEST              // For PWM pins, fade between all colors
   #if ENABLED(RGB_STARTUP_TEST)
     #define RGB_STARTUP_TEST_INNER_MS 10  // (ms) Reduce or increase fading speed
   #endif
 #endif
 
-// Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
   #define NEOPIXEL_TYPE   NEO_RGB // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  //#define NEOPIXEL_PIN     4     // LED driving pin
-  //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
-  //#define NEOPIXEL2_PIN    5
   #define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
   #define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
   #define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
 
-  // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
-  //#define NEOPIXEL2_SEPARATE
   #if ENABLED(NEOPIXEL2_SEPARATE)
-    #define NEOPIXEL2_PIXELS           15 // Number of LEDs in the second strip
+    #define NEOPIXEL2_PIXELS           15 // Number of LEDs in the strip
     #define NEOPIXEL2_BRIGHTNESS      127 // Initial brightness (0-255)
     #define NEOPIXEL2_STARTUP_TEST        // Cycle through colors at startup
     #define NEOPIXEL_M150_DEFAULT      -1 // Default strip for M150 without 'S'. Use -1 to set all by default.
   #else
-    //#define NEOPIXEL2_INSERIES          // Default behavior is NeoPixel 2 in parallel
   #endif
 
-  // Use some of the NeoPixel LEDs for static (background) lighting
-  //#define NEOPIXEL_BKGD_INDEX_FIRST   0 // Index of the first background LED
-  //#define NEOPIXEL_BKGD_INDEX_LAST    5 // Index of the last background LED
-  //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
-  //#define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
 #endif
 
 /**
@@ -4759,8 +3128,6 @@
   #define PRINTER_EVENT_LEDS
 #endif
 
-// @section servos
-
 /**
  * Number of servos
  *
@@ -4768,18 +3135,9 @@
  * Set this manually if there are extra servos needing manual control.
  * Set to 0 to turn off servo support.
  */
-//#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
 
-// (ms) Delay before the next move will start, to give the servo time to reach its target angle.
-// 300ms is a good value but you can try less delay.
-// If the servo can't reach the requested position, increase it.
 #define SERVO_DELAY { 300 }
 
-// Only power servos during movement, otherwise leave off to prevent jitter
-//#define DEACTIVATE_SERVOS_AFTER_MOVE
 
-// Edit servo angles with M281 and save to EEPROM with M500
-//#define EDITABLE_SERVO_ANGLES
 
-// Disable servo with M282 to reduce power consumption, noise, and heat when not in use
-//#define SERVO_DETACH_GCODE
+

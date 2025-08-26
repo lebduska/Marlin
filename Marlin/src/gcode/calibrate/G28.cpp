@@ -26,11 +26,7 @@
 
 #include "../../module/endstops.h"
 #include "../../module/planner.h"
-#include "../../module/stepper.h" // for various
-
-#if HAS_MULTI_HOTEND
-  #include "../../module/tool_change.h"
-#endif
+#include "../../module/stepper.h" // pro různé funkce
 
 #if HAS_LEVELING
   #include "../../feature/bedlevel/bedlevel.h"
@@ -38,10 +34,6 @@
 
 #if ENABLED(BD_SENSOR)
   #include "../../feature/bedlevel/bdl/bdl.h"
-#endif
-
-#if ENABLED(SENSORLESS_HOMING)
-  #include "../../feature/tmc_util.h"
 #endif
 
 #include "../../module/probe.h"
@@ -60,94 +52,113 @@
   #include "../../lcd/e3v2/proui/dwin.h"
 #endif
 
-#if ENABLED(LASER_FEATURE)
-  #include "../../feature/spindle_laser.h"
-#endif
-
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../../core/debug_out.h"
 
 #if ENABLED(QUICK_HOME)
 
+  /**
+   * Rychlé homing XY os - simuluje pozici 0,0 a pohybuje se diagonálně
+   */
   static void quick_home_xy() {
+    // AI_DEBUG: quick_home_xy začíná
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy() ZAČÍNÁ");
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy - aktuální pozice před resetem = ", current_position.x, ", ", current_position.y);
 
-    // Pretend the current position is 0,0
+    // Předstíráme, že aktuální pozice je 0,0
     current_position.set(0.0, 0.0);
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy - pozice resetována na = ", current_position.x, ", ", current_position.y);
     sync_plan_position();
 
     const int x_axis_home_dir = TOOL_X_HOME_DIR(active_extruder);
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy - x_axis_home_dir = ", x_axis_home_dir);
 
-    // Use a higher diagonal feedrate so axes move at homing speed
+    // Použije vyšší diagonální rychlost, aby se osy pohybovaly homing rychlostí
     const float minfr = _MIN(homing_feedrate(X_AXIS), homing_feedrate(Y_AXIS)),
                 fr_mm_s = HYPOT(minfr, minfr);
 
-    #if ENABLED(SENSORLESS_HOMING)
-      sensorless_t stealth_states {
-        NUM_AXIS_LIST(
-          TERN0(X_SENSORLESS, tmc_enable_stallguard(stepperX)),
-          TERN0(Y_SENSORLESS, tmc_enable_stallguard(stepperY)),
-          false, false, false, false
-        )
-        , TERN0(X2_SENSORLESS, tmc_enable_stallguard(stepperX2))
-        , TERN0(Y2_SENSORLESS, tmc_enable_stallguard(stepperY2))
-      };
-    #endif
-
+    // Pohyb diagonálně k endstopům
     do_blocking_move_to_xy(1.5 * max_length(X_AXIS) * x_axis_home_dir, 1.5 * max_length(Y_AXIS) * Y_HOME_DIR, fr_mm_s);
 
     endstops.validate_homing_move();
 
+    // Nastaví pozici na 0,0 po homingu
     current_position.set(0.0, 0.0);
-
-    #if ENABLED(SENSORLESS_HOMING) && DISABLED(ENDSTOPS_ALWAYS_ON_DEFAULT)
-      TERN_(X_SENSORLESS, tmc_disable_stallguard(stepperX, stealth_states.x));
-      TERN_(X2_SENSORLESS, tmc_disable_stallguard(stepperX2, stealth_states.x2));
-      TERN_(Y_SENSORLESS, tmc_disable_stallguard(stepperY, stealth_states.y));
-      TERN_(Y2_SENSORLESS, tmc_disable_stallguard(stepperY2, stealth_states.y2));
-    #endif
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy - pozice nastavena na = ", current_position.x, ", ", current_position.y);
+    SERIAL_ECHOLNPGM("AI_DEBUG: quick_home_xy() KONČÍ");
   }
 
 #endif // QUICK_HOME
 
 #if ENABLED(Z_SAFE_HOMING)
 
+  /**
+   * Bezpečný Z homing - přesune trysku na bezpečné místo před homingem Z osy
+   */
   inline void home_z_safely() {
     DEBUG_SECTION(log_G28, "home_z_safely", DEBUGGING(LEVELING));
 
-    // Disallow Z homing if X or Y homing is needed
+    // Zakáže Z homing, pokud je potřeba X nebo Y homing
     if (homing_needed_error(_BV(X_AXIS) | _BV(Y_AXIS))) return;
 
     sync_plan_position();
 
     /**
-     * Move the Z probe (or just the nozzle) to the safe homing point
-     * (Z is already at the right height)
+     * Přesune Z sondu (nebo trysku) na bezpečný homing bod
+     * (Z je už ve správné výšce)
      */
     constexpr xy_float_t safe_homing_xy = { Z_SAFE_HOMING_X_POINT, Z_SAFE_HOMING_Y_POINT };
+    
+    // AI_DEBUG: Přidávám debug výpisy pro Z_SAFE_HOMING
+    SERIAL_ECHOLNPGM("AI_DEBUG: Z_SAFE_HOMING_X_POINT = ", Z_SAFE_HOMING_X_POINT);
+    SERIAL_ECHOLNPGM("AI_DEBUG: Z_SAFE_HOMING_Y_POINT = ", Z_SAFE_HOMING_Y_POINT);
+    SERIAL_ECHOLNPGM("AI_DEBUG: safe_homing_xy = ", safe_homing_xy.x, ", ", safe_homing_xy.y);
+    
     #if HAS_HOME_OFFSET
+      // Aplikuje home offset na bezpečnou homing pozici
       xy_float_t okay_homing_xy = safe_homing_xy;
       okay_homing_xy -= home_offset;
+      SERIAL_ECHOLNPGM("AI_DEBUG: home_offset = ", home_offset.x, ", ", home_offset.y);
+      SERIAL_ECHOLNPGM("AI_DEBUG: okay_homing_xy = ", okay_homing_xy.x, ", ", okay_homing_xy.y);
     #else
       constexpr xy_float_t okay_homing_xy = safe_homing_xy;
+      SERIAL_ECHOLNPGM("AI_DEBUG: No home_offset, okay_homing_xy = ", okay_homing_xy.x, ", ", okay_homing_xy.y);
     #endif
 
+    // Nastaví cílovou pozici pro pohyb
     destination.set(okay_homing_xy, current_position.z);
+    SERIAL_ECHOLNPGM("AI_DEBUG: destination set to = ", destination.x, ", ", destination.y);
 
-    TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);
+    // TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);  // AI_DEBUG: DEAKTIVOVÁNO - Neodečítá probe.offset_xy
 
     if (position_is_reachable(destination)) {
 
       if (DEBUGGING(LEVELING)) DEBUG_POS("home_z_safely", destination);
 
-      // Free the active extruder for movement
+      // Uvolní aktivní extruder pro pohyb
       TERN_(DUAL_X_CARRIAGE, idex_set_parked(false));
 
-      TERN_(SENSORLESS_HOMING, safe_delay(500)); // Short delay needed to settle
-
+      // Pohyb na bezpečnou pozici a homing Z osy
       do_blocking_move_to_xy(destination);
+      
+      // AI_DEBUG: Pozice před Z homingem
+      SERIAL_ECHOLNPGM("AI_DEBUG: Před Z homingem - current_position = ", current_position.x, ", ", current_position.y);
+      
       homeaxis(Z_AXIS);
+      
+      // AI_DEBUG: Pozice po Z homingu
+      SERIAL_ECHOLNPGM("AI_DEBUG: Po Z homingu - current_position = ", current_position.x, ", ", current_position.y);
+      
+      // AI_DEBUG: Pozice před sync_plan_position
+      SERIAL_ECHOLNPGM("AI_DEBUG: Před sync_plan_position - current_position = ", current_position.x, ", ", current_position.y);
+      
+      sync_plan_position();
+      
+      // AI_DEBUG: Pozice po sync_plan_position
+      SERIAL_ECHOLNPGM("AI_DEBUG: Po sync_plan_position - current_position = ", current_position.x, ", ", current_position.y);
     }
     else {
+      // Chybová hláška, pokud pozice není dosažitelná
       LCD_MESSAGE(MSG_ZPROBE_OUT);
       SERIAL_ECHO_MSG(STR_ZPROBE_OUT_SER);
     }
@@ -157,27 +168,34 @@
 
 #if ENABLED(IMPROVE_HOMING_RELIABILITY)
 
+  /**
+   * Začátek pomalého homingu - sníží akceleraci pro spolehlivost
+   */
   motion_state_t begin_slow_homing() {
     motion_state_t motion_state{0};
+    // Uloží aktuální akceleraci
     motion_state.acceleration.set(planner.settings.max_acceleration_mm_per_s2[X_AXIS],
                                  planner.settings.max_acceleration_mm_per_s2[Y_AXIS]
-                                 OPTARG(DELTA, planner.settings.max_acceleration_mm_per_s2[Z_AXIS])
                                );
+    // Nastaví nízkou akceleraci pro homing
     planner.settings.max_acceleration_mm_per_s2[X_AXIS] = 100;
     planner.settings.max_acceleration_mm_per_s2[Y_AXIS] = 100;
-    TERN_(DELTA, planner.settings.max_acceleration_mm_per_s2[Z_AXIS] = 100);
     #if HAS_CLASSIC_JERK
+      // Uloží a nuluje jerk
       motion_state.jerk_state = planner.max_jerk;
-      planner.max_jerk.set(0, 0 OPTARG(DELTA, 0));
+      planner.max_jerk.set(0, 0);
     #endif
     planner.refresh_acceleration_rates();
     return motion_state;
   }
 
+  /**
+   * Konec pomalého homingu - obnoví původní nastavení
+   */
   void end_slow_homing(const motion_state_t &motion_state) {
+    // Obnoví původní akceleraci
     planner.settings.max_acceleration_mm_per_s2[X_AXIS] = motion_state.acceleration.x;
     planner.settings.max_acceleration_mm_per_s2[Y_AXIS] = motion_state.acceleration.y;
-    TERN_(DELTA, planner.settings.max_acceleration_mm_per_s2[Z_AXIS] = motion_state.acceleration.z);
     TERN_(HAS_CLASSIC_JERK, planner.max_jerk = motion_state.jerk_state);
     planner.refresh_acceleration_rates();
   }
@@ -185,31 +203,36 @@
 #endif // IMPROVE_HOMING_RELIABILITY
 
 /**
- * G28: Home all axes according to settings
+ * G28: Homing všech os podle nastavení
  *
- * Parameters
+ * Parametry
  *
- *  None  Home to all axes with no parameters.
- *        With QUICK_HOME enabled XY will home together, then Z.
+ *  Žádné  Homing všech os bez parametrů.
+ *         S QUICK_HOME povoleným se XY homuje společně, pak Z.
  *
- *  L<bool>   Force leveling state ON (if possible) or OFF after homing (Requires RESTORE_LEVELING_AFTER_G28 or ENABLE_LEVELING_AFTER_G28)
- *  O         Home only if the position is not known and trusted
- *  R<linear> Raise by n mm/inches before homing
+ *  L<bool>   Vynutí stav levelingu ZAPNUTÝ (pokud možno) nebo VYPNUTÝ po homingu
+ *            (Vyžaduje RESTORE_LEVELING_AFTER_G28 nebo ENABLE_LEVELING_AFTER_G28)
+ *  O         Homing pouze pokud pozice není známá a důvěryhodná
+ *  R<lineární> Zvedne o n mm/palců před homingem
  *
- * Cartesian/SCARA parameters
+ * Parametry pro Cartesian/SCARA
  *
- *  X   Home to the X endstop
- *  Y   Home to the Y endstop
- *  Z   Home to the Z endstop
+ *  X   Homing na X endstop
+ *  Y   Homing na Y endstop
+ *  Z   Homing na Z endstop
  */
 void GcodeSuite::G28() {
   DEBUG_SECTION(log_G28, "G28", DEBUGGING(LEVELING));
   if (DEBUGGING(LEVELING)) log_machine_info();
 
+  // AI_DEBUG: G28 začíná
+  SERIAL_ECHOLNPGM("AI_DEBUG: G28() ZAČÍNÁ");
+  SERIAL_ECHOLNPGM("AI_DEBUG: G28 - aktuální pozice na začátku = ", current_position.x, ", ", current_position.y, ", ", current_position.z);
+
   TERN_(BD_SENSOR, bdl.config_state = 0);
 
   /**
-   * Set the laser power to false to stop the planner from processing the current power setting.
+   * Nastaví laser výkon na false, aby planner nezpracovával aktuální nastavení výkonu.
    */
   #if ENABLED(LASER_FEATURE)
     planner.laser_inline.status.isPowered = false;
@@ -230,9 +253,9 @@ void GcodeSuite::G28() {
     }
   #endif
 
-  // Home (O)nly if position is unknown
+  // Homing (O)nly pokud pozice není známá
   if (!axes_should_home() && parser.seen_test('O')) {
-    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("> homing not needed, skip");
+    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("> homing není potřeba, přeskočit");
     return;
   }
 
@@ -244,93 +267,65 @@ void GcodeSuite::G28() {
   TERN_(HAS_DWIN_E3V2_BASIC, DWIN_HomingStart());
   TERN_(EXTENSIBLE_UI, ExtUI::onHomingStart());
 
-  planner.synchronize();          // Wait for planner moves to finish!
+  planner.synchronize();          // Počká na dokončení planner pohybů!
 
-  SET_SOFT_ENDSTOP_LOOSE(false);  // Reset a leftover 'loose' motion state
+  SET_SOFT_ENDSTOP_LOOSE(false);  // Resetuje zbývající 'volný' stav pohybu
 
-  // Disable the leveling matrix before homing
+  // Vypne leveling matici před homingem
   #if CAN_SET_LEVELING_AFTER_G28
     const bool leveling_restore_state = parser.boolval('L', TERN1(RESTORE_LEVELING_AFTER_G28, planner.leveling_active));
   #endif
 
-  // Cancel any prior G29 session
+  // Zruší předchozí G29 session
   TERN_(PROBE_MANUALLY, g29_in_progress = false);
 
-  // Disable leveling before homing
+  // Vypne leveling před homingem
   TERN_(HAS_LEVELING, set_bed_leveling_enabled(false));
 
-  // Reset to the XY plane
+  // Reset na XY rovinu
   TERN_(CNC_WORKSPACE_PLANES, workspace_plane = PLANE_XY);
 
-  // Count this command as movement / activity
+  // Počítá tento příkaz jako pohyb / aktivitu
   reset_stepper_timeout();
 
+  // Kontrola, zda má osa vlastní homing proud
   #define HAS_CURRENT_HOME(N) (defined(N##_CURRENT_HOME) && N##_CURRENT_HOME != N##_CURRENT)
-  #if HAS_CURRENT_HOME(X) || HAS_CURRENT_HOME(X2) || HAS_CURRENT_HOME(Y) || HAS_CURRENT_HOME(Y2) || (ENABLED(DELTA) && HAS_CURRENT_HOME(Z)) || HAS_CURRENT_HOME(I) || HAS_CURRENT_HOME(J) || HAS_CURRENT_HOME(K) || HAS_CURRENT_HOME(U) || HAS_CURRENT_HOME(V) || HAS_CURRENT_HOME(W)
+  #if HAS_CURRENT_HOME(X) || HAS_CURRENT_HOME(X2) || HAS_CURRENT_HOME(Y) || HAS_CURRENT_HOME(Y2)
     #define HAS_HOMING_CURRENT 1
   #endif
 
   #if HAS_HOMING_CURRENT
+    // Lambda funkce pro debug výpis změn proudu
     auto debug_current = [](FSTR_P const s, const int16_t a, const int16_t b) {
       DEBUG_ECHOF(s); DEBUG_ECHOLNPGM(" current: ", a, " -> ", b);
     };
+    
+    // Nastaví homing proud pro X osu
     #if HAS_CURRENT_HOME(X)
       const int16_t tmc_save_current_X = stepperX.getMilliamps();
       stepperX.rms_current(X_CURRENT_HOME);
       if (DEBUGGING(LEVELING)) debug_current(F(STR_X), tmc_save_current_X, X_CURRENT_HOME);
     #endif
+    
+    // Nastaví homing proud pro X2 osu
     #if HAS_CURRENT_HOME(X2)
       const int16_t tmc_save_current_X2 = stepperX2.getMilliamps();
       stepperX2.rms_current(X2_CURRENT_HOME);
       if (DEBUGGING(LEVELING)) debug_current(F(STR_X2), tmc_save_current_X2, X2_CURRENT_HOME);
     #endif
+    
+    // Nastaví homing proud pro Y osu
     #if HAS_CURRENT_HOME(Y)
       const int16_t tmc_save_current_Y = stepperY.getMilliamps();
       stepperY.rms_current(Y_CURRENT_HOME);
       if (DEBUGGING(LEVELING)) debug_current(F(STR_Y), tmc_save_current_Y, Y_CURRENT_HOME);
     #endif
+    
+    // Nastaví homing proud pro Y2 osu
     #if HAS_CURRENT_HOME(Y2)
       const int16_t tmc_save_current_Y2 = stepperY2.getMilliamps();
       stepperY2.rms_current(Y2_CURRENT_HOME);
       if (DEBUGGING(LEVELING)) debug_current(F(STR_Y2), tmc_save_current_Y2, Y2_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(Z) && ENABLED(DELTA)
-      const int16_t tmc_save_current_Z = stepperZ.getMilliamps();
-      stepperZ.rms_current(Z_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_Z), tmc_save_current_Z, Z_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(I)
-      const int16_t tmc_save_current_I = stepperI.getMilliamps();
-      stepperI.rms_current(I_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_I), tmc_save_current_I, I_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(J)
-      const int16_t tmc_save_current_J = stepperJ.getMilliamps();
-      stepperJ.rms_current(J_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_J), tmc_save_current_J, J_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(K)
-      const int16_t tmc_save_current_K = stepperK.getMilliamps();
-      stepperK.rms_current(K_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_K), tmc_save_current_K, K_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(U)
-      const int16_t tmc_save_current_U = stepperU.getMilliamps();
-      stepperU.rms_current(U_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_U), tmc_save_current_U, U_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(V)
-      const int16_t tmc_save_current_V = stepperV.getMilliamps();
-      stepperV.rms_current(V_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_V), tmc_save_current_V, V_CURRENT_HOME);
-    #endif
-    #if HAS_CURRENT_HOME(W)
-      const int16_t tmc_save_current_W = stepperW.getMilliamps();
-      stepperW.rms_current(W_CURRENT_HOME);
-      if (DEBUGGING(LEVELING)) debug_current(F(STR_W), tmc_save_current_W, W_CURRENT_HOME);
-    #endif
-    #if SENSORLESS_STALLGUARD_DELAY
-      safe_delay(SENSORLESS_STALLGUARD_DELAY); // Short delay needed to settle
     #endif
   #endif
 
@@ -338,181 +333,127 @@ void GcodeSuite::G28() {
     motion_state_t saved_motion_state = begin_slow_homing();
   #endif
 
-  // Always home with tool 0 active
-  #if HAS_MULTI_HOTEND
-    #if DISABLED(DELTA) || ENABLED(DELTA_HOME_TO_SAFE_ZONE)
-      const uint8_t old_tool_index = active_extruder;
-    #endif
-    // PARKING_EXTRUDER homing requires different handling of movement / solenoid activation, depending on the side of homing
-    #if ENABLED(PARKING_EXTRUDER)
-      const bool pe_final_change_must_unpark = parking_extruder_unpark_after_homing(old_tool_index, X_HOME_DIR + 1 == old_tool_index * 2);
-    #endif
-    tool_change(0, true);
-  #endif
-
   TERN_(HAS_DUPLICATION_MODE, set_duplication_enabled(false));
 
   remember_feedrate_scaling_off();
 
-  endstops.enable(true); // Enable endstops for next homing move
+  endstops.enable(true); // Zapne endstopy pro další homing pohyb
 
-  #if ENABLED(DELTA)
+  // Makro pro kontrolu bezpečnosti Z homingu
+  #define _UNSAFE(A) (homeZ && TERN0(Z_SAFE_HOMING, axes_should_home(_BV(A##_AXIS))))
 
-    constexpr bool doZ = true; // for NANODLP_Z_SYNC if your DLP is on a DELTA
+  // Určení, které osy potřebují homing
+  const bool homeZ = TERN0(HAS_Z_AXIS, parser.seen_test('Z')),
+             NUM_AXIS_LIST(              // Ostatní osy by měly být homovány před Z safe-homingem
+               needX = _UNSAFE(X), needY = _UNSAFE(Y), needZ = false // NEPOUŽITO
+             ),
+             NUM_AXIS_LIST(              // Homing každé osy pokud je potřeba nebo označena
+               homeX = needX || parser.seen_test('X'),
+               homeY = needY || parser.seen_test('Y'),
+               homeZZ = homeZ
+             ),
+             home_all = NUM_AXIS_GANG(   // Homing všech pokud všechny nebo žádná není označena
+                  homeX == homeX, && homeY == homeX, && homeZ == homeX
+               ),
+             NUM_AXIS_LIST(
+               doX = home_all || homeX, doY = home_all || homeY, doZ = home_all || homeZ
+             );
 
-    home_delta();
-
-    TERN_(IMPROVE_HOMING_RELIABILITY, end_slow_homing(saved_motion_state));
-
-  #elif ENABLED(AXEL_TPARA)
-
-    constexpr bool doZ = true; // for NANODLP_Z_SYNC if your DLP is on a TPARA
-
-    home_TPARA();
-
+  #if HAS_Z_AXIS
+    UNUSED(needZ); UNUSED(homeZZ);
   #else
-
-    #define _UNSAFE(A) (homeZ && TERN0(Z_SAFE_HOMING, axes_should_home(_BV(A##_AXIS))))
-
-    const bool homeZ = TERN0(HAS_Z_AXIS, parser.seen_test('Z')),
-               NUM_AXIS_LIST(              // Other axes should be homed before Z safe-homing
-                 needX = _UNSAFE(X), needY = _UNSAFE(Y), needZ = false, // UNUSED
-                 needI = _UNSAFE(I), needJ = _UNSAFE(J), needK = _UNSAFE(K),
-                 needU = _UNSAFE(U), needV = _UNSAFE(V), needW = _UNSAFE(W)
-               ),
-               NUM_AXIS_LIST(              // Home each axis if needed or flagged
-                 homeX = needX || parser.seen_test('X'),
-                 homeY = needY || parser.seen_test('Y'),
-                 homeZZ = homeZ,
-                 homeI = needI || parser.seen_test(AXIS4_NAME), homeJ = needJ || parser.seen_test(AXIS5_NAME),
-                 homeK = needK || parser.seen_test(AXIS6_NAME), homeU = needU || parser.seen_test(AXIS7_NAME),
-                 homeV = needV || parser.seen_test(AXIS8_NAME), homeW = needW || parser.seen_test(AXIS9_NAME)
-               ),
-               home_all = NUM_AXIS_GANG(   // Home-all if all or none are flagged
-                    homeX == homeX, && homeY == homeX, && homeZ == homeX,
-                 && homeI == homeX, && homeJ == homeX, && homeK == homeX,
-                 && homeU == homeX, && homeV == homeX, && homeW == homeX
-               ),
-               NUM_AXIS_LIST(
-                 doX = home_all || homeX, doY = home_all || homeY, doZ = home_all || homeZ,
-                 doI = home_all || homeI, doJ = home_all || homeJ, doK = home_all || homeK,
-                 doU = home_all || homeU, doV = home_all || homeV, doW = home_all || homeW
-               );
-
-    #if HAS_Z_AXIS
-      UNUSED(needZ); UNUSED(homeZZ);
-    #else
-      constexpr bool doZ = false;
-      #if !HAS_Y_AXIS
-        constexpr bool doY = false;
-      #endif
+    constexpr bool doZ = false;
+    #if !HAS_Y_AXIS
+      constexpr bool doY = false;
     #endif
-
-    TERN_(HOME_Z_FIRST, if (doZ) homeaxis(Z_AXIS));
-
-    const bool seenR = parser.seenval('R');
-    const float z_homing_height = seenR ? parser.value_linear_units() : Z_HOMING_HEIGHT;
-
-    if (z_homing_height && (seenR || NUM_AXIS_GANG(doX, || doY, || TERN0(Z_SAFE_HOMING, doZ), || doI, || doJ, || doK, || doU, || doV, || doW))) {
-      // Raise Z before homing any other axes and z is not already high enough (never lower z)
-      if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Raise Z (before homing) by ", z_homing_height);
-      do_z_clearance(z_homing_height);
-      TERN_(BLTOUCH, bltouch.init());
-    }
-
-    // Diagonal move first if both are homing
-    TERN_(QUICK_HOME, if (doX && doY) quick_home_xy());
-
-    #if HAS_Y_AXIS
-      // Home Y (before X)
-      if (ENABLED(HOME_Y_BEFORE_X) && (doY || TERN0(CODEPENDENT_XY_HOMING, doX)))
-        homeaxis(Y_AXIS);
-    #endif
-
-    // Home X
-    if (doX || (doY && ENABLED(CODEPENDENT_XY_HOMING) && DISABLED(HOME_Y_BEFORE_X))) {
-
-      #if ENABLED(DUAL_X_CARRIAGE)
-
-        // Always home the 2nd (right) extruder first
-        active_extruder = 1;
-        homeaxis(X_AXIS);
-
-        // Remember this extruder's position for later tool change
-        inactive_extruder_x = current_position.x;
-
-        // Home the 1st (left) extruder
-        active_extruder = 0;
-        homeaxis(X_AXIS);
-
-        // Consider the active extruder to be in its "parked" position
-        idex_set_parked();
-
-      #else
-
-        homeaxis(X_AXIS);
-
-      #endif
-    }
-
-    #if BOTH(FOAMCUTTER_XYUV, HAS_I_AXIS)
-      // Home I (after X)
-      if (doI) homeaxis(I_AXIS);
-    #endif
-
-    #if HAS_Y_AXIS
-      // Home Y (after X)
-      if (DISABLED(HOME_Y_BEFORE_X) && doY)
-        homeaxis(Y_AXIS);
-    #endif
-
-    #if BOTH(FOAMCUTTER_XYUV, HAS_J_AXIS)
-      // Home J (after Y)
-      if (doJ) homeaxis(J_AXIS);
-    #endif
-
-    TERN_(IMPROVE_HOMING_RELIABILITY, end_slow_homing(saved_motion_state));
-
-    #if ENABLED(FOAMCUTTER_XYUV)
-      // skip homing of unused Z axis for foamcutters
-      if (doZ) set_axis_is_at_home(Z_AXIS);
-    #else
-      // Home Z last if homing towards the bed
-      #if HAS_Z_AXIS && DISABLED(HOME_Z_FIRST)
-        if (doZ) {
-          #if EITHER(Z_MULTI_ENDSTOPS, Z_STEPPER_AUTO_ALIGN)
-            stepper.set_all_z_lock(false);
-            stepper.set_separate_multi_axis(false);
-          #endif
-
-          #if ENABLED(Z_SAFE_HOMING)
-            if (TERN1(POWER_LOSS_RECOVERY, !parser.seen_test('H'))) home_z_safely(); else homeaxis(Z_AXIS);
-          #else
-            homeaxis(Z_AXIS);
-          #endif
-          probe.move_z_after_homing();
-        }
-      #endif
-
-      SECONDARY_AXIS_CODE(
-        if (doI) homeaxis(I_AXIS),
-        if (doJ) homeaxis(J_AXIS),
-        if (doK) homeaxis(K_AXIS),
-        if (doU) homeaxis(U_AXIS),
-        if (doV) homeaxis(V_AXIS),
-        if (doW) homeaxis(W_AXIS)
-      );
-    #endif
-
-    sync_plan_position();
-
   #endif
 
+  // Z homing první (pokud povoleno)
+  TERN_(HOME_Z_FIRST, if (doZ) homeaxis(Z_AXIS));
+
+  const bool seenR = parser.seenval('R');
+  const float z_homing_height = seenR ? parser.value_linear_units() : Z_HOMING_HEIGHT;
+
+  // Zvedne Z před homingem ostatních os
+  if (z_homing_height && (seenR || NUM_AXIS_GANG(doX, || doY, || TERN0(Z_SAFE_HOMING, doZ)))) {
+    // Zvedne Z před homingem ostatních os a Z není už dostatečně vysoko (nikdy nesníží Z)
+    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Zvedne Z (před homingem) o ", z_homing_height);
+    do_z_clearance(z_homing_height);
+    TERN_(BLTOUCH, bltouch.init());
+  }
+
+  // Diagonální pohyb první pokud se homují obě osy
+  TERN_(QUICK_HOME, if (doX && doY) {
+    SERIAL_ECHOLNPGM("AI_DEBUG: G28 - volá se quick_home_xy()");
+    SERIAL_ECHOLNPGM("AI_DEBUG: G28 - pozice před quick_home_xy = ", current_position.x, ", ", current_position.y);
+    quick_home_xy();
+    SERIAL_ECHOLNPGM("AI_DEBUG: G28 - pozice po quick_home_xy = ", current_position.x, ", ", current_position.y);
+  });
+
+  #if HAS_Y_AXIS
+    // Y homing (před X)
+    if (ENABLED(HOME_Y_BEFORE_X) && (doY || TERN0(CODEPENDENT_XY_HOMING, doX)))
+      homeaxis(Y_AXIS);
+  #endif
+
+  // X homing
+  if (doX || (doY && ENABLED(CODEPENDENT_XY_HOMING) && DISABLED(HOME_Y_BEFORE_X))) {
+
+    #if ENABLED(DUAL_X_CARRIAGE)
+
+      // Vždy homing 2. (pravého) extruderu první
+      active_extruder = 1;
+      homeaxis(X_AXIS);
+
+      // Zapamatuje si pozici tohoto extruderu pro pozdější změnu nástroje
+      inactive_extruder_x = current_position.x;
+
+      // Homing 1. (levého) extruderu
+      active_extruder = 0;
+      homeaxis(X_AXIS);
+
+      // Považuje aktivní extruder za v "zaparkované" pozici
+      idex_set_parked();
+
+    #else
+
+      homeaxis(X_AXIS);
+
+    #endif
+  }
+
+  #if HAS_Y_AXIS
+    // Y homing (po X)
+    if (DISABLED(HOME_Y_BEFORE_X) && doY)
+      homeaxis(Y_AXIS);
+  #endif
+
+  TERN_(IMPROVE_HOMING_RELIABILITY, end_slow_homing(saved_motion_state));
+
+  // Z homing poslední pokud homing směrem k podložce
+  #if HAS_Z_AXIS && DISABLED(HOME_Z_FIRST)
+    if (doZ) {
+      #if EITHER(Z_MULTI_ENDSTOPS, Z_STEPPER_AUTO_ALIGN)
+        stepper.set_all_z_lock(false);
+        stepper.set_separate_multi_axis(false);
+      #endif
+
+      #if ENABLED(Z_SAFE_HOMING)
+        if (TERN1(POWER_LOSS_RECOVERY, !parser.seen_test('H'))) home_z_safely(); else homeaxis(Z_AXIS);
+      #else
+        homeaxis(Z_AXIS);
+      #endif
+      probe.move_z_after_homing();
+    }
+  #endif
+
+  sync_plan_position();
+
   /**
-   * Preserve DXC mode across a G28 for IDEX printers in DXC_DUPLICATION_MODE.
-   * This is important because it lets a user use the LCD Panel to set an IDEX Duplication mode, and
-   * then print a standard GCode file that contains a single print that does a G28 and has no other
-   * IDEX specific commands in it.
+   * Zachová DXC mód přes G28 pro IDEX tiskárny v DXC_DUPLICATION_MODE.
+   * To je důležité, protože umožňuje uživateli nastavit IDEX Duplication mód přes LCD panel,
+   * a pak tisknout standardní GCode soubor, který obsahuje jediný tisk s G28 a nemá žádné
+   * jiné IDEX specifické příkazy.
    */
   #if ENABLED(DUAL_X_CARRIAGE)
 
@@ -520,18 +461,18 @@ void GcodeSuite::G28() {
 
       TERN_(IMPROVE_HOMING_RELIABILITY, saved_motion_state = begin_slow_homing());
 
-      // Always home the 2nd (right) extruder first
+      // Vždy homing 2. (pravého) extruderu první
       active_extruder = 1;
       homeaxis(X_AXIS);
 
-      // Remember this extruder's position for later tool change
+      // Zapamatuje si pozici tohoto extruderu pro pozdější změnu nástroje
       inactive_extruder_x = current_position.x;
 
-      // Home the 1st (left) extruder
+      // Homing 1. (levého) extruderu
       active_extruder = 0;
       homeaxis(X_AXIS);
 
-      // Consider the active extruder to be parked
+      // Považuje aktivní extruder za zaparkovaný
       idex_set_parked();
 
       dual_x_carriage_mode = IDEX_saved_mode;
@@ -544,58 +485,35 @@ void GcodeSuite::G28() {
 
   endstops.not_homing();
 
-  // Clear endstop state for polled stallGuard endstops
+  // Vyčistí endstop stav pro pollované stallGuard endstopy
   TERN_(SPI_ENDSTOPS, endstops.clear_endstop_state());
-
-  // Move to a height where we can use the full xy-area
-  TERN_(DELTA_HOME_TO_SAFE_ZONE, do_blocking_move_to_z(delta_clip_start_height));
 
   TERN_(CAN_SET_LEVELING_AFTER_G28, if (leveling_restore_state) set_bed_leveling_enabled());
 
   restore_feedrate_and_scaling();
 
-  // Restore the active tool after homing
-  #if HAS_MULTI_HOTEND && (DISABLED(DELTA) || ENABLED(DELTA_HOME_TO_SAFE_ZONE))
-    tool_change(old_tool_index, TERN(PARKING_EXTRUDER, !pe_final_change_must_unpark, DISABLED(DUAL_X_CARRIAGE)));   // Do move if one of these
-  #endif
-
+  // Obnoví homing proud
   #if HAS_HOMING_CURRENT
-    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Restore driver current...");
+    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Obnovení driver proudu...");
+    
+    // Obnoví původní proud pro X osu
     #if HAS_CURRENT_HOME(X)
       stepperX.rms_current(tmc_save_current_X);
     #endif
+    
+    // Obnoví původní proud pro X2 osu
     #if HAS_CURRENT_HOME(X2)
       stepperX2.rms_current(tmc_save_current_X2);
     #endif
+    
+    // Obnoví původní proud pro Y osu
     #if HAS_CURRENT_HOME(Y)
       stepperY.rms_current(tmc_save_current_Y);
     #endif
+    
+    // Obnoví původní proud pro Y2 osu
     #if HAS_CURRENT_HOME(Y2)
       stepperY2.rms_current(tmc_save_current_Y2);
-    #endif
-    #if HAS_CURRENT_HOME(Z) && ENABLED(DELTA)
-      stepperZ.rms_current(tmc_save_current_Z);
-    #endif
-    #if HAS_CURRENT_HOME(I)
-      stepperI.rms_current(tmc_save_current_I);
-    #endif
-    #if HAS_CURRENT_HOME(J)
-      stepperJ.rms_current(tmc_save_current_J);
-    #endif
-    #if HAS_CURRENT_HOME(K)
-      stepperK.rms_current(tmc_save_current_K);
-    #endif
-    #if HAS_CURRENT_HOME(U)
-      stepperU.rms_current(tmc_save_current_U);
-    #endif
-    #if HAS_CURRENT_HOME(V)
-      stepperV.rms_current(tmc_save_current_V);
-    #endif
-    #if HAS_CURRENT_HOME(W)
-      stepperW.rms_current(tmc_save_current_W);
-    #endif
-    #if SENSORLESS_STALLGUARD_DELAY
-      safe_delay(SENSORLESS_STALLGUARD_DELAY); // Short delay needed to settle
     #endif
   #endif // HAS_HOMING_CURRENT
 
@@ -605,9 +523,6 @@ void GcodeSuite::G28() {
   TERN_(EXTENSIBLE_UI, ExtUI::onHomingDone());
 
   report_current_position();
-
-  if (ENABLED(NANODLP_Z_SYNC) && (doZ || ENABLED(NANODLP_ALL_AXIS)))
-    SERIAL_ECHOLNPGM(STR_Z_MOVE_COMP);
 
   TERN_(FULL_REPORT_TO_HOST_FEATURE, set_and_report_grblstate(old_grblstate));
 

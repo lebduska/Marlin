@@ -1464,7 +1464,7 @@ void RTSSHOW::RTS_HandleData()
         {
           if (WITHIN((getZOffset_mm() + 0.1), Z_PROBE_OFFSET_RANGE_MIN, Z_PROBE_OFFSET_RANGE_MAX))
           {
-            smartAdjustAxis_steps((getAxisSteps_per_mm(Z) / 10), (axis_t)Z, false);
+            smartAdjustAxis_steps((getAxisSteps_per_mm(Z) / 20), (axis_t)Z, false);
             //SERIAL_ECHOLNPGM("Babystep Pos Steps : ", (int)(getAxisSteps_per_mm(Z) / 10));
             //setZOffset_mm(getZOffset_mm() + 0.1);
             RTS_SndData(getZOffset_mm() * 100, ProbeOffset_Z);
@@ -1478,7 +1478,7 @@ void RTSSHOW::RTS_HandleData()
         {
           if (WITHIN((getZOffset_mm() - 0.1), Z_PROBE_OFFSET_RANGE_MIN, Z_PROBE_OFFSET_RANGE_MAX))
           {
-            smartAdjustAxis_steps(((getAxisSteps_per_mm(Z) / 10) * -1), (axis_t)Z, false);
+            smartAdjustAxis_steps(((getAxisSteps_per_mm(Z) / 20) * -1), (axis_t)Z, false);
             //SERIAL_ECHOLNPGM("Babystep Neg Steps : ", (int)((getAxisSteps_per_mm(Z) / 10) * -1));
             //babystepAxis_steps((((int)getAxisSteps_per_mm(Z) / 10) * -1), (axis_t)Z);
             //setZOffset_mm(getZOffset_mm() - 0.1);
@@ -1562,18 +1562,11 @@ void RTSSHOW::RTS_HandleData()
         }
         case 11: // Autolevel switch
         {
-          #if HAS_MESH
-            if (!getLevelingActive()) //turn on the Autolevel
-            {
-              RTS_SndData(3, AutoLevelIcon);
-              setLevelingActive(true);
-            }
-            else //turn off the Autolevel
-            {
-              RTS_SndData(2, AutoLevelIcon);
-              setLevelingActive(false);
-            }
-          #endif
+          const bool turn_on = !getLevelingActive();
+          setLevelingActive(turn_on);
+          // V jiných částech FW se používá 3=ON, 2=OFF. Sjednotit zde na 3=ON, 2=OFF
+          RTS_SndData(turn_on ? 3 : 2, AutoLevelIcon);
+          injectCommands_P(turn_on ? PSTR("M420 S1") : PSTR("M420 S0"));
           RTS_SndData(getZOffset_mm() * 100, ProbeOffset_Z);
           break;
         }

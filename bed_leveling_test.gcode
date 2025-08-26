@@ -1,0 +1,127 @@
+; Bed Leveling Test
+; Testuje správnost bed leveling a Z-offset
+; Vytiskne se grid pattern pro kontrolu rovnosti
+
+M104 S200 ; Nastavit teplotu trysky na 200°C
+M140 S60  ; Nastavit teplotu podložky na 60°C
+M190 S60  ; Čekat na teplotu podložky
+M109 S200 ; Čekat na teplotu trysky
+
+G28      ; Home all axes
+G29      ; Auto bed leveling
+M420 S1  ; Zapnout bed leveling
+
+; Nastavit parametry pro první vrstvu
+M220 S100 ; Feed rate 100%
+M221 S100 ; Flow rate 100%
+
+; První vrstva - test bed leveling
+G0 Z0.2   ; Zvednout na 0.2mm
+G0 X10 Y10 F3000 ; Přejít na start
+
+; Grid pattern - 5x5 čtverců
+; Řádek 1
+G0 X10 Y10 F3000
+G1 X40 Y10 F1200
+G1 X40 Y40 F1200
+G1 X10 Y40 F1200
+G1 X10 Y10 F1200
+
+G0 X50 Y10 F3000
+G1 X80 Y10 F1200
+G1 X80 Y40 F1200
+G1 X50 Y40 F1200
+G1 X50 Y10 F1200
+
+G0 X90 Y10 F3000
+G1 X120 Y10 F1200
+G1 X120 Y40 F1200
+G1 X90 Y40 F1200
+G1 X90 Y10 F1200
+
+G0 X130 Y10 F3000
+G1 X160 Y10 F1200
+G1 X160 Y40 F1200
+G1 X130 Y40 F1200
+G1 X130 Y10 F1200
+
+G0 X170 Y10 F3000
+G1 X200 Y10 F1200
+G1 X200 Y40 F1200
+G1 X170 Y40 F1200
+G1 X170 Y10 F1200
+
+; Řádek 2
+G0 X10 Y50 F3000
+G1 X40 Y50 F1200
+G1 X40 Y80 F1200
+G1 X10 Y80 F1200
+G1 X10 Y50 F1200
+
+G0 X50 Y50 F3000
+G1 X80 Y50 F1200
+G1 X80 Y80 F1200
+G1 X50 Y80 F1200
+G1 X50 Y50 F1200
+
+G0 X90 Y50 F3000
+G1 X120 Y50 F1200
+G1 X120 Y80 F1200
+G1 X90 Y80 F1200
+G1 X90 Y50 F1200
+
+G0 X130 Y50 F3000
+G1 X160 Y50 F1200
+G1 X160 Y80 F1200
+G1 X130 Y80 F1200
+G1 X130 Y50 F1200
+
+G0 X170 Y50 F3000
+G1 X200 Y50 F1200
+G1 X200 Y80 F1200
+G1 X170 Y80 F1200
+G1 X170 Y50 F1200
+
+; Řádek 3
+G0 X10 Y90 F3000
+G1 X40 Y90 F1200
+G1 X40 Y120 F1200
+G1 X10 Y120 F1200
+G1 X10 Y90 F1200
+
+G0 X50 Y90 F3000
+G1 X80 Y90 F1200
+G1 X80 Y120 F1200
+G1 X50 Y120 F1200
+G1 X50 Y90 F1200
+
+G0 X90 Y90 F3000
+G1 X120 Y90 F1200
+G1 X120 Y120 F1200
+G1 X90 Y120 F1200
+G1 X90 Y90 F1200
+
+G0 X130 Y90 F3000
+G1 X160 Y90 F1200
+G1 X160 Y120 F1200
+G1 X130 Y120 F1200
+G1 X130 Y90 F1200
+
+G0 X170 Y90 F3000
+G1 X200 Y90 F1200
+G1 X200 Y120 F1200
+G1 X170 Y120 F1200
+G1 X170 Y90 F1200
+
+; Dokončit
+G0 Z10 F3000
+M104 S0   ; Vypnout trysku
+M140 S0   ; Vypnout podložku
+M84       ; Vypnout motory
+
+; Instrukce:
+; 1. Vytiskne se grid 5x5 čtverců
+; 2. Všechny čtverce by měly mít stejnou tloušťku
+; 3. Pokud jsou některé tenší - bed leveling není správný
+; 4. Použít babystepping pro úpravu Z-offset
+; 5. Opakovat G29 pokud je potřeba

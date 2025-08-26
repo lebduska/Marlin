@@ -57,7 +57,7 @@ namespace ExtUI {
 #define	VarAddr_W	0x82
 #define	VarAddr_R	0x83
 #define	ExchangePageBase	(unsigned long)0x5A010000	//the first page ID. other page = first page ID + relevant num;
-#define	StartSoundSet	((unsigned long)0x060480A0)		// 06,start-music; 04, 4 musics; 80, the volume value; 04, return value about music number.
+#define	StartSoundSet	((unsigned long)0x060400A0)		// 06,start-music; 04, 4 musics; 00, the volume value (0 = silent); 04, return value about music number.
 #define	FONT_EEPROM	90
 #define	AutoLeve_EEPROM	100
 #define	FanOn	255
@@ -280,14 +280,15 @@ void RTSInit();
 }
 #ifndef MAIN_MENU_ITEM_1_GCODE
   #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
-    #define MEASURING_GCODE "M190S55\nG28O\nG34\nG29\nM400\nM104S215\nG28\nM109S215\nM420S1\nG1X100Y100F5000\nG1Z0\nM500\nM117 Set Z Offset"
+    #define MEASURING_GCODE "G28\nG29\nM500\nM420S1\nM117 Leveling Done"
   #elif ENABLED(AUTO_BED_LEVELING_UBL)
-    #define MEASURING_GCODE "M190S55\nG28O\nG34\nG29P1\nG29P3\nG29S1\nG29S0\nG29F0.0\nG29A\nM104S215\nG28\nM109S215\nG1X150Y150F5000\nG1Z0\nM500\nM400\nM117 Set Z Offset"
+    #define MEASURING_GCODE "G28\nG29\nM500\nM420S1\nM117 Leveling Done"
   #else
-    #define MEASURING_GCODE "G28"
+    #define MEASURING_GCODE "G28\nG29\nM500\nM420S1\nM117 Leveling Done"
   #endif
 #else
-  #define MEASURING_GCODE MAIN_MENU_ITEM_1_GCODE
+  #undef MEASURING_GCODE
+  #define MEASURING_GCODE "G28\nG29\nM500\nM420S1\nM117 Leveling Done"
 #endif
 
 

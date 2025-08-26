@@ -1025,7 +1025,7 @@
               #undef STEALTHCHOP_Z
               #undef Z_IDLE_HEIGHT
               #undef Z_PROBE_SLED
-              #undef Z_SAFE_HOMING
+              // #undef Z_SAFE_HOMING  // AI_DEBUG: DEAKTIVOVÁNO - Z_SAFE_HOMING zůstává aktivní
               #undef HOME_Z_FIRST
               #undef HOMING_Z_WITH_PROBE
               #undef ENABLE_LEVELING_FADE_HEIGHT

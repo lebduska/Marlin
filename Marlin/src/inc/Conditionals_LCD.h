@@ -802,7 +802,7 @@
   #undef Y_HOME_DIR
   #undef Y_MIN_POS
   #undef Y_MAX_POS
-  #undef MANUAL_Y_HOME_POS
+  // #undef MANUAL_Y_HOME_POS  // AI_DEBUG: DEAKTIVOVÁNO - Y_HOME_POS zůstává na 150
   #undef MIN_SOFTWARE_ENDSTOP_Y
   #undef MAX_SOFTWARE_ENDSTOP_Y
 #endif
@@ -1253,7 +1253,7 @@
     #define USES_Z_MIN_PROBE_PIN 1
   #endif
   #if Z_HOME_TO_MIN && (DISABLED(USES_Z_MIN_PROBE_PIN) || ENABLED(USE_PROBE_FOR_Z_HOMING))
-    #define HOMING_Z_WITH_PROBE 1
+    #define HOMING_Z_WITH_PROBE 1  // AI_DEBUG: AKTIVNÍ - Používá probe pro Z homing
   #endif
   #ifndef Z_PROBE_LOW_POINT
     #define Z_PROBE_LOW_POINT -5

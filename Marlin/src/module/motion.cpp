@@ -361,14 +361,30 @@ void report_current_position_projected() {
 
   // Return true if the given position is within the machine bounds.
   bool position_is_reachable(const_float_t rx, const_float_t ry) {
-    if (TERN0(HAS_Y_AXIS, !COORDINATE_OKAY(ry, Y_MIN_POS - fslop, Y_MAX_POS + fslop))) return false;
+    // AI_DEBUG: Debug výpis pro position_is_reachable
+    SERIAL_ECHOLNPGM("AI_DEBUG: position_is_reachable kontroluje x=", rx, ", y=", ry);
+    SERIAL_ECHOLNPGM("AI_DEBUG: X_MIN_POS=", X_MIN_POS, ", X_MAX_POS=", X_MAX_POS);
+    SERIAL_ECHOLNPGM("AI_DEBUG: Y_MIN_POS=", Y_MIN_POS, ", Y_MAX_POS=", Y_MAX_POS);
+    
+    if (TERN0(HAS_Y_AXIS, !COORDINATE_OKAY(ry, Y_MIN_POS - fslop, Y_MAX_POS + fslop))) {
+      SERIAL_ECHOLNPGM("AI_DEBUG: Y pozice není dosažitelná! ry=", ry, " mimo rozsah [", Y_MIN_POS - fslop, ", ", Y_MAX_POS + fslop, "]");
+      return false;
+    }
+    
     #if ENABLED(DUAL_X_CARRIAGE)
-      if (active_extruder)
-        return COORDINATE_OKAY(rx, X2_MIN_POS - fslop, X2_MAX_POS + fslop);
-      else
-        return COORDINATE_OKAY(rx, X1_MIN_POS - fslop, X1_MAX_POS + fslop);
+      if (active_extruder) {
+        bool can_reach = COORDINATE_OKAY(rx, X2_MIN_POS - fslop, X2_MAX_POS + fslop);
+        SERIAL_ECHOLNPGM("AI_DEBUG: DUAL_X_CARRIAGE - X2 pozice dosažitelná: ", can_reach);
+        return can_reach;
+      } else {
+        bool can_reach = COORDINATE_OKAY(rx, X1_MIN_POS - fslop, X1_MAX_POS + fslop);
+        SERIAL_ECHOLNPGM("AI_DEBUG: DUAL_X_CARRIAGE - X1 pozice dosažitelná: ", can_reach);
+        return can_reach;
+      }
     #else
-      return COORDINATE_OKAY(rx, X_MIN_POS - fslop, X_MAX_POS + fslop);
+      bool can_reach = COORDINATE_OKAY(rx, X_MIN_POS - fslop, X_MAX_POS + fslop);
+      SERIAL_ECHOLNPGM("AI_DEBUG: CARTESIAN - X pozice dosažitelná: ", can_reach);
+      return can_reach;
     #endif
   }
 
@@ -559,6 +575,10 @@ void do_blocking_move_to(NUM_AXIS_ARGS(const float), const_feedRate_t fr_mm_s/*=
   DEBUG_SECTION(log_move, "do_blocking_move_to", DEBUGGING(LEVELING));
   if (DEBUGGING(LEVELING)) DEBUG_XYZ("> ", NUM_AXIS_ARGS());
 
+  // AI_DEBUG: Přidávám debug výpisy pro sledování pohybu
+  SERIAL_ECHOLNPGM("AI_DEBUG: do_blocking_move_to volána s x=", x, ", y=", y, ", z=", z);
+  SERIAL_ECHOLNPGM("AI_DEBUG: Aktuální pozice před pohybem = ", current_position.x, ", ", current_position.y, ", ", current_position.z);
+
   const feedRate_t xy_feedrate = fr_mm_s ?: feedRate_t(XY_PROBE_FEEDRATE_MM_S);
 
   #if HAS_Z_AXIS
@@ -575,7 +595,10 @@ void do_blocking_move_to(NUM_AXIS_ARGS(const float), const_feedRate_t fr_mm_s/*=
 
   #if IS_KINEMATIC && DISABLED(POLARGRAPH)
     // kinematic machines are expected to home to a point 1.5x their range? never reachable.
-    if (!position_is_reachable(x, y)) return;
+    if (!position_is_reachable(x, y)) {
+      SERIAL_ECHOLNPGM("AI_DEBUG: POZICE NENÍ DOSAŽITELNÁ! x=", x, ", y=", y);
+      return;
+    }
     destination = current_position;          // sync destination at the start
   #endif
 
@@ -659,6 +682,9 @@ void do_blocking_move_to(NUM_AXIS_ARGS(const float), const_feedRate_t fr_mm_s/*=
   #endif
 
   planner.synchronize();
+  
+  // AI_DEBUG: Debug výpis po dokončení pohybu
+  SERIAL_ECHOLNPGM("AI_DEBUG: do_blocking_move_to dokončena - current_position = ", current_position.x, ", ", current_position.y, ", ", current_position.z);
 }
 
 void do_blocking_move_to(const xy_pos_t &raw, const_feedRate_t fr_mm_s/*=0.0f*/) {
@@ -2354,7 +2380,21 @@ void set_axis_is_at_home(const AxisEnum axis) {
   #elif ENABLED(DELTA)
     current_position[axis] = (axis == Z_AXIS) ? DIFF_TERN(HAS_BED_PROBE, delta_height, probe.offset.z) : base_home_pos(axis);
   #else
+    // AI_DEBUG: Pozice před nastavením base_home_pos
+    if (axis == Z_AXIS) {
+      SERIAL_ECHOLNPGM("AI_DEBUG: set_axis_is_at_home(Z) - před base_home_pos - current_position = ", current_position.x, ", ", current_position.y);
+      SERIAL_ECHOLNPGM("AI_DEBUG: base_home_pos(Z) = ", base_home_pos(axis));
+      SERIAL_ECHOLNPGM("AI_DEBUG: Z_HOME_POS = ", Z_HOME_POS);
+      SERIAL_ECHOLNPGM("AI_DEBUG: Z_MIN_POS = ", Z_MIN_POS);
+      SERIAL_ECHOLNPGM("AI_DEBUG: Z_MAX_POS = ", Z_MAX_POS);
+    }
+    
     current_position[axis] = base_home_pos(axis);
+    
+    // AI_DEBUG: Pozice po nastavení base_home_pos
+    if (axis == Z_AXIS) {
+      SERIAL_ECHOLNPGM("AI_DEBUG: set_axis_is_at_home(Z) - po base_home_pos - current_position = ", current_position.x, ", ", current_position.y);
+    }
   #endif
 
   /**
