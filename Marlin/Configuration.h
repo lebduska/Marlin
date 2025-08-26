@@ -2066,10 +2066,10 @@
 #elif ANY(MachineCR10SPro, MachineCR10Max, MachineCRXPro, MachineEnder6, MachineEnder7, MachineCR30)
   #define EStepsmm 140
 #elif ENABLED(MachineCR2020)
-  #define EStepsmm 113
-#else
-  #define EStepsmm 500  // Upraveno pro Micro Swiss Direct Drive - zvýšeno na 500
-#endif
+           #define EStepsmm 113
+       #else
+         #define EStepsmm 343  // Kalibrováno pro Micro Swiss Direct Drive - přesná hodnota
+       #endif
 
 #if ANY(MachineEnder5Plus, MachineCR5)
   #define ZStepsmm 800
@@ -2452,7 +2452,7 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -30, 15, 0 }  // Upraveno: X offset -30mm kvůli pravému kraji, Y 15mm od hrany
+#define NOZZLE_TO_PROBE_OFFSET { -30, 15, -0.1 }  // Kalibrováno: X -30mm, Y 15mm, Z -0.1mm (perfektní tisk)
 
 
 

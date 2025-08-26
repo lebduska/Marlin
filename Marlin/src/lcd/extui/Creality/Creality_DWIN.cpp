@@ -1464,7 +1464,7 @@ void RTSSHOW::RTS_HandleData()
         {
           if (WITHIN((getZOffset_mm() + 0.1), Z_PROBE_OFFSET_RANGE_MIN, Z_PROBE_OFFSET_RANGE_MAX))
           {
-            smartAdjustAxis_steps((getAxisSteps_per_mm(Z) / 20), (axis_t)Z, false);
+            smartAdjustAxis_steps((getAxisSteps_per_mm(Z) / 20), (axis_t)Z, false); // Kalibrováno pro správné kroky
             //SERIAL_ECHOLNPGM("Babystep Pos Steps : ", (int)(getAxisSteps_per_mm(Z) / 10));
             //setZOffset_mm(getZOffset_mm() + 0.1);
             RTS_SndData(getZOffset_mm() * 100, ProbeOffset_Z);

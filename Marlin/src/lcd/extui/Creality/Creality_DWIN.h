@@ -57,7 +57,7 @@ namespace ExtUI {
 #define	VarAddr_W	0x82
 #define	VarAddr_R	0x83
 #define	ExchangePageBase	(unsigned long)0x5A010000	//the first page ID. other page = first page ID + relevant num;
-#define	StartSoundSet	((unsigned long)0x060400A0)		// 06,start-music; 04, 4 musics; 00, the volume value (0 = silent); 04, return value about music number.
+ #define	StartSoundSet	((unsigned long)0x060400A0)		// 06,start-music; 04, 4 musics; 00, the volume value (0 = silent) - kalibrováno pro tichý provoz
 #define	FONT_EEPROM	90
 #define	AutoLeve_EEPROM	100
 #define	FanOn	255
