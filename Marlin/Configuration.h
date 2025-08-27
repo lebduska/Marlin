@@ -373,9 +373,7 @@
   #define ABL_EZABL
 #endif
 
-#if ENABLED(MachineCR10SProV2)
-  #define MachineCR10SPro
-#endif
+// Odstraněno: MachineCR10SProV2 -> MachineCR10SPro mapping - nebezpečné!
 
 #if ENABLED(MachineCR10SPro)
   #define MachineCR10Std
@@ -750,7 +748,7 @@
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
 
-#if (ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11) || ANY(MachineCR10SV2, MachineEnder3S1, MachineCR10SPro, MachineCR10SProV2, MachineCR10Max, MachineCR5, SKRMiniE3V2, SKRMiniE3V3, MachineCR6, MachineCR6Max, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineCR30, MachineCR10Smart, MachineCR10SmartPro)) && DISABLED(SKR_UART)
+#if (ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11) || ANY(MachineEnder3S1, MachineCR10SPro, MachineCR5, SKRMiniE3V2, SKRMiniE3V3, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineCR30, MachineCR10Smart, MachineCR10SmartPro)) && DISABLED(SKR_UART)
   #if ENABLED(SKR_2209)
     #define X_DRIVER_TYPE  TMC2209_STANDALONE
     #define Y_DRIVER_TYPE  TMC2209_STANDALONE
@@ -2245,9 +2243,7 @@
   #define Z_MIN_PROBE_PIN 19 // Pin 32 is the RAMPS default
 #endif
 
-#if ENABLED(MachineCR10SProV2)
-  #define Z_MIN_PROBE_PIN 19 // Pin 19 for proximity sensor
-#endif
+// Odstraněno: MachineCR10SProV2 Z_MIN_PROBE_PIN - není potřeba pro CR10SPro
 /**
  * Probe Type
  *
@@ -2860,13 +2856,7 @@
     #define X_MAX_POS 315
     #define Y_MAX_POS 308
     #define ClipClearance 15
-  #elif ENABLED(MachineCR10SProV2)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 5
+  // Odstraněno: MachineCR10SProV2 bed size - není potřeba pro CR10SPro
   #elif ENABLED(MachineCR10SPro)
     #define X_BED_SIZE 300
     #define Y_BED_SIZE 300
@@ -3063,7 +3053,7 @@
   // Override with M591EnLnn
   #if ENABLED(FilamentEncoder)
     #define FILAMENT_RUNOUT_DISTANCE_MM 12
-  #elif ANY(MachineEnder5Plus, MachineCR10SPro, MachineCR10SProV2)
+  #elif ANY(MachineEnder5Plus, MachineCR10SPro)
     #define FILAMENT_RUNOUT_DISTANCE_MM 10
   #else
     #define FILAMENT_RUNOUT_DISTANCE_MM 5
