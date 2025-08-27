@@ -7,20 +7,9 @@
 
 
 // Touchscreen
-//#define MachineCR10SPro // Graphics LCD Requires soldering R64 and R66
-//#define MachineCR10SProV2 // Second Gen 10S Pro with BLTouch wired to Z Max
-//#define MachineCRX
-//#define MachineCRXPro
-//#define MachineCR10Max
-//#define MachineEnder5Plus
-//#define MachineCR6
-//#define MachineCR6Max
-//#define MachineEnder6
-//#define MachineSermoonD1
-//#define MachineEnder7
-//#define MachineCR10Smart
-//#define MachineCR10SmartPro
-//#define MachineCR5
+#define MachineCR10SPro // Graphics LCD Requires soldering R64 and R66
+// Pouze MachineCR10SPro je aktivní pro naši tiskárnu
+
 
 /*
 20:41:31.558 > PIN: PB12        M42 P28          <unused/unknown> // Pi Netowork Reset Output
@@ -353,17 +342,7 @@
   #undef EnclosureLight
 #endif
 
-#if ENABLED(MachineCR10SV3)
-  #define MachineCR10SV2
-  #define CrealityTitan
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-#endif
-
-#if ENABLED(MachineCR10SmartPro)
-  #define ABL_BLTOUCH
-#endif
+// Odstraněno: MachineCR10SV3 a MachineCR10SmartPro - nejsou potřeba pro CR10SPro
 
 #if ANY(SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo)
   #define SKR_2209
@@ -380,11 +359,7 @@
   #define E3DTitan
 #endif
 
-#if ANY(MachineCR6, MachineCR6Max)
-  #if NONE(ABL_UBL, ABL_BI)
-    #define ABL_BI
-  #endif
-#endif
+// Odstraněno: MachineCR6, MachineCR6Max - nejsou potřeba pro CR10SPro
 
 #if ENABLED(OriginalCrealitySquareBoard)
   #define SD_DETECT_PIN -1
@@ -415,13 +390,9 @@
 
 
 
-#if ANY(MachineCR10SV2)
-  #define lerdgeFilSensor
-#endif
+// Odstraněno: MachineCR10SV2 - není potřeba pro CR10SPro
 
-#if ANY(MachineCR10SV2, MachineCR10Max, MachineCR10SProV2) && ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11)
-  #define Z_STOP_PIN 19
-#endif
+// Odstraněno: MachineCR10SV2, MachineCR10Max, MachineCR10SProV2 - nejsou potřeba pro CR10SPro
 
 #if ANY(MachineEnder2, MachineEnder3, MachineEnder5, MachineCR10, MachineMini) &&NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V2, SKRMiniE3V3, Creality422, Creality427, Melzi_To_SBoardUpgrade)
   #define MachineCR10Orig
