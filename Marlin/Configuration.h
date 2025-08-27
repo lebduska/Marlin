@@ -2027,21 +2027,10 @@
   #define EStepsmm 400
 #elif(ENABLED(BondtechBMG) || ENABLED(E3DTitan))
   #define EStepsmm 415
-#elif ENABLED(E3DHemera)
-  #define EStepsmm 409
-#elif ENABLED(SpriteExtruder)
-  #define EStepsmm 430
-#elif ANY(EZRstruder, MachineCR10SV2)
-  #define EStepsmm 93
-#elif ENABLED(MachineCR5)
-  #define EStepsmm 137.65
-#elif ANY(MachineCR10SPro, MachineCR10Max, MachineCRXPro, MachineEnder6, MachineEnder7, MachineCR30)
-  #define EStepsmm 140
-#elif ENABLED(MachineCR2020)
-           #define EStepsmm 113
-       #else
-         #define EStepsmm 343  // Kalibrováno pro Micro Swiss Direct Drive - přesná hodnota
-       #endif
+// Odstraněno: všechny ostatní E-steps definice - nejsou potřeba pro CR10SProV2
+#else
+  #define EStepsmm 343  // Kalibrováno pro Micro Swiss Direct Drive - přesná hodnota
+#endif
 
 #if ANY(MachineEnder5Plus, MachineCR5)
   #define ZStepsmm 800
@@ -2088,36 +2077,7 @@
   #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif (ENABLED(MachineCR10Std))
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ENABLED( MachineS4)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 400, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1000, 750, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ANY(MachineS5, MachineCR10Max)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 400, 15, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1000, 700, 100, 75 }
-  #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ANY(MachineCR2020, MachineEnder6)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 7000, 7000, 100, 75 }
-  #define DEFAULT_ACCELERATION          2000    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ENABLED(MachineEnder7)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 25000, 25000, 100, 75 }
-  #define DEFAULT_ACCELERATION          10000    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   10000    // X, Y, Z acceleration for travel (non printing) moves
+// Odstraněno: všechny ostatní acceleration definice - nejsou potřeba pro CR10SProV2
 #endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
@@ -2854,13 +2814,7 @@
     #define X_MAX_POS 240
     #define Y_MAX_POS 240
     #define ClipClearance 15
-  #elif ENABLED(MachineCRX)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 308
-    #define ClipClearance 15
+  // Odstraněno: MachineCRX - není potřeba pro CR10SProV2
   #elif ENABLED(MachineCR10SProV2)
     #define X_BED_SIZE 300
     #define Y_BED_SIZE 300
@@ -2868,48 +2822,7 @@
     #define X_MAX_POS 315
     #define Y_MAX_POS 310
     #define ClipClearance 5
-  #elif ENABLED(MachineCR10SPro)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 10
-  #elif ENABLED(MachineCR10Std)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 15
-  #elif ENABLED( MachineS4)
-    #define X_BED_SIZE 400
-    #define Y_BED_SIZE 400
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 410
-    #define Y_MAX_POS 400
-    #define ClipClearance 15
-  #elif ENABLED(MachineCR10Max)
-    #define X_BED_SIZE 470
-    #define Y_BED_SIZE 470
-    #define Z_MAX_POS 470
-    #define X_MAX_POS 470
-    #define Y_MAX_POS 470
-    #define ClipClearance 15
-  #elif ENABLED(MachineS5)
-    #define X_BED_SIZE 500
-    #define Y_BED_SIZE 500
-    #define Z_MAX_POS 500
-    #define X_MAX_POS 510
-    #define Y_MAX_POS 500
-    #define ClipClearance 20
-  #elif ENABLED(MachineCR2020)
-    #define X_BED_SIZE 200
-    #define Y_BED_SIZE 202.5
-    #define Z_MAX_POS 210
-    #define X_MAX_POS 200
-    #define Y_MAX_POS 202.5
-    #define ClipClearance 15
+  // Odstraněno: všechny ostatní machine definice - nejsou potřeba pro CR10SProV2
   #endif
 
   #ifndef ClipClearance
