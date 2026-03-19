@@ -33,7 +33,7 @@
 #define MOSFET_B_PIN                           7  // For HEATER_1_PIN ("EEF" or "EEB")
 #define FAN_PIN                                9
 
-#define FIL_RUNOUT_PIN                         2
+//#define FIL_RUNOUT_PIN                         2  // VYPNUTO - pin 2 použit pro Z_MIN_PROBE (proximity sensor)
 #if NUM_RUNOUT_SENSORS >= 2
   #define FIL_RUNOUT2_PIN                     15  // Creality CR-X can use dual runout sensors
 #endif
