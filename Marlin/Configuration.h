@@ -2452,7 +2452,7 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -30, 15, -0.1 }  // Kalibrováno: X -30mm, Y 15mm, Z -0.1mm (perfektní tisk)
+#define NOZZLE_TO_PROBE_OFFSET { -30, 15, -0.1 }  // Původní kalibrovaný offset
 
 
 
@@ -3286,7 +3286,7 @@
   #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
     // Set Mesh bounds as an inset region of the bed
-    #define MESH_INSET 40          // (mm) Inset from bed edges for mesh probing (increased to avoid right rail)
+    #define MESH_INSET 40          // (mm) Inset from bed edges for mesh probing
 
     // Beyond the probed grid, continue the implied tilt?
     // Default is to maintain the height of the nearest edge.
