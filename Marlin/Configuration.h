@@ -260,15 +260,7 @@
 //#define LowMemoryBoard
 
 
-/*
-   Enclosure Controls
-*/
-//#define EnclosureLight // Uses 5vdc LED's hooked to D12
-//#define PowerShutoffKit // 5vdc relay to interupt all heater power on D12, assumes NO relay.
-//#define EnclosureTempSensor // Uses PT100 Probe hooked to A12, only partially implemented upstream
-//#define EnclosureHeater //Planned to use A11 to control heater upstream, and repurpose the unused y max as the fan output. Not yet fully implemented upstream
-
-//#define UnstableTemps // define if temps are unstable and you need a temporary workaround
+// Enclosure controls — not used on this printer
 
 /**
  * Marlin 3D Printer Firmware
@@ -349,21 +341,7 @@
 
 // Enable to show the bitmap in Marlin/_Bootscreen.h on startup.
 
-#if BOTH(PowerShutoffKit, EnclosureLight)
-  #undef EnclosureLight
-#endif
-
-#if ENABLED(MachineCR10SV3)
-  #define MachineCR10SV2
-  #define CrealityTitan
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-#endif
-
-#if ENABLED(MachineCR10SmartPro)
-  #define ABL_BLTOUCH
-#endif
+// Other machine definitions removed — CR-10S Pro V2 only
 
 #if ANY(SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo)
   #define SKR_2209
@@ -380,319 +358,33 @@
   #define E3DTitan
 #endif
 
-#if ANY(MachineCR6, MachineCR6Max)
-  #if NONE(ABL_UBL, ABL_BI)
-    #define ABL_BI
-  #endif
-#endif
-
-#if ENABLED(OriginalCrealitySquareBoard)
-  #define SD_DETECT_PIN -1
-#endif
-
-#if ENABLED(DDXExtruderKit)
-  #define BondtechBMG
-#endif
-
-#if ENABLED(ABL_EZABL12MM)
-  #define ABL_EZABL
-#endif
-
-#if ENABLED(MachineCR10SProV2)
-  #define MachineCR10SPro
-#endif
-
-#if ENABLED(MachineCR10SPro)
-  #define MachineCR10Std
-  #if DISABLED(ABL_BLTOUCH, ABL_EZABL, ABL_TOUCH_MI)
-    //#define ABL_NCSW  // Disabled for proximity sensor
-  #endif
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-  #define lerdgeFilSensor
-#endif
-
-
-
-#if ANY(MachineCR10SV2)
-  #define lerdgeFilSensor
-#endif
-
-#if ANY(MachineCR10SV2, MachineCR10Max, MachineCR10SProV2) && ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11)
-  #define Z_STOP_PIN 19
-#endif
-
-#if ANY(MachineEnder2, MachineEnder3, MachineEnder5, MachineCR10, MachineMini) &&NONE(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V2, SKRMiniE3V3, Creality422, Creality427, Melzi_To_SBoardUpgrade)
-  #define MachineCR10Orig
-#endif
-
-#if ANY(MachineCR10, MachineCR10S, MachineCR10SV2, MachineCR10Smart, MachineCR10SmartPro)
-  #define MachineCR10Std
-#endif
-
-#if ENABLED(MachineCR2020)
-  #define EnclosureLight
-  #define LCD_CONTRAST_INIT 165
-  #define SUICIDE_PIN 12 // Power up method is triggering the kill. Need to add consistent inversion upstream
-  #define SUICIDE_PIN_INVERTING true
-  #define DirectDrive
-#endif
-
-#if ENABLED(PLUS)
-  #if DISABLED(MachineCR10Orig)
-    #define lerdgeFilSensor //Using lerdge filament sensor, which is opposite polarity to stock)
-  #endif
-  #define HotendAllMetal
-  #define EZRstruder
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-#endif
-
-#if ENABLED(MachineCRXPro)
-  #define MachineCRX
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-#endif
-
-#if ENABLED(FilSensors)
-  #define AddonFilSensor
-  #define lerdgeFilSensor
-  #if ANY(MachineCRX, MachineCRXPro, Dual_BowdenSplitterY, Dual_CyclopsSingleNozzle, Dual_ChimeraDualNozzle)
-    #define DualFilSensors
-  #endif
-#endif
-
-#if ANY(MachineCRX, MachineCRXPro, MachineEnder5Plus, MachineCR10SPro, MachineCR5, MachineCR10Max, MachineEnder6, MachineSermoonD1, MachineEnder7, MachineCR10Smart, MachineCR10SmartPro)
-  #if NONE(GraphicLCD, OrigLCD, FORCE10SPRODISPLAY)
-    #define FORCE10SPRODISPLAY
-  #endif
-#endif
-
-#if ANY(MachineEnder7, MachineSermoonD1, MachineCR10Smart, MachineCR5, MachineCR10SmartPro)
-  #define DWINOS_4
-#endif
-
-#if ENABLED(MachineCR30)
-  #define OrigLCD
-  #define RET6_12864_LCD
-  #define BedDC
-#endif
-
-#if ENABLED(MachineCRX)
-  #define MachineCR10Std
-  #define Dual_BowdenSplitterY
-#endif
-
-#if ANY(MachineEnder3V2, MachineEnder3Pro422, MachineEnder3Pro427, Creality422, Creality427, MachineEnder3Max, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineEnder3S1)
-  #define POWER_LOSS_RECOVERY //Screen will not compile without PLR
-#endif
-
-#if ANY(MachineEnder3Pro422, MachineEnder3Pro427)
-  #define MachineEnder3
-  #define RET6_12864_LCD
-#endif
-
-#if ANY(MachineEnder3Max, MachineEnder3V2, MachineEnder3Pro422) && DISABLED(Creality427)
-  #ifndef Creality422
-    #define Creality422
-  #endif
-#endif
-
-#if ENABLED(MachineEnder3Pro427)
-  #ifndef Creality427
-    #define Creality427
-  #endif
-#endif
-
-#if ANY(MachineEnder3Max, MachineEnder6)
-  #define lerdgeFilSensor
-#endif
-
-#if (ANY(Creality422, Creality427, MachineEnder2Pro) && DISABLED(MachineEnder3V2)) || BOTH(OrigLCD, MachineEnder6)
-  #ifndef FORCE10SPRODISPLAY
-    #ifndef MachineEnder3Touchscreen
-      #ifndef FORCEV2DISPLAY
-        #define RET6_12864_LCD
-        #ifndef OrigLCD
-          #define OrigLCD
-        #endif
-      #endif
-    #endif
-  #endif
-#endif
-
-#if NONE(HotendStock, HotendE3D)
-  #define HotendStock
-#endif
-
-#if NONE(ABL_UBL, ABL_BI, FORCE10SPRODISPLAY)
-  #define ABL_BI
-#endif
-
-#if ANY(ABL_EZABL, ABL_NCSW, ABL_BLTOUCH, ABL_TOUCH_MI) && NONE(ABL_UBL, ABL_BI)
-  #define ABL_BI
-#endif
-
-#if NONE(MeshFast, MeshStd, MeshFine, MeshExtreme)
-  #define MeshStd
-#endif
-
-#if ENABLED(MachineCR20Pro)
-  #define LCD_CONTRAST_INIT 165
-  #define MachineCR20
-  #if NONE(ABL_NCSW, ABL_EZABL, ABL_BLTOUCH)
-    #define ABL_BLTOUCH
-  #endif
-  #define HotendAllMetal
-  #if DISABLED(ABL_UBL)
-    #define ABL_BI
-  #endif
-  #define SolidBedMounts
-
-#endif
-
-#if ENABLED(SKRPRO11)
-  #define FIL_RUNOUT_PIN   PE15
-  #if DISABLED(I2C_EEPROM)
-    #define FLASH_EEPROM_EMULATION
-  #endif
-#endif
-
-#if ANY(MicroswissDirectDrive, DDXExtruderKit, CrealityTitan, E3DHemera, SpriteExtruder)
-  #define DirectDrive
-#endif
-
-#if ENABLED(MachineCR10Orig, ABL_BI)
-  #define LowMemoryBoard
-#endif
-//Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **
-#if NONE(MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus) || ENABLED(GraphicLCD)
-  #undef SolidBedMounts
-#endif
-
-#if NONE(LowMemoryBoard, MachineCR10Orig)
-  #define POWER_LOSS_RECOVERY
-#endif
-
-#if ENABLED(MachineSermoonD1)
-  #ifndef Creality422
-    #define Creality422
-  #endif
-#endif
-
-#if NONE(BedDC, BedExternal, BedAC)
-  #define BedDC
-#endif
-
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo, SKRMiniE3V3, MachineEnder3V2, MachineEnder3S1, Creality422, Creality427, MachineEnder6, MachineSermoonD1, MachineCR30, MachineCR6, MachineCR6Max, MachineEnder7, MachineCR10Smart, MachineCR10SmartPro)
-  #define MachineLargeROM
-#endif
-
-#if NONE(MachineCR10Orig, MachineEnder4, MachineCR10SPro, MachineCRX, MachineCR10Max, MachineEnder5Plus, MachineCR5, SKRMiniE3V2, FORCE10SPRODISPLAY) || ENABLED(GraphicLCD)
-  #define SHOW_BOOTSCREEN
-
-// Show the bitmap in Marlin/_Bootscreen.h on startup.
-  #if DISABLED(MachineCR6, MachineCR6Max, MachineEnder3Touchscreen)
-    #define SHOW_CUSTOM_BOOTSCREEN
-  #endif
-
-  #if DISABLED(MachineEnder3V2, MachineEnder3S1, MachineCR6, MachineCR6Max, MachineEnder3Touchscreen, FORCEV2DISPLAY)
-    // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
-    #define CUSTOM_STATUS_SCREEN_IMAGE
-  #endif
-#endif
+// ==========================================================================
+// CR-10S Pro V2 + Microswiss Direct Drive — resolved machine flags
+// ==========================================================================
+#define MachineCR10SPro
+#define MachineCR10Std
+#define ABL_BI
+#define lerdgeFilSensor
+#define DirectDrive
+#define FORCE10SPRODISPLAY
+#define HotendStock
+#define MeshStd
+#define POWER_LOSS_RECOVERY
+#define Z_STOP_PIN 19
 
 /**
- * Select the serial port on the board to use for communication with the host.
- * This allows the connection of wireless adapters (for instance) to non-default port pins.
- * Serial port -1 is the USB emulated serial port, if available.
- * Note: The first serial port (-1 or 0) will always be used by the Arduino bootloader.
- *
- * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
+ * Serial port configuration
  */
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo, SKR_CR6)
-  #define SERIAL_PORT -1
-#elif ANY(MachineCR10Smart, MachineCR10SmartPro, MachineEnder2Pro)
-  #define SERIAL_PORT 1
-#elif ANY(MachineEnder3V2, MachineEnder3S1, MachineEnder3Max, MachineEnder3Pro422, MachineEnder3Pro427, Creality422, Creality427, MachineEnder6, MachineCR6, MachineCR6Max, MachineSermoonD1, MachineCR30, MachineEnder7)
-  #define SERIAL_PORT 1
-#else
-  #define SERIAL_PORT 0
-#endif
-
-/**
- * Select a secondary serial port on the board to use for communication with the host.
- * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
- * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
- */
-#if ANY(SKR13, SKR14, SKR14Turbo, SKRE3Turbo) && ENABLED(FORCE10SPRODISPLAY)
-  #define LCD_SERIAL_PORT 0
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL -1
-#elif ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo) && NONE(MachineEnder3V2, MachineEnder3S1, MachineEnder3Touchscreen, FORCEV2DISPLAY)
-  #define SERIAL_PORT_2 0
-#elif ANY(SKRMiniE3V2, SKRMiniE3V3)
-  #if ANY(FORCE10SPRODISPLAY, MachineEnder3Touchscreen)
-    #define LCD_SERIAL_PORT 2
-    #define LCD_BAUDRATE 115200
-    #define SERIAL_CATCHALL -1
-  #elif DISABLED(FORCEV2DISPLAY)
-    #define SERIAL_PORT_2 2
-  #endif
-#elif ANY(MachineEnder3V2, MachineEnder3S1) && ANY(FORCEV2DISPLAY, SKRE3Turbo)
-  #define LCD_SERIAL_PORT 1
-  #define LCD_BAUDRATE 115200
-  //#define SERIAL_CATCHALL -1
-#elif ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR10Max, MachineCR5) && NONE(GraphicLCD, OrigLCD, MachineEnder3V2, MachineEnder3S1, Creality422, Creality427, MachineEnder6, FORCEV2DISPLAY)
-  #define LCD_SERIAL_PORT 2
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 0
-#elif ANY(MachineCR10SPro, MachineCRX, MachineEnder5Plus, MachineCR5, MachineCR10Max, MachineEnder6, Creality422, Creality427, MachineSermoonD1, MachineEnder3Touchscreen, MachineCR6, MachineCR6Max, FORCEV2DISPLAY) && NONE(GraphicLCD, OrigLCD)
-  #define LCD_SERIAL_PORT 3
-  #define LCD_BAUDRATE 115200
-  //#define SERIAL_CATCHALL 1
-#elif ENABLED(MachineCR10Smart)
-  #define LCD_SERIAL_PORT 3
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 1
-#elif ANY(MachineEnder7, MachineCR10SmartPro)
-  #define LCD_SERIAL_PORT 2
-  #define LCD_BAUDRATE 115200
-  #define SERIAL_CATCHALL 1
-#endif
+#define SERIAL_PORT 0
+#define LCD_SERIAL_PORT 2
+#define LCD_BAUDRATE 115200
+#define SERIAL_CATCHALL 0
 
 /**
  * Serial Port Baud Rate
- * This is the default communication speed for all serial ports.
- * Set the baud rate defaults for additional serial ports below.
- *
- * 250000 works in most cases, but you might try a lower speed if
- * you commonly experience drop-outs during host printing.
- * You may try up to 1000000 to speed up SD file transfer.
- *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#if ANY(MachineEnder3V2, MachineEnder3S1, CrealityViewerKit, MachineCR6, MachineCR6Max, MachineEnder3Touchscreen, MachineCR10Smart, MachineCR10SmartPro, FORCEV2DISPLAY, MachineEnder2Pro)
-  #define BAUDRATE 115200
-#else
-  #define BAUDRATE 250000
-#endif
-
-//#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
-
-/**
- * Select a secondary serial port on the board to use for communication with the host.
- * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
- * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
- */
-//#define SERIAL_PORT_2 -1
-//#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
+#define BAUDRATE 250000
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -705,52 +397,8 @@
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
 
-// Choose the name from boards.h that matches your setup
-#ifndef MOTHERBOARD
-  #if ENABLED(SKR14Turbo)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
-  #elif ENABLED(SKR14)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_4
-  #elif ENABLED(SKR13)
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_3
-  #elif ENABLED(SKRPRO11)
-    #define MOTHERBOARD BOARD_BTT_SKR_PRO_V1_1
-  #elif ENABLED(SKRMiniE3V2)
-    #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V2_0
-  #elif ENABLED(SKRMiniE3V3)
-    #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V3_0
-  #elif ENABLED(SKRE3Turbo)
-    #define MOTHERBOARD BOARD_BTT_SKR_E3_TURBO
-  #elif ENABLED(MachineEnder6)
-    #define MOTHERBOARD BOARD_CREALITY_V431
-  #elif ENABLED(MachineEnder7)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1
-  #elif ENABLED(Creality427)
-    #define MOTHERBOARD BOARD_CREALITY_V427
-  #elif ENABLED(Creality422)
-    #define MOTHERBOARD BOARD_CREALITY_V4
-  #elif ENABLED(MachineEnder3S1_F4)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1_301F4
-  #elif ENABLED(MachineEnder3S1) && DISABLED(MachineEnder3S1_F4)
-    #define MOTHERBOARD BOARD_CREALITY_V24S1_301
-  #elif (ENABLED(MachineCR10Orig) && DISABLED(Melzi_To_SBoardUpgrade))
-    #define MOTHERBOARD BOARD_MELZI_CREALITY
-  #elif ENABLED(SKR_CR6)
-    #define MOTHERBOARD BOARD_BTT_SKR_CR6
-  #elif ENABLED(CR6_452)
-    #define MOTHERBOARD BOARD_CREALITY_V452
-  #elif ENABLED(MachineCR30)
-    #define MOTHERBOARD BOARD_CREALITY_V4210
-  #elif ENABLED(MachineCR10SmartPro)
-    #define MOTHERBOARD BOARD_CREALITY_V25S1
-  #elif ANY(MachineCR6, MachineCR6Max, MachineCR10Smart)
-    #define MOTHERBOARD BOARD_CREALITY_V453
-  #elif ENABLED(MachineEnder2Pro)
-    #define MOTHERBOARD BOARD_CREALITY_V423
-  #else
-    #define MOTHERBOARD BOARD_RAMPS_CREALITY
-  #endif
-#endif
+// CR-10S Pro V2 uses RAMPS Creality board
+#define MOTHERBOARD BOARD_RAMPS_CREALITY
 
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "3D Printer"
@@ -779,81 +427,12 @@
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
 
-#if (ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11) || ANY(MachineCR10SV2, MachineEnder3S1, MachineCR10SPro, MachineCR10SProV2, MachineCR10Max, MachineCR5, SKRMiniE3V2, SKRMiniE3V3, MachineCR6, MachineCR6Max, MachineEnder6, MachineEnder7, MachineSermoonD1, MachineCR30, MachineCR10Smart, MachineCR10SmartPro)) && DISABLED(SKR_UART)
-  #if ENABLED(SKR_2209)
-    #define X_DRIVER_TYPE  TMC2209_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2209_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2209_STANDALONE
-    #define E0_DRIVER_TYPE TMC2209_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2209_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2209_STANDALONE
-    #endif
-  #elif ENABLED(SKR_2130)
-    #define X_DRIVER_TYPE  TMC2130_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2130_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2130_STANDALONE
-    #define E0_DRIVER_TYPE TMC2130_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2130_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2130_STANDALONE
-    #endif
-  #else
-    #define X_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Z_DRIVER_TYPE  TMC2208_STANDALONE
-    #define E0_DRIVER_TYPE TMC2208_STANDALONE
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2208_STANDALONE
-    #else
-      #define E1_DRIVER_TYPE TMC2208_STANDALONE
-    #endif
-  #endif
-#elif ANY(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRMiniE3V2, SKRMiniE3V3, SKRE3Turbo) && ENABLED(SKR_UART)
-  #if ENABLED(SKR_2209)
-    #define X_DRIVER_TYPE  TMC2209
-    #define Y_DRIVER_TYPE  TMC2209
-    #define Z_DRIVER_TYPE  TMC2209
-    #define E0_DRIVER_TYPE TMC2209
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2209
-    #else
-      #define E1_DRIVER_TYPE TMC2209
-    #endif
-  #elif ENABLED(SKR_2130)
-    #define X_DRIVER_TYPE  TMC2130
-    #define Y_DRIVER_TYPE  TMC2130
-    #define Z_DRIVER_TYPE  TMC2130
-    #define E0_DRIVER_TYPE TMC2130
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2130
-    #else
-      #define E1_DRIVER_TYPE TMC2130
-    #endif
-  #else
-    #define X_DRIVER_TYPE  TMC2208
-    #define Y_DRIVER_TYPE  TMC2208
-    #define Z_DRIVER_TYPE  TMC2208
-    #define E0_DRIVER_TYPE TMC2208
-    #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE TMC2208
-    #else
-      #define E1_DRIVER_TYPE TMC2208
-    #endif
-  #endif
-#else
-  #define X_DRIVER_TYPE  A4988
-  #define Y_DRIVER_TYPE  A4988
-  #define Z_DRIVER_TYPE  A4988
-  #define E0_DRIVER_TYPE A4988
-  #if ENABLED(DualZ)
-      #define Z2_DRIVER_TYPE A4988
-    #else
-      #define E1_DRIVER_TYPE A4988
-    #endif
-#endif
+// CR-10S Pro V2 stepper drivers: TMC2208 in standalone mode
+#define X_DRIVER_TYPE  TMC2208_STANDALONE
+#define Y_DRIVER_TYPE  TMC2208_STANDALONE
+#define Z_DRIVER_TYPE  TMC2208_STANDALONE
+#define E0_DRIVER_TYPE TMC2208_STANDALONE
+#define E1_DRIVER_TYPE TMC2208_STANDALONE
 
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
@@ -1247,48 +826,20 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *
  */
-#if ENABLED(ConfigurableThermistors)
-  #define TEMP_SENSOR_0 1000
-#elif ENABLED(CrealityThermistor)
-  #define TEMP_SENSOR_0 1
-#elif ENABLED(SlicePT1000)
-  #define TEMP_SENSOR_0 1047
-#elif ENABLED(HotendMosquito)
-  #define TEMP_SENSOR_0 67
-#elif ENABLED(HotendE3D)
-  #define TEMP_SENSOR_0 5
-#elif ENABLED(HotendStock)
-  #define TEMP_SENSOR_0 1
-#endif
-
-#if DISABLED(Dual_ChimeraDualNozzle)
-  #define TEMP_SENSOR_1 0
-#else
-  #define TEMP_SENSOR_1 TEMP_SENSOR_0
-#endif
-
-#define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_3 0
-#define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_5 0
-#define TEMP_SENSOR_6 0
-#define TEMP_SENSOR_7 0
-#if ENABLED(ConfigurableThermistors) && ANY(BedDC, BedAC)
-  #define TEMP_SENSOR_BED 1000
-#elif ENABLED(BedDC)
-	#define TEMP_SENSOR_BED 5
-#elif ENABLED(BedAC)
-	#define TEMP_SENSOR_BED 11
-#else
-	#define TEMP_SENSOR_BED 0
-#endif
+// CR-10S Pro V2: stock thermistor (type 1), DC bed (type 5)
+#define TEMP_SENSOR_0   1
+#define TEMP_SENSOR_1   0
+#define TEMP_SENSOR_2   0
+#define TEMP_SENSOR_3   0
+#define TEMP_SENSOR_4   0
+#define TEMP_SENSOR_5   0
+#define TEMP_SENSOR_6   0
+#define TEMP_SENSOR_7   0
+#define TEMP_SENSOR_BED 5
 
 #define TEMP_SENSOR_PROBE 0
 
-#if(ENABLED(EnclosureTempSensor))
-  #define TEMP_SENSOR_CHAMBER 147
-  #define TEMP_CHAMBER_PIN   12
-#endif
+#define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
 #define TEMP_SENSOR_BOARD 0
 #define TEMP_SENSOR_REDUNDANT 0
@@ -1372,13 +923,8 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#if ENABLED(HotendMosquito)
-  #define HEATER_0_MAXTEMP 450
-#elif ENABLED(HotendAllMetal)
-	#define HEATER_0_MAXTEMP 315
-#else
-	#define HEATER_0_MAXTEMP 255
-#endif
+// Microswiss all-metal hotend
+#define HEATER_0_MAXTEMP 315
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -1415,10 +961,8 @@
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-  #if NONE(MachineCR10Orig, SKRMiniE3V2)
-    #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-    #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  #endif
+  #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
+  #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with G-code: M301 E[extruder number, 0-2]
 
@@ -1430,69 +974,10 @@
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
-    #if ANY(HotendMosquito, PID50W)
-      #define DEFAULT_Kp 16.8
-      #define DEFAULT_Ki 1.2
-      #define DEFAULT_Kd 54.3
-    #elif ENABLED(HotendStock)
-      #if ANY(MachineCR10SPro, MachineCR10Max)
-        #define DEFAULT_Kp 25.25
-        #define DEFAULT_Ki 2.17
-        #define DEFAULT_Kd 73.44
-      #elif ENABLED(MachineEnder5Plus)
-        #define  DEFAULT_Kp 14.72
-        #define  DEFAULT_Ki 0.89
-        #define  DEFAULT_Kd 61.22
-      #elif ENABLED(MachineCRX)
-        #define DEFAULT_Kp 19.00
-        #define DEFAULT_Ki 1.40
-        #define DEFAULT_Kd 66.00
-      #elif ENABLED(MachineCR10SV2)
-        #define  DEFAULT_Kp 19.47
-        #define  DEFAULT_Ki 1.59
-        #define  DEFAULT_Kd 59.40
-      #elif ENABLED(MachineCR2020)
-        #define  DEFAULT_Kp 22.2
-        #define  DEFAULT_Ki 1.08
-        #define  DEFAULT_Kd 114
-      #elif ENABLED(MachineEnder3V2)
-        #define DEFAULT_Kp 28.72
-        #define DEFAULT_Ki 2.62
-        #define DEFAULT_Kd 78.81
-      #elif ENABLED(MachineEnder3S1)
-        #define DEFAULT_Kp 17.10
-        #define DEFAULT_Ki 1.39
-        #define DEFAULT_Kd 52.79
-      #elif ANY(MachineCR6, MachineCR6Max, MachineCR10Smart, MachineCR10SmartPro)
-       #define DEFAULT_Kp  14.32
-       #define DEFAULT_Ki   0.81
-        #define DEFAULT_Kd 63.12
-      #else
-        #define  DEFAULT_Kp 17.42
-        #define  DEFAULT_Ki 1.27
-        #define  DEFAULT_Kd 59.93
-      #endif
-    #elif ENABLED(HotendE3D)
-      //E3D v6 Clone with 5050 fan wing at 100% set to 235
-      #define  DEFAULT_Kp 23.36
-      #define  DEFAULT_Ki 1.99
-      #define  DEFAULT_Kd 87.46
-    #endif
-
-    // Ultimaker
-    //#define DEFAULT_Kp 22.2
-    //#define DEFAULT_Ki 1.08
-    //#define DEFAULT_Kd 114
-
-    // MakerGear
-    //#define DEFAULT_Kp 7.0
-    //#define DEFAULT_Ki 0.1
-    //#define DEFAULT_Kd 12
-
-    // Mendel Parts V9 on 12V
-    //#define DEFAULT_Kp 63.0
-    //#define DEFAULT_Ki 2.25
-    //#define DEFAULT_Kd 440
+    // CR-10S Pro V2 PID values
+    #define DEFAULT_Kp 25.25
+    #define DEFAULT_Ki 2.17
+    #define DEFAULT_Kd 73.44
   #endif
 #endif
 
@@ -1576,19 +1061,10 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #if ANY(MachineEnder3V2, MachineEnder3S1)
-    #define  DEFAULT_bedKp 462.10
-    #define  DEFAULT_bedKi 85.47
-    #define  DEFAULT_bedKd 624.59
-  #elif ANY(MachineCR6, MachineCR6Max)
-    #define DEFAULT_bedKp 79.49
-    #define DEFAULT_bedKi 1.17
-    #define DEFAULT_bedKd 1349.52
-  #else
-    #define  DEFAULT_bedKp 690.34
-    #define  DEFAULT_bedKi 111.47
-    #define  DEFAULT_bedKd 1068.83
-  #endif
+  // CR-10S Pro V2 bed PID
+  #define DEFAULT_bedKp 690.34
+  #define DEFAULT_bedKi 111.47
+  #define DEFAULT_bedKd 1068.83
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -2047,106 +1523,20 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 
-#if ENABLED(CrealityTitan)
-  #define EStepsmm 382.14
-#elif ENABLED(MicroswissDirectDrive)
-  #define EStepsmm 130
-#elif ENABLED(BondtechLGX)
-  #define EStepsmm 400
-#elif(ENABLED(BondtechBMG) || ENABLED(E3DTitan))
-  #define EStepsmm 415
-#elif ENABLED(E3DHemera)
-  #define EStepsmm 409
-#elif ENABLED(SpriteExtruder)
-  #define EStepsmm 430
-#elif ANY(EZRstruder, MachineCR10SV2)
-  #define EStepsmm 93
-#elif ENABLED(MachineCR5)
-  #define EStepsmm 137.65
-#elif ANY(MachineCR10SPro, MachineCR10Max, MachineCRXPro, MachineEnder6, MachineEnder7, MachineCR30)
-  #define EStepsmm 140
-#elif ENABLED(MachineCR2020)
-           #define EStepsmm 113
-       #else
-         #define EStepsmm 343  // Kalibrováno pro Micro Swiss Direct Drive - přesná hodnota
-       #endif
-
-#if ANY(MachineEnder5Plus, MachineCR5)
-  #define ZStepsmm 800
-#elif ENABLED(MachineCR30)
-  #define ZStepsmm 1152.95
-#else
-  #define ZStepsmm 400
-#endif
-
-#if ENABLED(Stepper09Deg)
-  #define EstepMultiplier 2
-#else
-  #define EstepMultiplier 1
-#endif
-
-#if ENABLED(MachineEnder7)
-  #define XYStepsmm 200
-#else
-  #define XYStepsmm 80
-#endif
-
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { XYStepsmm, XYStepsmm, ZStepsmm, (EStepsmm*EstepMultiplier) }
+// CR-10S Pro V2 + Microswiss DD steps/mm
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 130 }  // E-steps: 130 stock, kalibrace přes M92 E343 v EEPROM
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#if ANY(MachineCR20Pro, MachineEnder2Pro)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ANY(MachineMini, MachineCR20, MachineEnder2, MachineEnder3, MachineEnder3Max, MachineEnder3V2, MachineEnder3S1, MachineEnder4, MachineEnder5, MachineEnder5Plus, MachineCR5, MachineSermoonD1)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif (ANY(MachineCR10SPro, MachineCR6, MachineCR6Max, MachineCR30))
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 10, 70 }
-  #define DEFAULT_MAX_ACCELERATION      { 750, 750, 100, 60 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif (ENABLED(MachineCR10Std))
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ENABLED( MachineS4)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 400, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1000, 750, 100, 75 }
-  #define DEFAULT_ACCELERATION          750    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ANY(MachineS5, MachineCR10Max)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 400, 15, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 1000, 700, 100, 75 }
-  #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ANY(MachineCR2020, MachineEnder6)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 7000, 7000, 100, 75 }
-  #define DEFAULT_ACCELERATION          2000    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   300    // X, Y, Z acceleration for travel (non printing) moves
-#elif ENABLED(MachineEnder7)
-  #define DEFAULT_MAX_FEEDRATE          { 750, 750, 10, 75 }
-  #define DEFAULT_MAX_ACCELERATION      { 25000, 25000, 100, 75 }
-  #define DEFAULT_ACCELERATION          10000    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   10000    // X, Y, Z acceleration for travel (non printing) moves
-#endif
+// CR-10S Pro V2 motion settings
+#define DEFAULT_MAX_FEEDRATE          { 500, 500, 10, 70 }
+#define DEFAULT_MAX_ACCELERATION      { 750, 750, 100, 60 }
+#define DEFAULT_ACCELERATION          750
+#define DEFAULT_RETRACT_ACCELERATION  1000
+#define DEFAULT_TRAVEL_ACCELERATION   300
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -2184,16 +1574,8 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #if ANY(MachineEnder6, MachineEnder5, MachineEnder5Plus, MachineSermoonD1, MachineCR5)
-    #define DEFAULT_XJERK 20.0
-    #define DEFAULT_YJERK 20.0
-  #elif ENABLED(MachineEnder7)
-    #define DEFAULT_XJERK 20.0
-    #define DEFAULT_YJERK 20.0
-  #else
-    #define DEFAULT_XJERK 10.0
-    #define DEFAULT_YJERK 5.0
-  #endif
+  #define DEFAULT_XJERK 10.0
+  #define DEFAULT_YJERK  5.0
   #define DEFAULT_ZJERK  0.3
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3
@@ -2765,216 +2147,18 @@
 
 // The size of the print bed
 
-  #if ENABLED(MachineMini)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 220
-    #define Z_MAX_POS 300
-    #define X_MAX_POS 300
-    #define Y_MAX_POS 220
-    #define ClipClearance 15
-  #elif ENABLED(MachineEnder2)
-    #define X_BED_SIZE 150
-    #define Y_BED_SIZE 150
-    #define Z_MAX_POS 200
-    #define X_MAX_POS 150
-    #define Y_MAX_POS 150
-    #define ClipClearance 15
-    #elif ENABLED(MachineEnder2Pro)
-    #define X_BED_SIZE 165
-    #define Y_BED_SIZE 165
-    #define Z_MAX_POS 180
-    #define X_MAX_POS 165
-    #define Y_MAX_POS 165
-    #define ClipClearance 15
-  #elif ENABLED(MachineEnder3Max)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 340
-    #define X_MAX_POS 300
-    #define Y_MAX_POS 300
-    #define ClipClearance 10
-  #elif ENABLED(MachineCR6)
-    #define X_BED_SIZE 235
-    #define Y_BED_SIZE 235
-    #define X_MAX_POS X_BED_SIZE
-    #define Y_MAX_POS Y_BED_SIZE
-    #define Z_MAX_POS 250
-    #define ClipClearance 5
-  #elif ENABLED(MachineCR6Max)
-    #define X_BED_SIZE 400
-    #define Y_BED_SIZE 400
-    #define X_MAX_POS 410
-    #define Y_MAX_POS 404
-    #define Z_MAX_POS 405
-    #define ClipClearance 5
-  #elif ANY(MachineEnder3, MachineEnder3V2)
-    #define X_BED_SIZE 230
-    #define Y_BED_SIZE 230
-    #define Z_MAX_POS 250
-    #define X_MAX_POS 245
-    #define Y_MAX_POS 240
-    #define ClipClearance 15
-  #elif ANY(MachineEnder3S1)
-    #define X_BED_SIZE 220
-    #define Y_BED_SIZE 220
-    #define Z_MAX_POS 270
-    #define X_MAX_POS 250
-    #define Y_MAX_POS 228
-    #define ClipClearance 15
-  #elif(ANY(MachineEnder4, MachineEnder5))
-    #define X_BED_SIZE 220
-    #define Y_BED_SIZE 220
-    #define Z_MAX_POS 300
-    #define X_MAX_POS 230
-    #define Y_MAX_POS 225
-    #define ClipClearance 15
-  #elif ENABLED(MachineEnder5Plus)
-    #define Y_BED_SIZE 360
-    #define Z_MAX_POS 400
-    #if ENABLED(E3DHemera)
-      #define X_BED_SIZE 352
-      #define X_MAX_POS 352
-    #else
-      #define X_BED_SIZE 360
-      #define X_MAX_POS 360
-    #endif
-    #define Y_MAX_POS 360
-    #define ClipClearance 25
-  #elif ENABLED(MachineCR5)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 225
-    #define Z_MAX_POS 380
-    #define X_MAX_POS 305
-    #define Y_MAX_POS 225
-    #define ClipClearance 15
-  #elif ENABLED(MachineEnder6)
-    #define X_BED_SIZE 260
-    #define Y_BED_SIZE 260
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 260
-    #define Y_MAX_POS 260
-    #define ClipClearance 10
-  #elif ENABLED(MachineSermoonD1)
-    #define X_BED_SIZE 290
-    #define Y_BED_SIZE 270
-    #define Z_MAX_POS 320
-    #define X_MAX_POS 290
-    #define Y_MAX_POS 270
-    #define ClipClearance 10
-  #elif ENABLED(MachineEnder7)
-    #define X_BED_SIZE 250
-    #define Y_BED_SIZE 250
-    #define Z_MAX_POS 350
-    #define X_MAX_POS 255
-    #define Y_MAX_POS 255
-    #define ClipClearance 10
-  #elif ENABLED(MachineCR30)
-    #define X_BED_SIZE 220
-    #define Y_BED_SIZE 250
-    #define Z_MAX_POS 20000000
-    #define X_MAX_POS X_BED_SIZE
-    #define Y_MAX_POS Y_BED_SIZE
-    #define ClipClearance 2
-  #elif ENABLED(MachineCR20)
-    #define X_BED_SIZE 230
-    #define Y_BED_SIZE 230
-    #define Z_MAX_POS 250
-    #define X_MAX_POS 240
-    #define Y_MAX_POS 240
-    #define ClipClearance 15
-  #elif ENABLED(MachineCRX)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 308
-    #define ClipClearance 15
-  #elif ENABLED(MachineCR10SProV2)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 5
-  #elif ENABLED(MachineCR10SPro)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 10
-  #elif ENABLED(MachineCR10Std)
-    #define X_BED_SIZE 300
-    #define Y_BED_SIZE 300
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 315
-    #define Y_MAX_POS 310
-    #define ClipClearance 15
-  #elif ENABLED( MachineS4)
-    #define X_BED_SIZE 400
-    #define Y_BED_SIZE 400
-    #define Z_MAX_POS 400
-    #define X_MAX_POS 410
-    #define Y_MAX_POS 400
-    #define ClipClearance 15
-  #elif ENABLED(MachineCR10Max)
-    #define X_BED_SIZE 470
-    #define Y_BED_SIZE 470
-    #define Z_MAX_POS 470
-    #define X_MAX_POS 470
-    #define Y_MAX_POS 470
-    #define ClipClearance 15
-  #elif ENABLED(MachineS5)
-    #define X_BED_SIZE 500
-    #define Y_BED_SIZE 500
-    #define Z_MAX_POS 500
-    #define X_MAX_POS 510
-    #define Y_MAX_POS 500
-    #define ClipClearance 20
-  #elif ENABLED(MachineCR2020)
-    #define X_BED_SIZE 200
-    #define Y_BED_SIZE 202.5
-    #define Z_MAX_POS 210
-    #define X_MAX_POS 200
-    #define Y_MAX_POS 202.5
-    #define ClipClearance 15
-  #endif
+// CR-10S Pro V2 bed dimensions
+#define X_BED_SIZE 300
+#define Y_BED_SIZE 300
+#define Z_MAX_POS  400
+#define X_MAX_POS  315
+#define Y_MAX_POS  310
+#define ClipClearance 5
 
-  #ifndef ClipClearance
-    #define ClipClearance 0
-  #endif
-
-
-// Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#if ENABLED(MicroswissDirectDrive)
-  #define X_MIN_POS -15
-  #define Y_MIN_POS -10
-#elif ENABLED(MachineEnder2Pro)
-  #define X_MIN_POS -18
-  #define Y_MIN_POS -2
-#elif ENABLED(TOUCH_MI_PROBE)
-  #define X_MIN_POS -4
-  #define Y_MIN_POS -10
-#elif ANY(MachineCR6, MachineCR10Smart, MachineEnder3S1, MachineCR10SmartPro)
-  #define X_MIN_POS -5
-  #define Y_MIN_POS -2
-#elif ENABLED(MachineCR6Max)
-  #define X_MIN_POS -10
-  #define Y_MIN_POS -3
-#elif ENABLED(MachineCR30)
-  #define X_MIN_POS 0
-  #define Y_MIN_POS -5
-#else
-  #define X_MIN_POS 0
-  #define Y_MIN_POS 0
-#endif
-#define Z_MIN_POS 0
-#ifndef X_MAX_POS
-  #define X_MAX_POS X_BED_SIZE
-#endif
-#ifndef Y_MAX_POS
-  #define Y_MAX_POS Y_BED_SIZE
-#endif
+// Travel limits — Microswiss Direct Drive offsets
+#define X_MIN_POS -15
+#define Y_MIN_POS -10
+#define Z_MIN_POS  0
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0
@@ -3043,92 +2227,8 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-#if DISABLED(MachineCR10Orig) || ANY(Melzi_To_SBoardUpgrade, AddonFilSensor, lerdgeFilSensor, DualFilSensors)
-  //#define FILAMENT_RUNOUT_SENSOR  // VYPNUTO - Microswiss nemá fil. runout a pin 2 je sdílený s probe
-#endif
-#if ENABLED(FILAMENT_RUNOUT_SENSOR)
-   #if ENABLED(DualFilSensors)
-    #if DISABLED(SKR13, SKR14, SKR14Turbo, SKRPRO11, SKRE3Turbo)
-      #define NUM_RUNOUT_SENSORS   2     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
-      #define ENABLED_ADDON , true
-      #define DISABLED_ADDON , false
-      #define MODE_ADDON_7 , 7
-      #define MODE_ADDON_2 , 2
-      #define MODE_ADDON_1 , 1
-    #endif
-    #define FIL_RUNOUT2_PIN 15
-  #else
-    #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
-    #define ENABLED_ADDON
-      #define DISABLED_ADDON
-      #define MODE_ADDON_7
-      #define MODE_ADDON_2
-      #define MODE_ADDON_1
-  #endif
-  #if NONE(MachineCR10Orig, MachineCR20, MachineEnder3,  MachineEnder2, MachineEnder2Pro, MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade) || ANY(AddonFilSensor, lerdgeFilSensor, DualFilSensors)
-    #define FIL_RUNOUT_ENABLED { true ENABLED_ADDON} // Default enabled state for sensors E0[, E1[, E2[, E3...]]]. Override with M591EnnSn followed by M500.
-  #else
-    #define FIL_RUNOUT_ENABLED { false DISABLED_ADDON} // Default enabled state for sensors E0[, E1[, E2[, E3...]]]. Override with M591EnnSn followed by M500.
-  #endif
-
-  #if ENABLED(FilamentEncoder)
-    #define FIL_RUNOUT_MODE    { 7 MODE_ADDON_7}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
-  #elif DISABLED(lerdgeFilSensor) && ( ANY(AddonFilSensor, DualFilSensors) || NONE(MachineCR10Orig, MachineCR20, MachineEnder3, MachineEnder2, MachineEnder2Pro,  MachineEnder3V2, MachineEnder4, MachineEnder5, MachineCRX, Melzi_To_SBoardUpgrade))
-    #define FIL_RUNOUT_MODE    { 2 MODE_ADDON_2}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
-  #else
-    #define FIL_RUNOUT_MODE    { 1 MODE_ADDON_1}    // Default mode for sensors E0[, E1[, E2[, E3...]]]. 0:NONE  1:Switch NO  2:Switch NC  7:Motion Sensor Override with M591EnPnn
-  #endif
-  //#define WATCH_ALL_RUNOUT_SENSORS  // Execute runout script on any triggering sensor, not only for the active extruder.
-                                      // This is automatically enabled for MIXING_EXTRUDERs.
-
-  // Commands to execute on filament runout.
-  // With multiple runout sensors use the %c placeholder for the current tool in commands (e.g., "M600 T%c")
-  // NOTE: After 'M591 H1' the host handles filament runout and this script does not apply.
-  #define FILAMENT_RUNOUT_SCRIPT "M600"
-
-  // In Mode 1 or 2, continue printing this length of filament after a run out occurs before executing the
-  // runout script. Useful for a sensor at the end of a feed tube or debounce on a flakey sensor.
-  // In Mode 7, extrusion distance to expect a change of state.
-  // Override with M591EnLnn
-  #if ENABLED(FilamentEncoder)
-    #define FILAMENT_RUNOUT_DISTANCE_MM 12
-  #elif ANY(MachineEnder5Plus, MachineCR10SPro, MachineCR10SProV2)
-    #define FILAMENT_RUNOUT_DISTANCE_MM 10
-  #else
-    #define FILAMENT_RUNOUT_DISTANCE_MM 5
-  #endif
-
-  #if DISABLED(MachineEnder3S1)
-    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
-  #else
-    #define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
-  #endif
-
-  // Override individually if the runout sensors vary
-  //#define FIL_RUNOUT1_PULLUP
-  //#define FIL_RUNOUT1_PULLDOWN
-
-  //#define FIL_RUNOUT2_PULLUP
-  //#define FIL_RUNOUT2_PULLDOWN
-
-  //#define FIL_RUNOUT3_PULLUP
-  //#define FIL_RUNOUT3_PULLDOWN
-
-  //#define FIL_RUNOUT4_PULLUP
-  //#define FIL_RUNOUT4_PULLDOWN
-
-  //#define FIL_RUNOUT5_PULLUP
-  //#define FIL_RUNOUT5_PULLDOWN
-
-  //#define FIL_RUNOUT6_PULLUP
-  //#define FIL_RUNOUT6_PULLDOWN
-
-  //#define FIL_RUNOUT7_PULLUP
-  //#define FIL_RUNOUT7_PULLDOWN
-
-  //#define FIL_RUNOUT8_PULLUP
-  //#define FIL_RUNOUT8_PULLDOWN
-#endif
+// Filament runout sensor — VYPNUTO (Microswiss nemá fil. runout, pin 2 sdílený s probe)
+//#define FILAMENT_RUNOUT_SENSOR
 
 //===========================================================================
 //=============================== Bed Leveling ==============================
@@ -3330,13 +2430,7 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-#if(ENABLED(MachineEnder3))
-  #define MESH_INSET 40          // Set Mesh bounds as an inset region of the bed
-#elif ENABLED(MachineCR10SV2)
-  #define MESH_INSET 30
-#else
-  #define MESH_INSET 20          // Set Mesh bounds as an inset region of the bed
-#endif
+#define MESH_INSET 20
   //#define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
   //#define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
